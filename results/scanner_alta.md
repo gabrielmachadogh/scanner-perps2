@@ -1,24 +1,24 @@
 # Scanner ALTA (menor distância -> maior)
 
-- Gerado em UTC: 2026-01-16 08:29:17
+- Gerado em UTC: 2026-01-16 10:22:53
 - Timeframe: `2h` | MA: `sma 10/100` | Top perps: `80`
 
 | Par | Trend | Close | Volume (24h, USDT) | Dist (%) |
 |---|---:|---:|---:|---:|
-| [FILECOIN_USDT](https://futures.mexc.com/exchange/FILECOIN_USDT) | ALTA | 1.516 | 117M | 0.014 |
-| [SOL_USDT](https://futures.mexc.com/exchange/SOL_USDT) | ALTA | 143.25 | 1898M | 1.621 |
-| [AAVE_USDT](https://futures.mexc.com/exchange/AAVE_USDT) | ALTA | 173.88 | 62M | 1.673 |
-| [BNB_USDT](https://futures.mexc.com/exchange/BNB_USDT) | ALTA | 937.5 | 257M | 2.135 |
-| [LINK_USDT](https://futures.mexc.com/exchange/LINK_USDT) | ALTA | 13.829 | 208M | 2.410 |
-| [CRV_USDT](https://futures.mexc.com/exchange/CRV_USDT) | ALTA | 0.4251 | 9M | 2.701 |
-| [OP_USDT](https://futures.mexc.com/exchange/OP_USDT) | ALTA | 0.3409 | 66M | 3.642 |
-| [ETH_USDT](https://futures.mexc.com/exchange/ETH_USDT) | ALTA | 3315.77 | 4829M | 4.088 |
-| [PUMPFUN_USDT](https://futures.mexc.com/exchange/PUMPFUN_USDT) | ALTA | 0.002938 | 38M | 12.825 |
-| [H_USDT](https://futures.mexc.com/exchange/H_USDT) | ALTA | 0.20601 | 11M | 16.834 |
-| [BIANRENSHENG_USDT](https://futures.mexc.com/exchange/BIANRENSHENG_USDT) | ALTA | 0.21457 | 6M | 20.117 |
-| [XMR_USDT](https://futures.mexc.com/exchange/XMR_USDT) | ALTA | 705.77 | 129M | 20.578 |
-| [ICP_USDT](https://futures.mexc.com/exchange/ICP_USDT) | ALTA | 4.312 | 151M | 22.770 |
-| [ZEN_USDT](https://futures.mexc.com/exchange/ZEN_USDT) | ALTA | 13.214 | 58M | 26.337 |
-| [RIVER_USDT](https://futures.mexc.com/exchange/RIVER_USDT) | ALTA | 33.175 | 22M | 42.163 |
-| [DASH_USDT](https://futures.mexc.com/exchange/DASH_USDT) | ALTA | 93.52 | 230M | 65.168 |
-| [FHE_USDT](https://futures.mexc.com/exchange/FHE_USDT) | ALTA | 0.09936 | 35M | 81.391 |
+| [AUD_USDT](https://futures.mexc.com/exchange/AUD_USDT) | ALTA | 0.6705 | 8M | 0.091 |
+| [FILECOIN_USDT](https://futures.mexc.com/exchange/FILECOIN_USDT) | ALTA | 1.529 | 108M | 0.101 |
+| [XAUT_USDT](https://futures.mexc.com/exchange/XAUT_USDT) | ALTA | 4603.5 | 78M | 1.214 |
+| [SOL_USDT](https://futures.mexc.com/exchange/SOL_USDT) | ALTA | 142.88 | 1841M | 1.520 |
+| [AAVE_USDT](https://futures.mexc.com/exchange/AAVE_USDT) | ALTA | 172.73 | 59M | 1.564 |
+| [BNB_USDT](https://futures.mexc.com/exchange/BNB_USDT) | ALTA | 934.6 | 230M | 2.037 |
+| [LINK_USDT](https://futures.mexc.com/exchange/LINK_USDT) | ALTA | 13.794 | 205M | 2.222 |
+| [CRV_USDT](https://futures.mexc.com/exchange/CRV_USDT) | ALTA | 0.4269 | 9M | 2.868 |
+| [ETH_USDT](https://futures.mexc.com/exchange/ETH_USDT) | ALTA | 3304.21 | 4601M | 3.929 |
+| [PUMPFUN_USDT](https://futures.mexc.com/exchange/PUMPFUN_USDT) | ALTA | 0.002921 | 39M | 12.761 |
+| [H_USDT](https://futures.mexc.com/exchange/H_USDT) | ALTA | 0.21055 | 10M | 17.283 |
+| [XMR_USDT](https://futures.mexc.com/exchange/XMR_USDT) | ALTA | 707.72 | 130M | 20.106 |
+| [ICP_USDT](https://futures.mexc.com/exchange/ICP_USDT) | ALTA | 4.367 | 142M | 22.790 |
+| [ZEN_USDT](https://futures.mexc.com/exchange/ZEN_USDT) | ALTA | 13.034 | 47M | 26.986 |
+| [RIVER_USDT](https://futures.mexc.com/exchange/RIVER_USDT) | ALTA | 29.986 | 25M | 45.151 |
+| [DASH_USDT](https://futures.mexc.com/exchange/DASH_USDT) | ALTA | 92.88 | 225M | 65.675 |
+| [FHE_USDT](https://futures.mexc.com/exchange/FHE_USDT) | ALTA | 0.10104 | 34M | 83.306 |
