@@ -1,0 +1,79 @@
+name: scan-mexc-perps-a-cada-2h
+
+on:
+  schedule:
+    - cron: "0 */2 * * *"   # a cada 2 horas (UTC)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: pip install -r requirements.txt
+
+      - name: Run scanner (and send Telegram clickable lists)
+        run: python scanner_tendencia.py
+        env:
+          TIMEFRAME: 2h
+          TOP_PERPS: "80"
+          SHORT_MA: "10"
+          LONG_MA: "100"
+          MA_TYPE: sma
+          VOLUME_MODE: M
+          TELEGRAM_TOP_N: "20"
+          # Se você descobrir um deep link que abre direto no app, coloque aqui:
+          # MEXC_LINK_TEMPLATE: "mexc://....{symbol}...."
+          MEXC_LINK_TEMPLATE: "https://futures.mexc.com/exchange/{symbol}"
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+
+      - name: Upload outputs (artifact)
+        uses: actions/upload-artifact@v4
+        with:
+          name: resultados-scan-attempt-${{ github.run_attempt }}
+          overwrite: true
+          if-no-files-found: ignore
+          path: |
+            scanner_alta.csv
+            scanner_baixa.csv
+            scanner_resultado_completo.csv
+            scanner_alta.md
+            scanner_baixa.md
+            scanner_resumo.md
+
+      - name: Save results to repo (commit)
+        run: |
+          git pull --rebase || true
+
+          mkdir -p results
+
+          for f in \
+            scanner_alta.csv scanner_baixa.csv scanner_resultado_completo.csv \
+            scanner_alta.md scanner_baixa.md scanner_resumo.md; do
+            if [ -f "$f" ]; then
+              cp "$f" "results/$f"
+            else
+              echo "WARN: arquivo não encontrado: $f"
+            fi
+          done
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add results/* || true
+          git commit -m "update scan results" || echo "no changes to commit"
+          git push
