@@ -1,18 +1,21 @@
 # Scanner BAIXA (menor distância -> maior)
 
-- Gerado em UTC: 2026-01-17 16:21:59
+- Gerado em UTC: 2026-01-17 18:27:28
 - Timeframe: `2h` | MA: `sma 10/100` | Top perps: `80`
 
 | Par | Trend | Close | Volume (24h, USDT) | Dist (%) |
 |---|---:|---:|---:|---:|
-| [ZEC_USDT](https://futures.mexc.com/exchange/ZEC_USDT) | BAIXA | 402.4 | 184M | -0.070 |
-| [1000BONK_USDT](https://futures.mexc.com/exchange/1000BONK_USDT) | BAIXA | 0.010584 | 16M | -0.823 |
-| [PENGU_USDT](https://futures.mexc.com/exchange/PENGU_USDT) | BAIXA | 0.012046 | 47M | -1.271 |
-| [FARTCOIN_USDT](https://futures.mexc.com/exchange/FARTCOIN_USDT) | BAIXA | 0.3696 | 34M | -2.936 |
-| [LTC_USDT](https://futures.mexc.com/exchange/LTC_USDT) | BAIXA | 74.51 | 192M | -3.515 |
-| [BCH_USDT](https://futures.mexc.com/exchange/BCH_USDT) | BAIXA | 595.14 | 71M | -3.593 |
-| [RENDER_USDT](https://futures.mexc.com/exchange/RENDER_USDT) | BAIXA | 2.231 | 14M | -3.919 |
-| [KAS_USDT](https://futures.mexc.com/exchange/KAS_USDT) | BAIXA | 0.0447 | 10M | -3.975 |
-| [VIRTUAL_USDT](https://futures.mexc.com/exchange/VIRTUAL_USDT) | BAIXA | 0.9664 | 6M | -4.586 |
-| [XPL_USDT](https://futures.mexc.com/exchange/XPL_USDT) | BAIXA | 0.1425 | 5M | -8.984 |
-| [PIPPIN_USDT](https://futures.mexc.com/exchange/PIPPIN_USDT) | BAIXA | 0.30858 | 27M | -9.149 |
+| [ZEC_USDT](https://futures.mexc.com/exchange/ZEC_USDT) | BAIXA | 401.74 | 192M | -0.233 |
+| [WIF_USDT](https://futures.mexc.com/exchange/WIF_USDT) | BAIXA | 0.3843 | 20M | -0.452 |
+| [SUI_USDT](https://futures.mexc.com/exchange/SUI_USDT) | BAIXA | 1.7941 | 199M | -0.510 |
+| [WLFI_USDT](https://futures.mexc.com/exchange/WLFI_USDT) | BAIXA | 0.1692 | 20M | -0.639 |
+| [IP_USDT](https://futures.mexc.com/exchange/IP_USDT) | BAIXA | 2.578 | 9M | -0.716 |
+| [1000BONK_USDT](https://futures.mexc.com/exchange/1000BONK_USDT) | BAIXA | 0.010538 | 14M | -1.025 |
+| [FLOKI_USDT](https://futures.mexc.com/exchange/FLOKI_USDT) | BAIXA | 5.073e-05 | 8M | -1.520 |
+| [PENGU_USDT](https://futures.mexc.com/exchange/PENGU_USDT) | BAIXA | 0.01195 | 44M | -1.614 |
+| [PEPE_USDT](https://futures.mexc.com/exchange/PEPE_USDT) | BAIXA | 5.855e-06 | 200M | -2.515 |
+| [FARTCOIN_USDT](https://futures.mexc.com/exchange/FARTCOIN_USDT) | BAIXA | 0.3694 | 33M | -3.166 |
+| [BCH_USDT](https://futures.mexc.com/exchange/BCH_USDT) | BAIXA | 593.84 | 60M | -3.654 |
+| [KAS_USDT](https://futures.mexc.com/exchange/KAS_USDT) | BAIXA | 0.04476 | 10M | -4.018 |
+| [RENDER_USDT](https://futures.mexc.com/exchange/RENDER_USDT) | BAIXA | 2.22 | 14M | -4.048 |
+| [VIRTUAL_USDT](https://futures.mexc.com/exchange/VIRTUAL_USDT) | BAIXA | 0.9614 | 6M | -4.818 |
