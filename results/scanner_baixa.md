@@ -1,16 +1,14 @@
 # Scanner BAIXA (menor distância -> maior)
 
-- Gerado em UTC: 2026-01-17 06:29:43
+- Gerado em UTC: 2026-01-17 08:25:02
 - Timeframe: `2h` | MA: `sma 10/100` | Top perps: `80`
 
 | Par | Trend | Close | Volume (24h, USDT) | Dist (%) |
 |---|---:|---:|---:|---:|
-| [1000BONK_USDT](https://futures.mexc.com/exchange/1000BONK_USDT) | BAIXA | 0.010587 | 20M | -0.959 |
-| [SEI_USDT](https://futures.mexc.com/exchange/SEI_USDT) | BAIXA | 0.1188 | 13M | -1.952 |
-| [DOGE_USDT](https://futures.mexc.com/exchange/DOGE_USDT) | BAIXA | 0.13723 | 410M | -2.431 |
-| [PEPE_USDT](https://futures.mexc.com/exchange/PEPE_USDT) | BAIXA | 5.846e-06 | 209M | -2.705 |
-| [BCH_USDT](https://futures.mexc.com/exchange/BCH_USDT) | BAIXA | 592.4 | 85M | -3.592 |
-| [KAS_USDT](https://futures.mexc.com/exchange/KAS_USDT) | BAIXA | 0.04474 | 13M | -4.209 |
-| [XPL_USDT](https://futures.mexc.com/exchange/XPL_USDT) | BAIXA | 0.1422 | 6M | -10.023 |
-| [LIT_USDT](https://futures.mexc.com/exchange/LIT_USDT) | BAIXA | 1.83 | 9M | -21.559 |
-| [PROM_USDT](https://futures.mexc.com/exchange/PROM_USDT) | BAIXA | 3.768 | 7M | -40.621 |
+| [WLFI_USDT](https://futures.mexc.com/exchange/WLFI_USDT) | BAIXA | 0.1686 | 23M | -1.077 |
+| [BDXN_USDT](https://futures.mexc.com/exchange/BDXN_USDT) | BAIXA | 0.01854 | 5M | -1.232 |
+| [PENGU_USDT](https://futures.mexc.com/exchange/PENGU_USDT) | BAIXA | 0.012051 | 53M | -1.377 |
+| [PEPE_USDT](https://futures.mexc.com/exchange/PEPE_USDT) | BAIXA | 5.846e-06 | 218M | -2.760 |
+| [BCH_USDT](https://futures.mexc.com/exchange/BCH_USDT) | BAIXA | 592.81 | 82M | -3.627 |
+| [KAS_USDT](https://futures.mexc.com/exchange/KAS_USDT) | BAIXA | 0.04469 | 13M | -4.213 |
+| [PROM_USDT](https://futures.mexc.com/exchange/PROM_USDT) | BAIXA | 3.753 | 7M | -40.857 |
