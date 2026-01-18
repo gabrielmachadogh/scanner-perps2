@@ -1,40 +1,39 @@
 # Scanner BAIXA (menor distância -> maior)
 
-- Gerado em UTC: 2026-01-18 06:30:15
+- Gerado em UTC: 2026-01-18 08:25:46
 - Timeframe: `2h` | MA: `sma 10/100` | Top perps: `80`
 
 | Par | Trend | Close | Volume (24h, USDT) | Dist (%) |
 |---|---:|---:|---:|---:|
-| [ASTER_USDT](https://futures.mexc.com/exchange/ASTER_USDT) | BAIXA | 0.7167 | 60M | -0.010 |
-| [ATOM_USDT](https://futures.mexc.com/exchange/ATOM_USDT) | BAIXA | 2.508 | 12M | -0.188 |
-| [HBAR_USDT](https://futures.mexc.com/exchange/HBAR_USDT) | BAIXA | 0.11707 | 42M | -0.256 |
-| [SEI_USDT](https://futures.mexc.com/exchange/SEI_USDT) | BAIXA | 0.1196 | 17M | -0.440 |
-| [SUI_USDT](https://futures.mexc.com/exchange/SUI_USDT) | BAIXA | 1.7777 | 167M | -0.790 |
-| [ETHFI_USDT](https://futures.mexc.com/exchange/ETHFI_USDT) | BAIXA | 0.7296 | 6M | -0.900 |
-| [WLFI_USDT](https://futures.mexc.com/exchange/WLFI_USDT) | BAIXA | 0.1676 | 22M | -0.914 |
-| [TONCOIN_USDT](https://futures.mexc.com/exchange/TONCOIN_USDT) | BAIXA | 1.712 | 17M | -0.966 |
-| [XRP_USDT](https://futures.mexc.com/exchange/XRP_USDT) | BAIXA | 2.0561 | 529M | -1.044 |
-| [ZEC_USDT](https://futures.mexc.com/exchange/ZEC_USDT) | BAIXA | 395.14 | 178M | -1.099 |
-| [ALGO_USDT](https://futures.mexc.com/exchange/ALGO_USDT) | BAIXA | 0.1283 | 10M | -1.145 |
-| [SHIB_USDT](https://futures.mexc.com/exchange/SHIB_USDT) | BAIXA | 8.379e-06 | 28M | -1.211 |
-| [AVAX_USDT](https://futures.mexc.com/exchange/AVAX_USDT) | BAIXA | 13.662 | 74M | -1.266 |
-| [WIF_USDT](https://futures.mexc.com/exchange/WIF_USDT) | BAIXA | 0.3755 | 17M | -1.522 |
-| [ONDO_USDT](https://futures.mexc.com/exchange/ONDO_USDT) | BAIXA | 0.386 | 21M | -1.666 |
-| [DOGE_USDT](https://futures.mexc.com/exchange/DOGE_USDT) | BAIXA | 0.13704 | 306M | -1.734 |
-| [UNI_USDT](https://futures.mexc.com/exchange/UNI_USDT) | BAIXA | 5.317 | 104M | -1.868 |
-| [TRUMPOFFICIAL_USDT](https://futures.mexc.com/exchange/TRUMPOFFICIAL_USDT) | BAIXA | 5.284 | 34M | -1.880 |
-| [1000BONK_USDT](https://futures.mexc.com/exchange/1000BONK_USDT) | BAIXA | 0.01035 | 11M | -2.052 |
-| [PEPE_USDT](https://futures.mexc.com/exchange/PEPE_USDT) | BAIXA | 5.805e-06 | 195M | -2.581 |
-| [XMR_USDT](https://futures.mexc.com/exchange/XMR_USDT) | BAIXA | 587.87 | 94M | -2.649 |
-| [TAO_USDT](https://futures.mexc.com/exchange/TAO_USDT) | BAIXA | 272.5 | 63M | -2.859 |
-| [FLOKI_USDT](https://futures.mexc.com/exchange/FLOKI_USDT) | BAIXA | 4.861e-05 | 7M | -2.880 |
-| [PENGU_USDT](https://futures.mexc.com/exchange/PENGU_USDT) | BAIXA | 0.011734 | 33M | -2.939 |
-| [LDO_USDT](https://futures.mexc.com/exchange/LDO_USDT) | BAIXA | 0.6043 | 7M | -2.963 |
-| [ENA_USDT](https://futures.mexc.com/exchange/ENA_USDT) | BAIXA | 0.2172 | 110M | -3.129 |
-| [BCH_USDT](https://futures.mexc.com/exchange/BCH_USDT) | BAIXA | 593.46 | 51M | -3.481 |
-| [WLD_USDT](https://futures.mexc.com/exchange/WLD_USDT) | BAIXA | 0.5448 | 65M | -3.956 |
-| [KAS_USDT](https://futures.mexc.com/exchange/KAS_USDT) | BAIXA | 0.04389 | 13M | -4.340 |
-| [RENDER_USDT](https://futures.mexc.com/exchange/RENDER_USDT) | BAIXA | 2.191 | 11M | -4.916 |
-| [BEAT_USDT](https://futures.mexc.com/exchange/BEAT_USDT) | BAIXA | 0.3807 | 8M | -5.201 |
-| [FARTCOIN_USDT](https://futures.mexc.com/exchange/FARTCOIN_USDT) | BAIXA | 0.3439 | 37M | -6.105 |
-| [MERL_USDT](https://futures.mexc.com/exchange/MERL_USDT) | BAIXA | 0.20079 | 7M | -15.864 |
+| [ADA_USDT](https://futures.mexc.com/exchange/ADA_USDT) | BAIXA | 0.3928 | 135M | -0.023 |
+| [ASTER_USDT](https://futures.mexc.com/exchange/ASTER_USDT) | BAIXA | 0.7156 | 60M | -0.106 |
+| [HBAR_USDT](https://futures.mexc.com/exchange/HBAR_USDT) | BAIXA | 0.11704 | 42M | -0.350 |
+| [ATOM_USDT](https://futures.mexc.com/exchange/ATOM_USDT) | BAIXA | 2.508 | 12M | -0.357 |
+| [SEI_USDT](https://futures.mexc.com/exchange/SEI_USDT) | BAIXA | 0.1197 | 16M | -0.515 |
+| [WLFI_USDT](https://futures.mexc.com/exchange/WLFI_USDT) | BAIXA | 0.1679 | 22M | -0.927 |
+| [TONCOIN_USDT](https://futures.mexc.com/exchange/TONCOIN_USDT) | BAIXA | 1.713 | 17M | -0.928 |
+| [SUI_USDT](https://futures.mexc.com/exchange/SUI_USDT) | BAIXA | 1.7746 | 165M | -0.942 |
+| [XRP_USDT](https://futures.mexc.com/exchange/XRP_USDT) | BAIXA | 2.0525 | 534M | -1.084 |
+| [ZEC_USDT](https://futures.mexc.com/exchange/ZEC_USDT) | BAIXA | 396.37 | 182M | -1.222 |
+| [ETHFI_USDT](https://futures.mexc.com/exchange/ETHFI_USDT) | BAIXA | 0.7289 | 6M | -1.274 |
+| [SHIB_USDT](https://futures.mexc.com/exchange/SHIB_USDT) | BAIXA | 8.37e-06 | 30M | -1.355 |
+| [AVAX_USDT](https://futures.mexc.com/exchange/AVAX_USDT) | BAIXA | 13.636 | 76M | -1.373 |
+| [ALGO_USDT](https://futures.mexc.com/exchange/ALGO_USDT) | BAIXA | 0.1286 | 10M | -1.394 |
+| [WIF_USDT](https://futures.mexc.com/exchange/WIF_USDT) | BAIXA | 0.3749 | 17M | -1.757 |
+| [DOGE_USDT](https://futures.mexc.com/exchange/DOGE_USDT) | BAIXA | 0.13703 | 316M | -1.760 |
+| [ONDO_USDT](https://futures.mexc.com/exchange/ONDO_USDT) | BAIXA | 0.3839 | 22M | -1.823 |
+| [UNI_USDT](https://futures.mexc.com/exchange/UNI_USDT) | BAIXA | 5.314 | 104M | -1.991 |
+| [TRUMPOFFICIAL_USDT](https://futures.mexc.com/exchange/TRUMPOFFICIAL_USDT) | BAIXA | 5.265 | 34M | -2.104 |
+| [1000BONK_USDT](https://futures.mexc.com/exchange/1000BONK_USDT) | BAIXA | 0.010345 | 10M | -2.179 |
+| [PEPE_USDT](https://futures.mexc.com/exchange/PEPE_USDT) | BAIXA | 5.788e-06 | 196M | -2.672 |
+| [TAO_USDT](https://futures.mexc.com/exchange/TAO_USDT) | BAIXA | 272.4 | 63M | -2.959 |
+| [LDO_USDT](https://futures.mexc.com/exchange/LDO_USDT) | BAIXA | 0.603 | 7M | -3.027 |
+| [FLOKI_USDT](https://futures.mexc.com/exchange/FLOKI_USDT) | BAIXA | 4.889e-05 | 7M | -3.164 |
+| [PENGU_USDT](https://futures.mexc.com/exchange/PENGU_USDT) | BAIXA | 0.011706 | 30M | -3.198 |
+| [ENA_USDT](https://futures.mexc.com/exchange/ENA_USDT) | BAIXA | 0.216 | 115M | -3.347 |
+| [WLD_USDT](https://futures.mexc.com/exchange/WLD_USDT) | BAIXA | 0.5437 | 66M | -4.121 |
+| [KAS_USDT](https://futures.mexc.com/exchange/KAS_USDT) | BAIXA | 0.04398 | 13M | -4.465 |
+| [RENDER_USDT](https://futures.mexc.com/exchange/RENDER_USDT) | BAIXA | 2.187 | 10M | -4.924 |
+| [BEAT_USDT](https://futures.mexc.com/exchange/BEAT_USDT) | BAIXA | 0.3865 | 7M | -5.009 |
+| [FARTCOIN_USDT](https://futures.mexc.com/exchange/FARTCOIN_USDT) | BAIXA | 0.3378 | 38M | -6.957 |
+| [LIT_USDT](https://futures.mexc.com/exchange/LIT_USDT) | BAIXA | 1.976 | 7M | -10.455 |
