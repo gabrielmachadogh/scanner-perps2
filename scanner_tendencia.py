@@ -5,17 +5,21 @@ import pandas as pd
 
 BASE_URL = os.getenv("MEXC_CONTRACT_BASE_URL", "https://contract.mexc.com/api/v1")
 
-# Template do link do par:
-# - padrão abre a página de perp no navegador; no celular pode abrir o app se a MEXC suportar universal links
-# - se você tiver um deep link que abre direto no app, substitua via env MEXC_LINK_TEMPLATE
+# Link do par (pode trocar por deep link via env)
 MEXC_LINK_TEMPLATE = os.getenv("MEXC_LINK_TEMPLATE", "https://futures.mexc.com/exchange/{symbol}")
 
-# Agora usamos múltiplos timeframes
+# Timeframes (multi)
 TIMEFRAMES = [t.strip() for t in os.getenv("TIMEFRAMES", "2h,4h,1d").split(",") if t.strip()]
 
+# Filtro 1 (o que já existia): MA curta vs MA longa
 SHORT_MA = int(os.getenv("SHORT_MA", "10"))
 LONG_MA = int(os.getenv("LONG_MA", "100"))
 MA_TYPE = os.getenv("MA_TYPE", "sma").lower()  # ema|sma
+
+# Filtro 2 (novo): MA20 apontada pra cima + confirmação (N fechamentos acima)
+MA20_PERIOD = int(os.getenv("MA20_PERIOD", "20"))
+MA20_SLOPE_LOOKBACK = int(os.getenv("MA20_SLOPE_LOOKBACK", "1"))  # MA20[-1] vs MA20[-1-lookback]
+MA20_CONFIRM_BARS = int(os.getenv("MA20_CONFIRM_BARS", "3"))       # <<< opção 2: 3 candles acima da MA20
 
 TOP_PERPS = int(os.getenv("TOP_PERPS", "80"))
 OHLCV_LIMIT = int(os.getenv("OHLCV_LIMIT", "300"))
@@ -244,61 +248,6 @@ def fetch_ohlcv(symbol: str, tf: str, limit: int):
     return df.tail(limit)
 
 
-def df_to_markdown_with_links(df: pd.DataFrame, title: str, out_path: str, timeframe: str, top_n: int = 200):
-    with open(out_path, "w", encoding="utf-8") as f:
-        f.write(f"# {title}\n\n")
-        f.write(f"- Gerado em UTC: {time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime())}\n")
-        f.write(f"- Timeframe: `{timeframe}` | MA: `{MA_TYPE} {SHORT_MA}/{LONG_MA}` | Top perps: `{TOP_PERPS}`\n\n")
-
-        f.write("| Par | Trend | Close | Volume (24h, USDT) | Dist (%) |\n")
-        f.write("|---|---:|---:|---:|---:|\n")
-
-        if df is None or df.empty:
-            f.write("| - | - | - | - | - |\n")
-            return
-
-        for _, row in df.head(top_n).iterrows():
-            sym = str(row.get("symbol", ""))
-            link = str(row.get("link", ""))
-            trend = str(row.get("trend", ""))
-            close = row.get("close", "")
-            vol = str(row.get("volume_diario", ""))
-            dist = row.get("ma_dist_pct", "")
-
-            try:
-                close_str = f"{float(close):.6g}"
-            except Exception:
-                close_str = str(close)
-
-            try:
-                dist_str = f"{float(dist):.3f}"
-            except Exception:
-                dist_str = str(dist)
-
-            par_md = f"[{sym}]({link})" if link else sym
-            f.write(f"| {par_md} | {trend} | {close_str} | {vol} | {dist_str} |\n")
-
-
-def save_outputs_bullish(timeframe: str, out: pd.DataFrame, bullish_df: pd.DataFrame):
-    tf_slug = timeframe.replace(" ", "").lower()
-
-    out.to_csv(f"scanner_resultado_{tf_slug}.csv", index=False)
-    bullish_df.to_csv(f"scanner_alta_{tf_slug}.csv", index=False)
-
-    df_to_markdown_with_links(
-        bullish_df,
-        f"Scanner ALTA ({timeframe}) (menor distância -> maior)",
-        f"scanner_alta_{tf_slug}.md",
-        timeframe=timeframe,
-    )
-    df_to_markdown_with_links(
-        out,
-        f"Scanner COMPLETO ({timeframe})",
-        f"scanner_resumo_{tf_slug}.md",
-        timeframe=timeframe,
-    )
-
-
 def html_escape(s: str) -> str:
     return (s or "").replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
@@ -316,16 +265,17 @@ def telegram_send_html(html: str):
     requests.post(url, json=payload, timeout=25)
 
 
-def build_telegram_html_bullish(timeframe: str, bullish_df: pd.DataFrame) -> str:
+def build_telegram_html_filter1(timeframe: str, bullish_df: pd.DataFrame) -> str:
     ts = time.strftime("%Y-%m-%d %H:%M UTC", time.gmtime())
     header = (
         f"<b>Scanner MEXC Perps</b>\n"
         f"Quando: {html_escape(ts)}\n"
-        f"TF: <code>{html_escape(timeframe)}</code> | MA: <code>{html_escape(MA_TYPE)} {SHORT_MA}/{LONG_MA}</code> | Top: <code>{TOP_PERPS}</code>\n"
+        f"TF: <code>{html_escape(timeframe)}</code>\n"
+        f"Filtro 1: <code>{html_escape(MA_TYPE)} {SHORT_MA}/{LONG_MA}</code> e preço acima das duas\n"
         f"Ordem: menor distância entre MAs → maior\n"
     )
 
-    out = [header, f"\n<b>ALTA</b> (Top {TELEGRAM_TOP_N})"]
+    out = [header, f"\n<b>FILTRO 1 (ALTA MA{SHORT_MA}/{LONG_MA})</b> (Top {TELEGRAM_TOP_N})"]
     if bullish_df is None or bullish_df.empty:
         out.append("• (vazio)")
         return "\n".join(out)[:3900]
@@ -346,77 +296,167 @@ def build_telegram_html_bullish(timeframe: str, bullish_df: pd.DataFrame) -> str
     return "\n".join(out)[:3900]
 
 
+def build_telegram_html_filter2(timeframe: str, ma20_df: pd.DataFrame) -> str:
+    ts = time.strftime("%Y-%m-%d %H:%M UTC", time.gmtime())
+    header = (
+        f"<b>Scanner MEXC Perps</b>\n"
+        f"Quando: {html_escape(ts)}\n"
+        f"TF: <code>{html_escape(timeframe)}</code>\n"
+        f"Filtro 2: MA{MA20_PERIOD} apontando pra cima e fechamento acima da MA{MA20_PERIOD} por "
+        f"{MA20_CONFIRM_BARS} candles seguidos\n"
+        f"Ordem: menor distância do preço para MA{MA20_PERIOD} → maior\n"
+    )
+
+    out = [header, f"\n<b>FILTRO 2 (MA{MA20_PERIOD} ↑ + {MA20_CONFIRM_BARS} fechamentos acima)</b> (Top {TELEGRAM_TOP_N})"]
+    if ma20_df is None or ma20_df.empty:
+        out.append("• (vazio)")
+        return "\n".join(out)[:3900]
+
+    for _, r in ma20_df.head(TELEGRAM_TOP_N).iterrows():
+        sym = html_escape(str(r.get("symbol", "")))
+        link = str(r.get("link", ""))
+        vol = html_escape(str(r.get("volume_diario", "")))
+
+        dist = r.get("dist_ma20_pct", "")
+        try:
+            dist_str = f"{float(dist):.3f}%"
+        except Exception:
+            dist_str = html_escape(str(dist))
+
+        out.append(f'• <a href="{link}">{sym}</a> | vol {vol} | dist {dist_str}')
+
+    return "\n".join(out)[:3900]
+
+
 def main():
     print(
-        f"[info] MEXC perps | TFs={TIMEFRAMES} | MA={MA_TYPE} {SHORT_MA}/{LONG_MA} | TOP={TOP_PERPS} | VOLUME_MODE={VOLUME_MODE}"
+        f"[info] MEXC perps | TFs={TIMEFRAMES} | "
+        f"Filtro1={MA_TYPE} {SHORT_MA}/{LONG_MA} | "
+        f"Filtro2=MA{MA20_PERIOD} slope_lb={MA20_SLOPE_LOOKBACK} confirm={MA20_CONFIRM_BARS} | "
+        f"TOP={TOP_PERPS} | VOLUME_MODE={VOLUME_MODE}"
     )
 
     symbols, turnover_map = get_top_usdt_perps_and_turnover(TOP_PERPS)
-    print(f"[info] símbolos selecionados: {len(symbols)}")
+    print(f"[info] símbolos selecionados (por turnover 24h): {len(symbols)}")
 
     for tf in TIMEFRAMES:
         if DEBUG:
             print(f"[info] processando timeframe: {tf}")
 
-        results = []
+        results_f1 = []  # filtro existente (ALTA MA curta/longa)
+        results_f2 = []  # filtro novo (MA20 subindo + 3 fechamentos acima)
+
         for sym in symbols:
             try:
                 df = fetch_ohlcv(sym, tf, OHLCV_LIMIT)
-                if len(df) < LONG_MA + 5:
+                if df is None or df.empty:
                     continue
 
                 close = df["close"]
+
+                # histórico mínimo com folga para:
+                # - MA longa
+                # - MA20 + lookback de inclinação
+                # - confirmação de N candles acima
+                required_len = max(
+                    LONG_MA + 5,
+                    MA20_PERIOD + MA20_SLOPE_LOOKBACK + MA20_CONFIRM_BARS + 5,
+                )
+                if len(close) < required_len:
+                    continue
+
+                last_close = float(close.iloc[-1])
+                turnover_24h_usdt = float(turnover_map.get(sym, 0.0))
+
+                # -------------------------
+                # Filtro 2: MA20 ↑ + confirmação (N fechamentos acima da MA20)
+                # -------------------------
+                ma20 = calc_ma(close, MA20_PERIOD, MA_TYPE)
+
+                last_ma20 = ma20.iloc[-1]
+                prev_ma20 = ma20.iloc[-1 - MA20_SLOPE_LOOKBACK]
+
+                if pd.notna(last_ma20) and pd.notna(prev_ma20) and float(last_ma20) != 0:
+                    ma20_up = float(last_ma20) > float(prev_ma20)
+
+                    last_n_close = close.iloc[-MA20_CONFIRM_BARS:]
+                    last_n_ma20 = ma20.iloc[-MA20_CONFIRM_BARS:]
+
+                    # Confirmação: os últimos N fechamentos precisam estar acima da MA20
+                    above_for_n = (
+                        pd.notna(last_n_ma20).all()
+                        and (last_n_close.to_numpy() > last_n_ma20.to_numpy()).all()
+                    )
+
+                    if ma20_up and above_for_n:
+                        dist_ma20_pct = (last_close - float(last_ma20)) / float(last_ma20) * 100.0
+                        results_f2.append(
+                            {
+                                "symbol": sym,
+                                "link": symbol_to_link(sym),
+                                "close": last_close,
+                                "volume_diario": format_volume(turnover_24h_usdt),
+                                "ma20": float(last_ma20),
+                                "dist_ma20_pct": float(dist_ma20_pct),
+                            }
+                        )
+
+                # -------------------------
+                # Filtro 1 (já existia): MA curta vs MA longa + preço acima das duas
+                # -------------------------
                 ma_s = calc_ma(close, SHORT_MA, MA_TYPE)
                 ma_l = calc_ma(close, LONG_MA, MA_TYPE)
 
-                last_close = float(close.iloc[-1])
-                last_ma_s = float(ma_s.iloc[-1])
-                last_ma_l = float(ma_l.iloc[-1])
+                last_ma_s = ma_s.iloc[-1]
+                last_ma_l = ma_l.iloc[-1]
 
-                if pd.isna(last_ma_s) or pd.isna(last_ma_l) or last_ma_l == 0:
+                if pd.isna(last_ma_s) or pd.isna(last_ma_l) or float(last_ma_l) == 0:
                     continue
 
-                ma_dist_pct = (last_ma_s - last_ma_l) / last_ma_l * 100.0
+                ma_dist_pct = (float(last_ma_s) - float(last_ma_l)) / float(last_ma_l) * 100.0
+                bullish = (float(last_ma_s) > float(last_ma_l)) and (last_close > float(last_ma_s)) and (last_close > float(last_ma_l))
 
-                # SOMENTE tendência de ALTA
-                bullish = (last_ma_s > last_ma_l) and (last_close > last_ma_s) and (last_close > last_ma_l)
-                if not bullish:
-                    continue
-
-                turnover_24h_usdt = float(turnover_map.get(sym, 0.0))
-
-                results.append(
-                    {
-                        "symbol": sym,
-                        "link": symbol_to_link(sym),
-                        "trend": "ALTA",
-                        "close": last_close,
-                        "volume_diario": format_volume(turnover_24h_usdt),
-                        "ma_dist_pct": float(ma_dist_pct),
-                    }
-                )
+                if bullish:
+                    results_f1.append(
+                        {
+                            "symbol": sym,
+                            "link": symbol_to_link(sym),
+                            "trend": "ALTA",
+                            "close": last_close,
+                            "volume_diario": format_volume(turnover_24h_usdt),
+                            "ma_dist_pct": float(ma_dist_pct),
+                        }
+                    )
 
             except Exception:
                 continue
 
-        out = pd.DataFrame(results, columns=["symbol", "link", "trend", "close", "volume_diario", "ma_dist_pct"])
-
-        bullish_df = (
-            out.assign(abs_dist=lambda d: d["ma_dist_pct"].abs())
-            .sort_values("abs_dist", ascending=True)
-            .drop(columns=["abs_dist"])
+        # DataFrames + ordenação
+        f1 = pd.DataFrame(results_f1, columns=["symbol", "link", "trend", "close", "volume_diario", "ma_dist_pct"])
+        f1 = (
+            f1.assign(abs_dist=lambda d: d["ma_dist_pct"].abs())
+              .sort_values("abs_dist", ascending=True)
+              .drop(columns=["abs_dist"])
         )
 
-        save_outputs_bullish(tf, out, bullish_df)
+        f2 = pd.DataFrame(results_f2, columns=["symbol", "link", "close", "volume_diario", "ma20", "dist_ma20_pct"])
+        f2 = (
+            f2.assign(abs_dist=lambda d: d["dist_ma20_pct"].abs())
+              .sort_values("abs_dist", ascending=True)
+              .drop(columns=["abs_dist"])
+        )
 
-        # Telegram: 1 mensagem por timeframe (somente ALTA)
+        # Telegram: manda DUAS mensagens separadas (filtro 1 e filtro 2) por timeframe
         try:
             if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
-                msg = build_telegram_html_bullish(tf, bullish_df)
-                telegram_send_html(msg)
+                msg1 = build_telegram_html_filter1(tf, f1)
+                msg2 = build_telegram_html_filter2(tf, f2)
+                telegram_send_html(msg1)
+                telegram_send_html(msg2)
         except Exception as e:
             print("[warn] Telegram falhou:", repr(e))
 
 
 if __name__ == "__main__":
     main()
+    
