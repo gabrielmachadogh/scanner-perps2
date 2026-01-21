@@ -1,11 +1,6 @@
 symbol,link,trend,close,volume_diario,ma_dist_pct
-TRX_USDT,https://futures.mexc.com/exchange/TRX_USDT,BAIXA,0.29792,17M,-3.1226683794953543
-BNB_USDT,https://futures.mexc.com/exchange/BNB_USDT,BAIXA,881.7,85M,-3.9559983707876674
-BTC_USDT,https://futures.mexc.com/exchange/BTC_USDT,BAIXA,89454.9,5654M,-4.5784564218738675
-CAKE_USDT,https://futures.mexc.com/exchange/CAKE_USDT,BAIXA,1.9062,9M,-6.056358138300244
-CHZ_USDT,https://futures.mexc.com/exchange/CHZ_USDT,BAIXA,0.05269,61M,-7.231477576268805
-ETH_USDT,https://futures.mexc.com/exchange/ETH_USDT,BAIXA,2980.94,3319M,-7.310516120324421
-PUMPFUN_USDT,https://futures.mexc.com/exchange/PUMPFUN_USDT,BAIXA,0.002484,37M,-8.163152319542908
-HYPE_USDT,https://futures.mexc.com/exchange/HYPE_USDT,BAIXA,21.587,114M,-12.127854862175704
-XMR_USDT,https://futures.mexc.com/exchange/XMR_USDT,BAIXA,497.78,109M,-19.163530000589468
-BEAT_USDT,https://futures.mexc.com/exchange/BEAT_USDT,BAIXA,0.273,7M,-23.807935978659557
+TRX_USDT,https://futures.mexc.com/exchange/TRX_USDT,BAIXA,0.29734,17M,-3.339072399503901
+BNB_USDT,https://futures.mexc.com/exchange/BNB_USDT,BAIXA,881.1,77M,-4.244809946156533
+CAKE_USDT,https://futures.mexc.com/exchange/CAKE_USDT,BAIXA,1.9067,9M,-6.212320999444009
+ETH_USDT,https://futures.mexc.com/exchange/ETH_USDT,BAIXA,2984.04,3231M,-7.6312993767061705
+XMR_USDT,https://futures.mexc.com/exchange/XMR_USDT,BAIXA,504.05,109M,-19.91583312563671
