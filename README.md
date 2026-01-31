@@ -24,9 +24,9 @@ Bot de Paper Trading automático para Bitcoin (BTC/USDT) com notificações via 
 ### 1️⃣ Configurar Secrets no GitHub
 
 1. Vá em **Settings** → **Secrets and variables** → **Actions**
-2. Adicione:
-   - `TELEGRAM_BOT_TOKEN`: Token do seu bot
-   - `TELEGRAM_CHAT_ID`: ID do chat para receber notificações
+2. Verifique se existem:
+   - `TELEGRAM_BOT_TOKEN`: Token do seu bot (formato: `123456:ABC-DEF...`)
+   - `TELEGRAM_CHAT_ID`: ID do chat (número positivo ou negativo)
 
 ### 2️⃣ Executar
 
@@ -37,28 +37,17 @@ Você também pode rodar manualmente:
 2. Selecione **Paper Trading Bot**
 3. Clique em **Run workflow**
 
-## 📈 Notificações
+### 3️⃣ Verificar Logs com Debug
 
-Você receberá via Telegram:
-- ✅ Entrada em posições
-- ✅ Saída de posições (stop/target)
-- ✅ Relatório diário com equity curve
+Os logs agora mostram:
+- ✅ Se as variáveis foram carregadas
+- ✅ Conteúdo das mensagens sendo enviadas
+- ✅ Resposta completa da API do Telegram
+- ✅ Status de cada operação
 
-## 📂 Dados Salvos
+## 🧪 Testar Telegram Manualmente
 
-Os dados ficam salvos em `/data`:
-- `telegram_state.json`: Estado atual do bot
-- `telegram_trades.json`: Histórico completo de trades
-- `equity_curve.json`: Curva de capital
+Você pode rodar o teste de conexão localmente:
 
-## ⚙️ Configuração
-
-Principais parâmetros em `telegram_paper_trading_bot.py`:
-
-```python
-INITIAL_BALANCE = 10000
-RISK_PER_TRADE = 0.02  # 2%
-LEVERAGE = 2.5
-RR_RATIO = 2.1
-MA_PERIOD = 8
-BODY_MIN_PERCENT = 45
+```bash
+python test_telegram.py
