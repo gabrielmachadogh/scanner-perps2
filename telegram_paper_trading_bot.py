@@ -1,8 +1,9 @@
 """
 Bot de Paper Trading - BTC/USDT - MEXC
 - SEMPRE refaz backtest do zero
-- 3h10 de mercado NY (8:00 AM - 11:10 AM)
-- Body% 44%
+- 2h45 de mercado NY (8:00 AM - 10:45 AM)
+- Body% 45%
+- Cooldown 12h
 - Relatorio completo por ano
 """
 import ccxt
@@ -32,9 +33,9 @@ TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "")
 SYMBOL = 'BTC/USDT'
 TIMEFRAME = '1h'
 MA_PERIOD = 8
-BODY_MIN_PERCENT = 44
+BODY_MIN_PERCENT = 45  # VOLTA PARA 45%
 RR_RATIO = 2.1
-COOLDOWN_HOURS = 12
+COOLDOWN_HOURS = 12    # JA ESTAVA 12h
 RISK_PER_TRADE = 0.02
 LEVERAGE = 2.5
 TAKER_FEE = 0.0004
@@ -44,10 +45,10 @@ INITIAL_BALANCE = 10000
 START_DATE = datetime.now() - timedelta(days=1825)  # 5 anos
 
 NY_TZ = pytz.timezone('America/New_York')
-SESSION_START_HOUR = 8
+SESSION_START_HOUR = 8      # 8:00 AM NY
 SESSION_START_MINUTE = 0
-SESSION_END_HOUR = 11
-SESSION_END_MINUTE = 10
+SESSION_END_HOUR = 10       # 10:45 AM NY
+SESSION_END_MINUTE = 45     # 2h45 total
 
 TICK_SIZE = 0.1
 
@@ -87,7 +88,7 @@ class TelegramNotifier:
 class PaperTradingBot:
     def __init__(self):
         print("="*80)
-        print("BACKTEST COMPLETO - 3H10 NY - BODY 44%")
+        print("BACKTEST - 2H45 NY - BODY 45% - COOLDOWN 12H")
         print("DELETANDO DADOS ANTIGOS E RECOMEÇANDO")
         print("="*80)
         
@@ -142,14 +143,17 @@ class PaperTradingBot:
         return True
     
     def _is_trading_hours(self, dt):
-        """3h10: 8:00-11:10 AM NY"""
+        """
+        2h45: 8:00-10:45 AM NY
+        """
         ny_time = dt.astimezone(NY_TZ)
         hour = ny_time.hour
         minute = ny_time.minute
         
-        if hour == 8 or hour == 9 or hour == 10:
+        # 8:00 - 10:44
+        if hour == 8 or hour == 9:
             return True
-        if hour == 11 and minute < 10:
+        if hour == 10 and minute < 45:
             return True
         
         return False
@@ -180,6 +184,7 @@ class PaperTradingBot:
         return None
     
     def _in_cooldown(self, current_time):
+        """Cooldown de 12 horas"""
         if self.last_trade_time is None:
             return False
         hours_since_last = (current_time - self.last_trade_time).total_seconds() / 3600
@@ -261,10 +266,11 @@ class PaperTradingBot:
         self.position = None
     
     def _send_startup_message(self):
-        msg = f"""🚀 <b>NOVO BACKTEST - 3H10 NY</b>
+        msg = f"""🚀 <b>NOVO BACKTEST - 2H45</b>
 
-⏰ Horario: 8:00-11:10 AM NY
-💪 Body%: 44%
+⏰ Horario: 8:00-10:45 AM NY (2h45)
+💪 Body%: 45%
+⏳ Cooldown: 12h
 💰 Capital: ${INITIAL_BALANCE:,.2f}
 
 Baixando maximo de dados...
@@ -303,7 +309,7 @@ Baixando maximo de dados...
                            alpha=0.3, color='red')
             
             years = (datetime.now() - self.start_date).days / 365
-            ax1.set_title(f'Equity Curve - 3h10 NY - Body 44% - {years:.1f} Anos', 
+            ax1.set_title(f'Equity Curve - 2h45 NY - Body 45% - {years:.1f} Anos', 
                          fontsize=16, fontweight='bold')
             ax1.set_ylabel('Balance (USD)', fontsize=12)
             ax1.legend(loc='best')
@@ -410,8 +416,9 @@ Baixando maximo de dados...
 {days} dias ({years:.1f} anos)
 
 ⏰ <b>Config:</b>
-• Janela: 8:00-11:10 AM NY (3h10)
-• Body%: 44%
+• Janela: 8:00-10:45 AM NY (2h45)
+• Body%: 45%
+• Cooldown: 12h
 
 💰 <b>Capital:</b>
 • Inicial: ${self.initial_balance:,.2f}
@@ -461,7 +468,7 @@ Baixando maximo de dados...
         # Grafico
         chart_bytes = self._create_equity_chart()
         if chart_bytes:
-            caption = f"""📈 <b>Equity - 3h10 NY - Body 44%</b>
+            caption = f"""📈 <b>Equity - 2h45 NY - Body 45%</b>
 
 {total_trades} trades | WR: {win_rate:.1f}% | {return_pct:+.2f}%"""
             self.telegram.send_photo(chart_bytes, caption=caption)
@@ -624,9 +631,9 @@ Baixando maximo de dados...
         print("="*80)
         print(f"Anos: {years:.1f}")
         print(f"Candles: {total_candles}")
-        print(f"Horario 3h10: {trading_hours}")
+        print(f"Horario 2h45: {trading_hours}")
         print(f"Viradas MA: {ma_turns}")
-        print(f"Body > 44%: {body_ok}")
+        print(f"Body > 45%: {body_ok}")
         print(f"Triggers: {triggers}")
         print(f"TRADES: {len(self.all_trades)}")
         print(f"BALANCE: ${self.paper_balance:,.2f}")
