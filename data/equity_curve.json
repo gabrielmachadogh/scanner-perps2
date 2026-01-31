@@ -1,37 +1,122 @@
 [
   {
-    "timestamp": "2025-12-09T15:00:00",
-    "balance": 9468.737911366203,
+    "timestamp": "2025-08-08T14:00:00",
+    "balance": 9415.791836803632,
     "trade_number": 1
   },
   {
-    "timestamp": "2025-12-15T14:00:00",
-    "balance": 8935.317337398006,
+    "timestamp": "2025-08-13T13:00:00",
+    "balance": 10365.765476540219,
     "trade_number": 2
   },
   {
-    "timestamp": "2026-01-02T08:00:00",
-    "balance": 8459.571131984118,
+    "timestamp": "2025-08-15T15:00:00",
+    "balance": 11387.732256783085,
     "trade_number": 3
   },
   {
-    "timestamp": "2026-01-13T16:00:00",
-    "balance": 9320.541144319177,
+    "timestamp": "2025-08-18T13:00:00",
+    "balance": 10747.473961162623,
     "trade_number": 4
   },
   {
-    "timestamp": "2026-01-16T15:00:00",
-    "balance": 8838.187021798321,
+    "timestamp": "2025-08-22T14:00:00",
+    "balance": 10184.50561570133,
     "trade_number": 5
   },
   {
-    "timestamp": "2026-01-21T16:00:00",
-    "balance": 8377.273722294833,
+    "timestamp": "2025-08-25T19:00:00",
+    "balance": 9636.547614681389,
     "trade_number": 6
   },
   {
-    "timestamp": "2026-01-23T16:00:00",
-    "balance": 7928.7006921315615,
+    "timestamp": "2025-08-29T07:00:00",
+    "balance": 10608.112212216618,
     "trade_number": 7
+  },
+  {
+    "timestamp": "2025-09-12T19:00:00",
+    "balance": 11705.798517073157,
+    "trade_number": 8
+  },
+  {
+    "timestamp": "2025-09-18T23:00:00",
+    "balance": 11050.973136054268,
+    "trade_number": 9
+  },
+  {
+    "timestamp": "2025-10-10T15:00:00",
+    "balance": 12185.082523518002,
+    "trade_number": 10
+  },
+  {
+    "timestamp": "2025-10-16T15:00:00",
+    "balance": 13412.307234970143,
+    "trade_number": 11
+  },
+  {
+    "timestamp": "2025-10-27T16:00:00",
+    "balance": 12623.987733099713,
+    "trade_number": 12
+  },
+  {
+    "timestamp": "2025-10-31T14:00:00",
+    "balance": 11948.770359864297,
+    "trade_number": 13
+  },
+  {
+    "timestamp": "2025-11-04T21:00:00",
+    "balance": 13187.766328962982,
+    "trade_number": 14
+  },
+  {
+    "timestamp": "2025-11-07T20:00:00",
+    "balance": 12498.526934761447,
+    "trade_number": 15
+  },
+  {
+    "timestamp": "2025-11-13T16:00:00",
+    "balance": 13787.517359075357,
+    "trade_number": 16
+  },
+  {
+    "timestamp": "2025-11-20T01:00:00",
+    "balance": 13081.197404053173,
+    "trade_number": 17
+  },
+  {
+    "timestamp": "2025-12-09T15:00:00",
+    "balance": 12386.242978582344,
+    "trade_number": 18
+  },
+  {
+    "timestamp": "2025-12-15T14:00:00",
+    "balance": 11688.464995836213,
+    "trade_number": 19
+  },
+  {
+    "timestamp": "2026-01-02T08:00:00",
+    "balance": 11066.131993111383,
+    "trade_number": 20
+  },
+  {
+    "timestamp": "2026-01-13T16:00:00",
+    "balance": 12192.383862143883,
+    "trade_number": 21
+  },
+  {
+    "timestamp": "2026-01-16T15:00:00",
+    "balance": 11561.406912608467,
+    "trade_number": 22
+  },
+  {
+    "timestamp": "2026-01-21T16:00:00",
+    "balance": 10958.477126912605,
+    "trade_number": 23
+  },
+  {
+    "timestamp": "2026-01-23T16:00:00",
+    "balance": 10371.6898911426,
+    "trade_number": 24
   }
 ]
