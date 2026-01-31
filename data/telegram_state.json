@@ -1,7 +1,8 @@
 {
-  "balance": 9372.461757729738,
+  "balance": 7928.7006921315615,
   "initial_balance": 10000,
   "start_date": "2026-01-01T00:00:00",
+  "last_daily_report": null,
   "last_trade_time": "2026-01-23T16:00:00",
-  "last_update": "2026-01-31T02:43:14.889128"
+  "last_update": "2026-01-31T02:55:42.473520"
 }

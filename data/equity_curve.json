@@ -1,1 +1,37 @@
-[]
+[
+  {
+    "timestamp": "2025-12-09T15:00:00",
+    "balance": 9468.737911366203,
+    "trade_number": 1
+  },
+  {
+    "timestamp": "2025-12-15T14:00:00",
+    "balance": 8935.317337398006,
+    "trade_number": 2
+  },
+  {
+    "timestamp": "2026-01-02T08:00:00",
+    "balance": 8459.571131984118,
+    "trade_number": 3
+  },
+  {
+    "timestamp": "2026-01-13T16:00:00",
+    "balance": 9320.541144319177,
+    "trade_number": 4
+  },
+  {
+    "timestamp": "2026-01-16T15:00:00",
+    "balance": 8838.187021798321,
+    "trade_number": 5
+  },
+  {
+    "timestamp": "2026-01-21T16:00:00",
+    "balance": 8377.273722294833,
+    "trade_number": 6
+  },
+  {
+    "timestamp": "2026-01-23T16:00:00",
+    "balance": 7928.7006921315615,
+    "trade_number": 7
+  }
+]
