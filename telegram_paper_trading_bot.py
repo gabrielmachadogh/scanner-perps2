@@ -1,7 +1,7 @@
 """
 Bot de Paper Trading - BTC/USDT - MEXC
-- 3h30 de mercado NY (8:00 AM - 11:30 AM)
-- Body% 42%
+- 3h10 de mercado NY (8:00 AM - 11:10 AM)
+- Body% 44%
 - Maximo de dados disponiveis
 - Continua operando
 """
@@ -32,7 +32,7 @@ TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "")
 SYMBOL = 'BTC/USDT'
 TIMEFRAME = '1h'
 MA_PERIOD = 8
-BODY_MIN_PERCENT = 42
+BODY_MIN_PERCENT = 44  # AJUSTADO PARA 44%
 RR_RATIO = 2.1
 COOLDOWN_HOURS = 12
 RISK_PER_TRADE = 0.02
@@ -47,8 +47,8 @@ START_DATE = datetime.now() - timedelta(days=1825)  # 5 anos
 NY_TZ = pytz.timezone('America/New_York')
 SESSION_START_HOUR = 8      # 8:00 AM NY
 SESSION_START_MINUTE = 0    # 8:00 AM
-SESSION_END_HOUR = 11       # 11:30 AM NY
-SESSION_END_MINUTE = 30     # 11:30 AM (3h30 total)
+SESSION_END_HOUR = 11       # 11:10 AM NY
+SESSION_END_MINUTE = 10     # 11:10 AM (3h10 total)
 
 REPORT_HOUR_NY = 11
 REPORT_MINUTE_NY = 10
@@ -91,7 +91,7 @@ class TelegramNotifier:
 class PaperTradingBot:
     def __init__(self):
         print("="*80)
-        print("BOT PAPER TRADING - 3H30 MERCADO NY")
+        print("BOT PAPER TRADING - 3H10 NY - BODY 44%")
         print("="*80)
         
         if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
@@ -175,19 +175,17 @@ class PaperTradingBot:
     
     def _is_trading_hours(self, dt):
         """
-        NOVO: 3h30 de mercado
-        8:00 AM - 11:30 AM NY
+        3h10 de mercado NY
+        8:00 AM - 11:10 AM
         """
         ny_time = dt.astimezone(NY_TZ)
         hour = ny_time.hour
         minute = ny_time.minute
         
-        # 8:00 - 11:29
-        if hour == 8:
+        # 8:00 - 11:09
+        if hour == 8 or hour == 9 or hour == 10:
             return True
-        if hour == 9 or hour == 10:
-            return True
-        if hour == 11 and minute < 30:
+        if hour == 11 and minute < 10:
             return True
         
         return False
@@ -323,22 +321,22 @@ Balance: ${self.paper_balance:,.2f}
     
     def _send_startup_message(self):
         if self.backtest_completed:
-            msg = f"""🤖 <b>BOT OPERACIONAL - 3H30</b>
+            msg = f"""🤖 <b>BOT OPERACIONAL</b>
 
-Horario: 8:00-11:30 AM NY
-Body%: 42%
+⏰ Horario: 8:00-11:10 AM NY (3h10)
+💪 Body%: 44%
 
 Balance: ${self.paper_balance:,.2f}
 Trades: {len(self.all_trades)}
 
 ⏰ {datetime.now().strftime('%d/%m/%Y %H:%M')}"""
         else:
-            msg = f"""🚀 <b>BACKTEST - 3H30</b>
+            msg = f"""🚀 <b>BACKTEST - 3H10 NY</b>
 
-Horario: 8:00-11:30 AM NY
-Body%: 42%
+⏰ Horario: 8:00-11:10 AM NY
+💪 Body%: 44%
 
-Baixando maximo de dados disponiveis...
+Baixando maximo de dados...
 
 ⏰ {datetime.now().strftime('%d/%m/%Y %H:%M')}"""
         
@@ -374,7 +372,7 @@ Baixando maximo de dados disponiveis...
                            alpha=0.3, color='red')
             
             years = (datetime.now() - self.start_date).days / 365
-            ax1.set_title(f'Equity Curve - 3h30 NY - {years:.1f} Anos', 
+            ax1.set_title(f'Equity Curve - 3h10 NY - Body 44% - {years:.1f} Anos', 
                          fontsize=16, fontweight='bold')
             ax1.set_ylabel('Balance (USD)', fontsize=12)
             ax1.legend(loc='best')
@@ -473,14 +471,16 @@ Baixando maximo de dados disponiveis...
         
         years_data = self._analyze_by_year()
         
-        msg = f"""📊 <b>BACKTEST - 3H30 NY - BODY 42%</b>
+        msg = f"""📊 <b>BACKTEST COMPLETO</b>
 ━━━━━━━━━━━━━━━━━━━━━━
 
 📅 <b>Periodo:</b>
 {self.start_date.strftime('%d/%m/%Y')} - {datetime.now().strftime('%d/%m/%Y')}
 {days} dias ({years:.1f} anos)
 
-⏰ <b>Janela:</b> 8:00-11:30 AM NY (3h30)
+⏰ <b>Config:</b>
+• Janela: 8:00-11:10 AM NY (3h10)
+• Body%: 44%
 
 💰 <b>Capital:</b>
 • Final: ${self.paper_balance:,.2f}
@@ -508,7 +508,7 @@ Baixando maximo de dados disponiveis...
         self.telegram.send_message(msg)
         
         if years_data:
-            year_msg = "📊 <b>POR ANO (3h30 NY):</b>\n━━━━━━━━━━━━━━━━━━━━━━\n\n"
+            year_msg = "📊 <b>PERFORMANCE POR ANO:</b>\n━━━━━━━━━━━━━━━━━━━━━━\n\n"
             
             for year, data in years_data.items():
                 start_bal = data['start_balance']
@@ -527,7 +527,7 @@ Baixando maximo de dados disponiveis...
         
         chart_bytes = self._create_equity_chart()
         if chart_bytes:
-            caption = f"""📈 <b>Equity - 3h30 NY</b>
+            caption = f"""📈 <b>Equity - 3h10 NY - Body 44%</b>
 
 {total_trades} trades | WR: {win_rate:.1f}% | {return_pct:+.2f}%"""
             self.telegram.send_photo(chart_bytes, caption=caption)
@@ -541,10 +541,8 @@ Baixando maximo de dados disponiveis...
         print("BACKTEST - MAXIMO DISPONIVEL")
         print("="*80)
         
-        # Pega ultimos candles disponiveis
         print("Testando limite de dados MEXC...")
         
-        # Tenta pegar 1 candle bem antigo para ver o limite
         test_dates = [
             datetime.now() - timedelta(days=3650),  # 10 anos
             datetime.now() - timedelta(days=1825),  # 5 anos
@@ -559,14 +557,14 @@ Baixando maximo de dados disponiveis...
                 test_candles = self.exchange.fetch_ohlcv(SYMBOL, TIMEFRAME, since=since, limit=1)
                 if test_candles:
                     actual_start = test_date
-                    print(f"✅ Dados disponiveis desde: {test_date.strftime('%d/%m/%Y')}")
+                    print(f"✅ Dados desde: {test_date.strftime('%d/%m/%Y')}")
                     break
             except:
                 continue
         
         if not actual_start:
-            print("❌ Erro ao determinar data inicial")
-            actual_start = datetime.now() - timedelta(days=1095)  # Default 3 anos
+            print("Usando default: 3 anos")
+            actual_start = datetime.now() - timedelta(days=1095)
         
         self.start_date = actual_start
         since = int(actual_start.timestamp() * 1000)
@@ -695,9 +693,9 @@ Baixando maximo de dados disponiveis...
         print("="*80)
         print(f"Anos: {years:.1f}")
         print(f"Candles: {total_candles}")
-        print(f"Horario 3h30: {trading_hours}")
+        print(f"Horario 3h10: {trading_hours}")
         print(f"Viradas MA: {ma_turns}")
-        print(f"Body > 42%: {body_ok}")
+        print(f"Body > 44%: {body_ok}")
         print(f"Triggers: {triggers}")
         print(f"TRADES: {len(self.all_trades)}")
         print(f"BALANCE: ${self.paper_balance:,.2f}")
@@ -811,11 +809,14 @@ Baixando maximo de dados disponiveis...
         
         position_status = f"{self.position['side']} aberta" if self.position else "Sem posicao"
         
-        msg = f"""📊 <b>RELATORIO DIARIO - 3H30</b>
+        msg = f"""📊 <b>RELATORIO DIARIO</b>
 ━━━━━━━━━━━━━━━━━━━━━━
 
 📅 Desde: {self.start_date.strftime('%d/%m/%Y')} ({days} dias)
-⏰ Janela: 8:00-11:30 AM NY
+
+⏰ <b>Config:</b>
+• Janela: 8:00-11:10 AM NY (3h10)
+• Body%: 44%
 
 💰 <b>Capital:</b>
 • Balance: ${self.paper_balance:,.2f}
