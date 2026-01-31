@@ -1,7 +1,6 @@
 """
 Bot de Paper Trading - BTC/USDT - MEXC
-RESET COMPLETO: Apaga tudo e refaz backtest desde 01/01/2025
-Comeca com $10,000 em 01/01/2025
+BACKTEST DE 3 ANOS (2023-2026)
 """
 import ccxt
 import pandas as pd
@@ -25,7 +24,7 @@ load_dotenv()
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "")
 
-# Configuracao da estrategia
+# Configuracao
 SYMBOL = 'BTC/USDT'
 TIMEFRAME = '1h'
 MA_PERIOD = 8
@@ -38,19 +37,16 @@ TAKER_FEE = 0.0004
 SLIPPAGE = 0.0002
 INITIAL_BALANCE = 10000
 
-# BOT ONLINE DESDE 01/01/2025
-START_DATE = datetime(2025, 1, 1, 0, 0, 0)
+# 3 ANOS ATRAS
+START_DATE = datetime.now() - timedelta(days=1095)  # ~3 anos
 
-# Horarios
 NY_TZ = pytz.timezone('America/New_York')
 SESSION_START_HOUR = 8
 SESSION_END_HOUR = 11
 REPORT_HOUR_NY = 11
 REPORT_MINUTE_NY = 10
-
 TICK_SIZE = 0.1
 
-# Arquivos
 DATA_DIR = Path('data')
 DATA_DIR.mkdir(exist_ok=True)
 TRADES_FILE = DATA_DIR / 'telegram_trades.json'
@@ -81,14 +77,14 @@ class TelegramNotifier:
             response = requests.post(url, files=files, data=data, timeout=30)
             return response.json()
         except Exception as e:
-            print(f"Erro Telegram foto: {e}")
+            print(f"Erro foto: {e}")
             return None
 
 class PaperTradingBot:
     def __init__(self):
         print("="*80)
-        print("BOT PAPER TRADING - RESET COMPLETO")
-        print(f"Apagando dados antigos e recomeçando desde {START_DATE.strftime('%d/%m/%Y')}")
+        print("BACKTEST DE 3 ANOS")
+        print(f"Periodo: {START_DATE.strftime('%d/%m/%Y')} ate {datetime.now().strftime('%d/%m/%Y')}")
         print("="*80)
         
         if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
@@ -96,26 +92,19 @@ class PaperTradingBot:
         
         self.telegram = TelegramNotifier(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID)
         
-        print("Conectando a MEXC...")
+        print("Conectando MEXC...")
         self.exchange = ccxt.mexc({
             'enableRateLimit': True,
             'options': {'defaultType': 'swap'}
         })
         print("✅ MEXC conectada")
         
-        # RESET COMPLETO - Apaga tudo
-        print("\n🔄 DELETANDO DADOS ANTIGOS...")
-        if TRADES_FILE.exists():
-            TRADES_FILE.unlink()
-            print("✅ trades.json deletado")
-        if STATE_FILE.exists():
-            STATE_FILE.unlink()
-            print("✅ state.json deletado")
-        if EQUITY_FILE.exists():
-            EQUITY_FILE.unlink()
-            print("✅ equity.json deletado")
+        # DELETA DADOS ANTIGOS
+        print("\nDeletando dados antigos...")
+        for f in [TRADES_FILE, STATE_FILE, EQUITY_FILE]:
+            if f.exists():
+                f.unlink()
         
-        # Inicia do ZERO
         self.paper_balance = INITIAL_BALANCE
         self.initial_balance = INITIAL_BALANCE
         self.position = None
@@ -124,14 +113,13 @@ class PaperTradingBot:
         self.start_date = START_DATE
         self.last_trade_time = None
         self.last_daily_report = None
-        self.us_holidays = holidays.US(years=range(2025, 2030))
+        self.us_holidays = holidays.US(years=range(2023, 2027))
         
-        print(f"\n✅ Bot resetado - Balance: ${INITIAL_BALANCE:,.2f}")
+        print(f"✅ Reset completo - Balance inicial: ${INITIAL_BALANCE:,.2f}\n")
         
         self._send_startup_message()
     
     def _save_state(self):
-        """Salva estado atual"""
         state = {
             'balance': self.paper_balance,
             'initial_balance': self.initial_balance,
@@ -198,6 +186,10 @@ class PaperTradingBot:
         return (risk_usd / risk_per_btc) * LEVERAGE
     
     def _execute_trade(self, side, entry, stop, signal_time):
+        """
+        CORRECAO: Slippage aplicado corretamente
+        """
+        # Slippage CONTRA nos na entrada
         entry_executed = entry * (1 + SLIPPAGE) if side == 'LONG' else entry * (1 - SLIPPAGE)
         
         risk_distance = abs(entry_executed - stop)
@@ -220,27 +212,27 @@ class PaperTradingBot:
             'entry_fee': entry_fee
         }
         
-        print(f"\n✅ {side} @ ${entry_executed:,.2f} | Stop: ${stop:,.2f}")
-        
-        msg = f"""🟢 <b>{side}</b>
-
-Entry: ${entry_executed:,.2f}
-Stop: ${stop:,.2f}
-Target: ${target:,.2f}
-Size: {size:.4f} BTC
-
-{signal_time.strftime('%d/%m %H:%M')}"""
-        self.telegram.send_message(msg)
+        print(f"{'LONG' if side == 'LONG' else 'SHORT'} @ ${entry_executed:,.2f} | Stop: ${stop:,.2f}")
     
     def _close_position(self, exit_price, outcome, exit_time):
+        """
+        CORRECAO: Slippage correto no STOP (piora) e TARGET (piora)
+        """
         if not self.position:
             return
         
+        # CORRECAO CRITICA: Slippage SEMPRE contra nos
         if self.position['side'] == 'LONG':
-            exit_executed = exit_price * (1 - SLIPPAGE)
+            # LONG fechando: vendendo
+            exit_executed = exit_price * (1 - SLIPPAGE)  # Vende mais barato
+        else:
+            # SHORT fechando: comprando
+            exit_executed = exit_price * (1 + SLIPPAGE)  # Compra mais caro
+        
+        # Calcula PnL
+        if self.position['side'] == 'LONG':
             pnl_gross = (exit_executed - self.position['entry']) * self.position['size']
         else:
-            exit_executed = exit_price * (1 + SLIPPAGE)
             pnl_gross = (self.position['entry'] - exit_executed) * self.position['size']
         
         exit_fee = (self.position['size'] * exit_executed / LEVERAGE) * TAKER_FEE
@@ -275,28 +267,20 @@ Size: {size:.4f} BTC
             'trade_number': len(self.all_trades)
         })
         
-        print(f"✅ {outcome} @ ${exit_executed:,.2f} | PnL: ${pnl_net:+,.2f}")
-        
-        emoji = "🎯" if outcome == 'TARGET' else "🛑"
-        msg = f"""{emoji} <b>{outcome}</b>
-
-Exit: ${exit_executed:,.2f}
-PnL: ${pnl_net:+,.2f}
-Balance: ${self.paper_balance:,.2f}
-
-{exit_time.strftime('%d/%m %H:%M')}"""
-        self.telegram.send_message(msg)
+        print(f"{outcome} @ ${exit_executed:,.2f} | PnL: ${pnl_net:+,.2f} | Balance: ${self.paper_balance:,.2f}")
         
         self.position = None
         self._save_state()
     
     def _send_startup_message(self):
-        msg = f"""🚀 <b>BOT RESETADO - NOVO BACKTEST</b>
+        msg = f"""🚀 <b>BACKTEST 3 ANOS</b>
 
-📅 Inicio: {START_DATE.strftime('%d/%m/%Y')}
-💰 Capital Inicial: ${INITIAL_BALANCE:,.2f}
+📅 {START_DATE.strftime('%d/%m/%Y')} - {datetime.now().strftime('%d/%m/%Y')}
 
-Processando todos os trades desde 01/01/2025...
+💰 Capital: ${INITIAL_BALANCE:,.2f}
+
+Baixando ~26,000 candles...
+Isso pode demorar alguns minutos.
 
 ⏰ {datetime.now().strftime('%d/%m/%Y %H:%M')}"""
         self.telegram.send_message(msg)
@@ -316,21 +300,21 @@ Processando todos os trades desde 01/01/2025...
             }])
             df_equity = pd.concat([start_point, df_equity], ignore_index=True)
             
-            fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(14, 8))
+            fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(16, 10))
             
             ax1.plot(df_equity['timestamp'], df_equity['balance'], 
                     linewidth=2.5, color='#2E86AB', label='Balance')
             ax1.axhline(y=INITIAL_BALANCE, color='gray', linestyle='--', 
-                       alpha=0.5, linewidth=1.5, label='Capital Inicial')
+                       alpha=0.5, linewidth=1.5, label='Inicial')
             
             ax1.fill_between(df_equity['timestamp'], INITIAL_BALANCE, df_equity['balance'], 
                            where=(df_equity['balance'] >= INITIAL_BALANCE), 
-                           alpha=0.3, color='green', label='Profit')
+                           alpha=0.3, color='green')
             ax1.fill_between(df_equity['timestamp'], INITIAL_BALANCE, df_equity['balance'], 
                            where=(df_equity['balance'] < INITIAL_BALANCE), 
-                           alpha=0.3, color='red', label='Loss')
+                           alpha=0.3, color='red')
             
-            ax1.set_title(f'Equity Curve - desde {START_DATE.strftime("%d/%m/%Y")}', 
+            ax1.set_title(f'Equity Curve - 3 Anos ({START_DATE.strftime("%d/%m/%Y")} - {datetime.now().strftime("%d/%m/%Y")})', 
                          fontsize=16, fontweight='bold')
             ax1.set_ylabel('Balance (USD)', fontsize=12)
             ax1.legend(loc='best')
@@ -359,23 +343,13 @@ Processando todos os trades desde 01/01/2025...
             print(f"Erro grafico: {e}")
             return None
     
-    def _send_daily_report(self):
-        print("\n" + "="*80)
-        print("RELATORIO DIARIO")
-        print("="*80)
+    def _send_summary(self):
+        """Envia resumo completo do backtest de 3 anos"""
         
         total_trades = len(self.all_trades)
         
         if total_trades == 0:
-            msg = f"""📊 <b>RELATORIO DIARIO</b>
-
-Periodo: {START_DATE.strftime('%d/%m/%Y')} - {datetime.now().strftime('%d/%m/%Y')}
-
-Nenhum trade ainda.
-Balance: ${self.paper_balance:,.2f}"""
-            self.telegram.send_message(msg)
-            self.last_daily_report = datetime.now().isoformat()
-            self._save_state()
+            self.telegram.send_message("Nenhum trade executado!")
             return
         
         wins = [t for t in self.all_trades if t['pnl_usd'] > 0]
@@ -383,7 +357,7 @@ Balance: ${self.paper_balance:,.2f}"""
         
         num_wins = len(wins)
         num_losses = len(losses)
-        win_rate = (num_wins / total_trades * 100) if total_trades > 0 else 0
+        win_rate = (num_wins / total_trades * 100)
         
         total_profit = sum(t['pnl_usd'] for t in wins)
         total_loss = sum(t['pnl_usd'] for t in losses)
@@ -395,34 +369,32 @@ Balance: ${self.paper_balance:,.2f}"""
         profit_factor = abs(total_profit / total_loss) if total_loss != 0 else 0
         return_pct = ((self.paper_balance / self.initial_balance) - 1) * 100
         
-        today = datetime.now().date()
-        trades_today = [t for t in self.all_trades 
-                       if datetime.fromisoformat(t['exit_time']).date() == today]
-        pnl_today = sum(t['pnl_usd'] for t in trades_today)
-        
-        days_running = (datetime.now() - self.start_date).days
-        position_status = f"{self.position['side']} aberta" if self.position else "Sem posicao"
-        
-        last_trade = self.all_trades[-1]
-        last_trade_time = datetime.fromisoformat(last_trade['exit_time']).strftime('%d/%m %H:%M')
-        
         best_trade = max(self.all_trades, key=lambda x: x['pnl_usd'])
         worst_trade = min(self.all_trades, key=lambda x: x['pnl_usd'])
         
-        msg = f"""📊 <b>RELATORIO DIARIO</b>
+        # Drawdown
+        balances = [INITIAL_BALANCE] + [t['balance_after'] for t in self.all_trades]
+        running_max = pd.Series(balances).expanding().max()
+        drawdowns = ((pd.Series(balances) - running_max) / running_max * 100)
+        max_dd = drawdowns.min()
+        
+        days = (datetime.now() - self.start_date).days
+        
+        msg = f"""📊 <b>BACKTEST 3 ANOS - RESULTADO FINAL</b>
 ━━━━━━━━━━━━━━━━━━━━━━
 
 📅 <b>Periodo:</b>
-{START_DATE.strftime('%d/%m/%Y')} - {datetime.now().strftime('%d/%m/%Y')} ({days_running} dias)
+{START_DATE.strftime('%d/%m/%Y')} - {datetime.now().strftime('%d/%m/%Y')}
+{days} dias ({days/365:.1f} anos)
 
 💰 <b>Capital:</b>
-• Balance: ${self.paper_balance:,.2f}
 • Inicial: ${self.initial_balance:,.2f}
+• Final: ${self.paper_balance:,.2f}
 • Return: {return_pct:+.2f}%
 • PnL Total: ${net_pnl:+,.2f}
 
 📈 <b>Performance:</b>
-• Total Trades: {total_trades}
+• <b>Total Trades: {total_trades}</b>
 • Wins: {num_wins} ({win_rate:.1f}%)
 • Losses: {num_losses} ({100-win_rate:.1f}%)
 • Profit Factor: {profit_factor:.2f}
@@ -430,52 +402,45 @@ Balance: ${self.paper_balance:,.2f}"""
 💵 <b>Medias:</b>
 • Avg Win: ${avg_win:+,.2f}
 • Avg Loss: ${avg_loss:+,.2f}
-• Total Ganho: ${total_profit:+,.2f}
-• Total Perdido: ${total_loss:+,.2f}
+• Win/Loss Ratio: {abs(avg_win/avg_loss):.2f}:1
 
 🏆 <b>Extremos:</b>
-• Melhor: ${best_trade['pnl_usd']:+,.2f}
-• Pior: ${worst_trade['pnl_usd']:+,.2f}
+• Melhor Trade: ${best_trade['pnl_usd']:+,.2f}
+• Pior Trade: ${worst_trade['pnl_usd']:+,.2f}
+• Max Drawdown: {max_dd:.2f}%
 
-📊 <b>Hoje:</b>
-• Trades: {len(trades_today)}
-• PnL: ${pnl_today:+,.2f}
-
-🎯 <b>Status:</b>
-• Posicao: {position_status}
-• Ultimo Trade: {last_trade_time}
+📊 <b>Totais:</b>
+• Total Ganho: ${total_profit:+,.2f}
+• Total Perdido: ${total_loss:+,.2f}
 
 ⏰ {datetime.now().strftime('%d/%m/%Y %H:%M')}"""
         
         self.telegram.send_message(msg)
         
+        # Envia grafico
         chart_bytes = self._create_equity_chart()
         if chart_bytes:
-            caption = f"""📈 <b>Equity Curve</b>
+            caption = f"""📈 <b>Equity Curve - 3 Anos</b>
 
-{START_DATE.strftime('%d/%m/%Y')} - {datetime.now().strftime('%d/%m/%Y')}
 Trades: {total_trades} | WR: {win_rate:.1f}% | Return: {return_pct:+.2f}%"""
-            
             self.telegram.send_photo(chart_bytes, caption=caption)
-        
-        self.last_daily_report = datetime.now().isoformat()
-        self._save_state()
     
     def run_backtest(self):
         print("\n" + "="*80)
-        print("BACKTEST COMPLETO DESDE 01/01/2025")
+        print("INICIANDO BACKTEST DE 3 ANOS")
         print("="*80)
         
-        print(f"📥 Baixando dados desde {START_DATE.strftime('%d/%m/%Y')}...")
+        print(f"Baixando desde {START_DATE.strftime('%d/%m/%Y')}...")
         
         since = int(START_DATE.timestamp() * 1000)
         all_candles = []
-        max_requests = 250
+        max_requests = 350  # ~26k candles em 3 anos
         request_count = 0
         
         while request_count < max_requests:
             try:
-                print(f"  Request {request_count + 1}... ({len(all_candles)} candles)")
+                if request_count % 10 == 0:
+                    print(f"  Progresso: {len(all_candles)} candles ({request_count}/{max_requests} requests)")
                 
                 candles = self.exchange.fetch_ohlcv(SYMBOL, TIMEFRAME, since=since, limit=500)
                 
@@ -499,7 +464,7 @@ Trades: {total_trades} | WR: {win_rate:.1f}% | Return: {return_pct:+.2f}%"""
             print("Nenhum candle!")
             return
         
-        print(f"✅ {len(all_candles)} candles baixados")
+        print(f"\n✅ {len(all_candles)} candles baixados")
         
         df = pd.DataFrame(all_candles, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume'])
         df['timestamp'] = pd.to_datetime(df['timestamp'], unit='ms')
@@ -508,7 +473,7 @@ Trades: {total_trades} | WR: {win_rate:.1f}% | Return: {return_pct:+.2f}%"""
         df['body_pct'] = df.apply(self._calculate_body_percent, axis=1)
         df.reset_index(inplace=True)
         
-        print(f"📊 Processando {len(df)} candles...")
+        print(f"Processando {len(df)} candles...")
         
         total_candles = 0
         trading_days = 0
@@ -521,6 +486,10 @@ Trades: {total_trades} | WR: {win_rate:.1f}% | Return: {return_pct:+.2f}%"""
             current = df.loc[i]
             current_time = current['timestamp'].to_pydatetime()
             total_candles += 1
+            
+            # Progress report a cada 1000 candles
+            if total_candles % 1000 == 0:
+                print(f"  Processados: {total_candles}/{len(df)} | Trades: {len(self.all_trades)}")
             
             if not self._is_trading_day(current_time):
                 continue
@@ -580,7 +549,6 @@ Trades: {total_trades} | WR: {win_rate:.1f}% | Return: {return_pct:+.2f}%"""
         print("\n" + "="*80)
         print("BACKTEST FINALIZADO")
         print("="*80)
-        print(f"Periodo: {START_DATE.strftime('%d/%m/%Y')} - {datetime.now().strftime('%d/%m/%Y')}")
         print(f"Candles: {total_candles}")
         print(f"Dias uteis: {trading_days}")
         print(f"Horario NY: {trading_hours}")
@@ -589,47 +557,16 @@ Trades: {total_trades} | WR: {win_rate:.1f}% | Return: {return_pct:+.2f}%"""
         print(f"Triggers: {triggers}")
         print(f"TRADES: {len(self.all_trades)}")
         print(f"BALANCE: ${self.paper_balance:,.2f}")
+        print(f"RETURN: {((self.paper_balance/self.initial_balance - 1)*100):+.2f}%")
         print("="*80)
         
-        pnl_pct = ((self.paper_balance / self.initial_balance) - 1) * 100
-        wins = len([t for t in self.all_trades if t['pnl_usd'] > 0])
-        win_rate = (wins / len(self.all_trades) * 100) if self.all_trades else 0
-        
-        msg = f"""📊 <b>BACKTEST COMPLETO</b>
-
-📅 {START_DATE.strftime('%d/%m/%Y')} - {datetime.now().strftime('%d/%m/%Y')}
-
-Candles: {total_candles}
-Horario NY: {trading_hours}
-Viradas MA: {ma_turns}
-Triggers: {triggers}
-
-<b>✅ TRADES: {len(self.all_trades)}</b>
-Win Rate: {win_rate:.1f}%
-Balance: ${self.paper_balance:,.2f}
-Return: {pnl_pct:+.2f}%"""
-        
-        self.telegram.send_message(msg)
         self._save_state()
-    
-    def check_and_report(self):
-        now = datetime.now()
-        ny_now = now.astimezone(NY_TZ)
-        
-        if ny_now.hour == REPORT_HOUR_NY and ny_now.minute >= REPORT_MINUTE_NY:
-            if self.last_daily_report:
-                last_report_date = datetime.fromisoformat(self.last_daily_report).date()
-                if last_report_date == now.date():
-                    print("Relatorio ja enviado hoje")
-                    return
-            
-            self._send_daily_report()
+        self._send_summary()
 
 if __name__ == '__main__':
     try:
         bot = PaperTradingBot()
         bot.run_backtest()
-        bot.check_and_report()
         print("\n✅ COMPLETO!")
     except Exception as e:
         print(f"\n❌ ERRO: {e}")
