@@ -1,4 +1,4 @@
-"""Bot de Paper Trading com Telegram - DEBUG"""
+"""Bot de Paper Trading com Telegram - MEXC"""
 import ccxt
 import pandas as pd
 import numpy as np
@@ -62,14 +62,22 @@ class TelegramNotifier:
 class PaperTradingBot:
     def __init__(self):
         print("="*80)
-        print("BOT INICIANDO")
+        print("BOT INICIANDO - MEXC")
         print("="*80)
         
         if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
             raise ValueError("Telegram nao configurado!")
         
         self.telegram = TelegramNotifier(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID)
-        self.exchange = ccxt.binance({'enableRateLimit': True, 'options': {'defaultType': 'future'}})
+        
+        # MEXC Exchange
+        print("Conectando à MEXC...")
+        self.exchange = ccxt.mexc({
+            'enableRateLimit': True,
+            'options': {'defaultType': 'swap'}  # Futures na MEXC
+        })
+        print("✅ MEXC conectada")
+        
         self.paper_balance = INITIAL_BALANCE
         self.initial_balance = INITIAL_BALANCE
         self.position = None
@@ -90,10 +98,12 @@ class PaperTradingBot:
                 self.start_date = datetime.fromisoformat(state.get('start_date', START_DATE.isoformat()))
                 if state.get('last_trade_time'):
                     self.last_trade_time = datetime.fromisoformat(state['last_trade_time'])
+                print(f"✅ Estado carregado: {len(state)} items")
         
         if TRADES_FILE.exists():
             with open(TRADES_FILE, 'r') as f:
                 self.all_trades = json.load(f)
+                print(f"✅ {len(self.all_trades)} trades carregados")
     
     def _save_state(self):
         state = {
@@ -107,6 +117,7 @@ class PaperTradingBot:
             json.dump(state, f, indent=2)
         with open(TRADES_FILE, 'w') as f:
             json.dump(self.all_trades, f, indent=2)
+        print("✅ Estado salvo")
     
     def _is_trading_day(self, dt):
         if dt.weekday() >= 5:
@@ -174,7 +185,7 @@ class PaperTradingBot:
             'entry_fee': entry_fee
         }
         
-        print(f"\n✅ TRADE EXECUTADO: {side} @ ${entry_executed:,.2f}")
+        print(f"\n✅ TRADE: {side} @ ${entry_executed:,.2f}")
         
         msg = f"""🟢 <b>{side}</b>
 
@@ -237,7 +248,7 @@ Balance: ${self.paper_balance:,.2f}
     
     def _send_startup_message(self):
         days = (datetime.now() - self.start_date).days
-        msg = f"""🚀 <b>BOT INICIADO</b>
+        msg = f"""🚀 <b>BOT INICIADO - MEXC</b>
 
 Balance: ${self.paper_balance:,.2f}
 Trades: {len(self.all_trades)}
@@ -248,37 +259,61 @@ Dias: {days}
     
     def run_backtest(self):
         print("\n" + "="*80)
-        print("BACKTEST INICIANDO")
+        print("BACKTEST INICIANDO - MEXC")
         print("="*80)
         
+        # FORÇA RODAR SEMPRE (para debug)
         if self.all_trades:
-            print(f"⚠️  Backtest ja feito: {len(self.all_trades)} trades")
-            return
+            print(f"⚠️  Já existem {len(self.all_trades)} trades, mas vou processar mesmo assim...")
+            self.all_trades = []  # Limpa para refazer
+            self.paper_balance = INITIAL_BALANCE
         
-        print(f"📥 Baixando dados desde {START_DATE.strftime('%Y-%m-%d')}...")
+        print(f"📥 Baixando dados da MEXC desde {START_DATE.strftime('%Y-%m-%d')}...")
         
+        # MEXC usa diferentes limites
         since = int(START_DATE.timestamp() * 1000)
         all_candles = []
+        max_requests = 100  # Limite de segurança
+        request_count = 0
         
-        while True:
+        while request_count < max_requests:
             try:
-                candles = self.exchange.fetch_ohlcv(SYMBOL, TIMEFRAME, since=since, limit=1000)
+                print(f"  Request {request_count + 1}... (total: {len(all_candles)} candles)")
+                
+                candles = self.exchange.fetch_ohlcv(
+                    SYMBOL, 
+                    TIMEFRAME, 
+                    since=since, 
+                    limit=500  # MEXC permite até 500
+                )
+                
                 if not candles:
+                    print("  Sem mais dados")
                     break
+                
                 all_candles.extend(candles)
                 since = candles[-1][0] + 1
+                request_count += 1
+                
+                # Para quando chegar no presente
                 if candles[-1][0] >= int(datetime.now().timestamp() * 1000):
+                    print("  Chegou no presente")
                     break
-                time.sleep(self.exchange.rateLimit / 1000)
+                
+                # Rate limit da MEXC
+                time.sleep(0.2)  # 200ms entre requests
+                
             except Exception as e:
-                print(f"❌ Erro download: {e}")
+                print(f"❌ Erro na request {request_count + 1}: {e}")
                 break
         
         if not all_candles:
-            print("❌ Nenhum candle!")
+            print("❌ Nenhum candle baixado!")
+            msg = "❌ <b>ERRO</b>\n\nNenhum dado baixado da MEXC"
+            self.telegram.send_message(msg)
             return
         
-        print(f"✅ {len(all_candles)} candles baixados")
+        print(f"✅ {len(all_candles)} candles baixados em {request_count} requests")
         
         df = pd.DataFrame(all_candles, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume'])
         df['timestamp'] = pd.to_datetime(df['timestamp'], unit='ms')
@@ -289,25 +324,24 @@ Dias: {days}
         
         print(f"📊 Processando {len(df)} candles...")
         
-        # CONTADORES DE DEBUG
+        # CONTADORES
         total_candles = 0
         trading_days = 0
         trading_hours = 0
-        ma_turns_found = 0
+        ma_turns = 0
         body_ok = 0
-        triggers_placed = 0
+        triggers = 0
         
         for i in range(MA_PERIOD + 2, len(df)):
             current = df.loc[i]
             current_time = current['timestamp'].to_pydatetime()
             total_candles += 1
             
-            # DEBUG: Dia de trading?
             if not self._is_trading_day(current_time):
                 continue
             trading_days += 1
             
-            # Gerencia posição aberta
+            # Gerencia posição
             if self.position:
                 if self.position['side'] == 'LONG':
                     if current['low'] <= self.position['stop']:
@@ -321,28 +355,23 @@ Dias: {days}
                         self._close_position(self.position['target'], 'TARGET', current_time)
                 continue
             
-            # DEBUG: Horário de trading?
             if not self._is_trading_hours(current_time):
                 continue
             trading_hours += 1
             
-            # DEBUG: Cooldown?
             if self._in_cooldown(current_time):
                 continue
             
-            # DEBUG: Virada da média?
             ma_turn = self._detect_ma_turn(df, i)
             if not ma_turn:
                 continue
-            ma_turns_found += 1
+            ma_turns += 1
             
-            # DEBUG: Body%?
             if current['body_pct'] < BODY_MIN_PERCENT:
                 continue
             body_ok += 1
             
-            # SINAL VÁLIDO!
-            triggers_placed += 1
+            triggers += 1
             
             if ma_turn == 'UP':
                 trigger = current['high']
@@ -361,32 +390,37 @@ Dias: {days}
                         self._execute_trade('SHORT', trigger, stop, next_candle['timestamp'].to_pydatetime())
         
         print("\n" + "="*80)
-        print("📊 ESTATÍSTICAS DO BACKTEST")
+        print("ESTATÍSTICAS")
         print("="*80)
-        print(f"Total de candles processados: {total_candles}")
-        print(f"Candles em dias úteis: {trading_days}")
-        print(f"Candles em horário NY (8-11h): {trading_hours}")
-        print(f"Viradas da média detectadas: {ma_turns_found}")
-        print(f"Sinais com body% > {BODY_MIN_PERCENT}%: {body_ok}")
-        print(f"Triggers colocados: {triggers_placed}")
-        print(f"Trades executados: {len(self.all_trades)}")
-        print(f"Balance final: ${self.paper_balance:,.2f}")
+        print(f"Total candles: {total_candles}")
+        print(f"Dias úteis: {trading_days}")
+        print(f"Horário NY 8-11h: {trading_hours}")
+        print(f"Viradas MA: {ma_turns}")
+        print(f"Body > {BODY_MIN_PERCENT}%: {body_ok}")
+        print(f"Triggers: {triggers}")
+        print(f"Trades: {len(self.all_trades)}")
+        print(f"Balance: ${self.paper_balance:,.2f}")
         print("="*80)
         
-        # Envia resumo pro Telegram
-        summary = f"""📊 <b>BACKTEST COMPLETO</b>
+        # Resumo pro Telegram
+        pnl_pct = ((self.paper_balance / self.initial_balance) - 1) * 100
+        
+        msg = f"""📊 <b>BACKTEST COMPLETO - MEXC</b>
 
-Candles processados: {total_candles}
+Período: {START_DATE.strftime('%d/%m/%Y')} - {datetime.now().strftime('%d/%m/%Y')}
+
+Candles: {total_candles}
 Dias úteis: {trading_days}
-Horário NY (8-11h): {trading_hours}
-Viradas MA detectadas: {ma_turns_found}
-Body > {BODY_MIN_PERCENT}%: {body_ok}
-Triggers: {triggers_placed}
+Horário NY: {trading_hours}
+Viradas MA: {ma_turns}
+Body > 45%: {body_ok}
+Triggers: {triggers}
 
-<b>Trades executados: {len(self.all_trades)}</b>
-Balance: ${self.paper_balance:,.2f}"""
+<b>Trades: {len(self.all_trades)}</b>
+Balance: ${self.paper_balance:,.2f}
+Return: {pnl_pct:+.2f}%"""
         
-        self.telegram.send_message(summary)
+        self.telegram.send_message(msg)
         
         self._save_state()
 
