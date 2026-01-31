@@ -1,9 +1,9 @@
-name: Telegram Bot 24/7
+name: Paper Trading Bot - 13h
 
 on:
-  push:
-    branches: [ main, master ]
-  workflow_dispatch:
+  schedule:
+    - cron: '0 16 * * *'   # 13h horário de Brasília (UTC-3)
+  workflow_dispatch:      # permite rodar manualmente
 
 jobs:
   run-bot:
@@ -11,47 +11,37 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Python
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
       - name: Install dependencies
         run: |
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-          pip install python-telegram-bot python-socketio aiohttp
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt --no-cache-dir
 
-      - name: Run Bot 24/7
+      - name: Run Bot
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
-          python -u telegram_paper_trading_bot.py &
-          BOT_PID=$!
-          
-          python -c "
-          import asyncio
-          import socketio
-          import os
-          import signal
-          import sys
+          echo "🚀 Bot iniciado às $(date '+%d/%m/%Y %H:%M') horário de Brasília"
+          python telegram_paper_trading_bot.py
+          echo "✅ Bot finalizado com sucesso!"
 
-          sio = socketio.AsyncClient()
+      - name: Send success message to Telegram
+        if: success()
+        run: |
+          curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage \
+            -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
+            -d text="✅ *BOT RODADO COM SUCESSO!*%0A📅 $(date '+%d/%m/%Y')%0A🕐 $(date '+%H:%M') horário de Brasília%0A💚 Tudo certo por aqui!" \
+            -d parse_mode=Markdown
 
-          async def main():
-              try:
-                  await sio.connect('https://socket.xf.bs', transports=['websocket'])
-                  print('✅ Socket conectado - Bot rodando 24/7')
-                  
-                  while True:
-                      await sio.emit('ping', {'bot': 'telegram_paper_trading'})
-                      await asyncio.sleep(250)
-              except Exception as e:
-                  print(f'Erro: {e}')
-                  os.kill($BOT_PID, signal.SIGTERM)
-                  sys.exit(1)
-
-          asyncio.run(main())
-          " &
-          
-          wait $BOT_PID
+      - name: Send error message if failed
+        if: failure()
+        run: |
+          curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage \
+            -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
+            -d text="❌ *ERRO AO RODAR O BOT*%0A📅 $(date '+%d/%m/%Y às %H:%M')%0A🔴 Verifique os logs no GitHub Actions" \
+            -d parse_mode=Markdown
