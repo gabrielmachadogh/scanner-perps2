@@ -1,79 +1,47 @@
-name: scan-mexc-perps-a-cada-2h
+name: Telegram Bot 24/7
 
 on:
-  schedule:
-    - cron: "0 */2 * * *"   # a cada 2 horas (UTC)
+  push:
+    branches: [ main, master ]
   workflow_dispatch:
 
-permissions:
-  contents: write
-
 jobs:
-  scan:
+  run-bot:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          fetch-depth: 0
+          node-version: 20
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
+      - name: Install dependencies
+        run: npm ci || npm install
 
-      - name: Install deps
-        run: pip install -r requirements.txt
-
-      - name: Run scanner (and send Telegram clickable lists)
-        run: python scanner_tendencia.py
+      - name: Keep Alive 24/7 with Socket
         env:
-          TIMEFRAME: 2h
-          TOP_PERPS: "80"
-          SHORT_MA: "10"
-          LONG_MA: "100"
-          MA_TYPE: sma
-          VOLUME_MODE: M
-          TELEGRAM_TOP_N: "20"
-          # Se você descobrir um deep link que abre direto no app, coloque aqui:
-          # MEXC_LINK_TEMPLATE: "mexc://....{symbol}...."
-          MEXC_LINK_TEMPLATE: "https://futures.mexc.com/exchange/{symbol}"
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-
-      - name: Upload outputs (artifact)
-        uses: actions/upload-artifact@v4
-        with:
-          name: resultados-scan-attempt-${{ github.run_attempt }}
-          overwrite: true
-          if-no-files-found: ignore
-          path: |
-            scanner_alta.csv
-            scanner_baixa.csv
-            scanner_resultado_completo.csv
-            scanner_alta.md
-            scanner_baixa.md
-            scanner_resumo.md
-
-      - name: Save results to repo (commit)
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          SOCKET_TOKEN: ${{ secrets.SOCKET_TOKEN }}
         run: |
-          git pull --rebase || true
+          npm install telegraf socket.io-client
+          node -e "
+          const { Telegraf } = require('telegraf');
+          const io = require('socket.io-client');
+          const bot = new Telegraf(process.env.TELEGRAM_TOKEN);
+          
+          bot.start((ctx) => ctx.reply('Bot rodando 24/7 com GitHub Actions + Socket! 🚀'));
+          bot.launch();
+          console.log('Bot iniciado!');
 
-          mkdir -p results
+          const socket = io('https://socket.xf.bs', { 
+            transports: ['websocket'],
+            query: { token: process.env.SOCKET_TOKEN }
+          });
 
-          for f in \
-            scanner_alta.csv scanner_baixa.csv scanner_resultado_completo.csv \
-            scanner_alta.md scanner_baixa.md scanner_resumo.md; do
-            if [ -f "$f" ]; then
-              cp "$f" "results/$f"
-            else
-              echo "WARN: arquivo não encontrado: $f"
-            fi
-          done
+          socket.on('connect', () => {
+            console.log('Conectado ao socket - Bot 100% online 24/7');
+          });
 
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          git add results/* || true
-          git commit -m "update scan results" || echo "no changes to commit"
-          git push
+          setInterval(() => socket.emit('ping'), 250000); // mantém vivo
+          "
