@@ -20,1803 +20,1763 @@
     "trade_number": 4
   },
   {
-    "timestamp": "2021-03-02T15:00:00",
-    "balance": 8905.439045618297,
+    "timestamp": "2021-03-03T00:00:00",
+    "balance": 8938.11681990333,
     "trade_number": 5
   },
   {
     "timestamp": "2021-03-08T14:00:00",
-    "balance": 8440.795172719829,
+    "balance": 8471.767974625205,
     "trade_number": 6
   },
   {
     "timestamp": "2021-03-15T00:00:00",
-    "balance": 9311.376500841698,
+    "balance": 9345.543829147333,
     "trade_number": 7
   },
   {
     "timestamp": "2021-03-18T19:00:00",
-    "balance": 8836.136998640877,
+    "balance": 8868.560474778787,
     "trade_number": 8
   },
   {
     "timestamp": "2021-03-19T15:00:00",
-    "balance": 8371.904892190829,
+    "balance": 8402.624906892113,
     "trade_number": 9
   },
   {
     "timestamp": "2021-03-22T20:00:00",
-    "balance": 9232.29211340171,
+    "balance": 9266.169248068494,
     "trade_number": 10
   },
   {
     "timestamp": "2021-03-23T21:00:00",
-    "balance": 8753.986797351132,
+    "balance": 8786.10883009906,
     "trade_number": 11
   },
   {
     "timestamp": "2021-03-31T19:00:00",
-    "balance": 8295.291723210677,
+    "balance": 8325.730612205485,
     "trade_number": 12
   },
   {
     "timestamp": "2021-04-12T00:00:00",
-    "balance": 9152.591319712055,
+    "balance": 9186.175998888079,
     "trade_number": 13
   },
   {
     "timestamp": "2021-04-12T14:00:00",
-    "balance": 8649.628010390186,
+    "balance": 8681.367107174205,
     "trade_number": 14
   },
   {
     "timestamp": "2021-04-14T19:00:00",
-    "balance": 9539.14682568243,
+    "balance": 9574.149938414399,
     "trade_number": 15
   },
   {
     "timestamp": "2021-04-19T00:00:00",
-    "balance": 9024.2965041628,
+    "balance": 9057.410416091641,
     "trade_number": 16
   },
   {
     "timestamp": "2021-04-19T15:00:00",
-    "balance": 9947.439485379946,
+    "balance": 9983.94079436114,
     "trade_number": 17
   },
   {
     "timestamp": "2021-04-21T22:00:00",
-    "balance": 9434.740951470598,
+    "balance": 9469.360955455877,
     "trade_number": 18
   },
   {
     "timestamp": "2021-04-22T19:00:00",
-    "balance": 10405.54858690191,
+    "balance": 10443.73088945802,
     "trade_number": 19
   },
   {
     "timestamp": "2021-04-26T00:00:00",
-    "balance": 9869.281654014143,
+    "balance": 9905.496169277603,
     "trade_number": 20
   },
   {
     "timestamp": "2021-04-30T06:00:00",
-    "balance": 9354.13869363834,
+    "balance": 9388.46293428452,
     "trade_number": 21
   },
   {
     "timestamp": "2021-05-04T16:00:00",
-    "balance": 10317.245629816065,
+    "balance": 10355.10391195212,
     "trade_number": 22
   },
   {
     "timestamp": "2021-05-12T03:00:00",
-    "balance": 11368.840422103765,
+    "balance": 11410.557444621474,
     "trade_number": 23
   },
   {
     "timestamp": "2021-05-17T20:00:00",
-    "balance": 10788.773139651128,
+    "balance": 10828.361653104992,
     "trade_number": 24
   },
   {
     "timestamp": "2021-05-19T02:00:00",
-    "balance": 11912.001884380074,
+    "balance": 11955.711993097539,
     "trade_number": 25
   },
   {
     "timestamp": "2021-07-30T23:00:00",
-    "balance": 11313.282219281364,
+    "balance": 11354.795375554833,
     "trade_number": 26
   },
   {
     "timestamp": "2021-08-04T12:00:00",
-    "balance": 10718.89816758182,
+    "balance": 10758.230280587173,
     "trade_number": 27
   },
   {
     "timestamp": "2021-08-09T11:00:00",
-    "balance": 11834.893681393214,
+    "balance": 11878.32084791773,
     "trade_number": 28
   },
   {
     "timestamp": "2021-08-10T14:00:00",
-    "balance": 11218.561927844901,
+    "balance": 11259.727515819051,
     "trade_number": 29
   },
   {
-    "timestamp": "2021-08-16T15:00:00",
-    "balance": 12362.138098193107,
+    "timestamp": "2021-08-17T18:00:00",
+    "balance": 10650.524383332482,
     "trade_number": 30
   },
   {
-    "timestamp": "2021-08-17T18:00:00",
-    "balance": 11693.289474363599,
+    "timestamp": "2021-08-20T14:00:00",
+    "balance": 11712.375225794374,
     "trade_number": 31
   },
   {
-    "timestamp": "2021-08-20T14:00:00",
-    "balance": 12859.103366019015,
+    "timestamp": "2021-08-23T14:00:00",
+    "balance": 12862.807349855577,
     "trade_number": 32
   },
   {
-    "timestamp": "2021-08-23T14:00:00",
-    "balance": 14122.171301744962,
+    "timestamp": "2021-08-26T05:00:00",
+    "balance": 12201.560142371221,
     "trade_number": 33
   },
   {
-    "timestamp": "2021-08-26T05:00:00",
-    "balance": 13396.183103142312,
+    "timestamp": "2021-08-30T22:00:00",
+    "balance": 11545.833309383253,
     "trade_number": 34
   },
   {
-    "timestamp": "2021-08-30T22:00:00",
-    "balance": 12676.255764518932,
+    "timestamp": "2021-09-01T16:00:00",
+    "balance": 10920.595857372698,
     "trade_number": 35
   },
   {
-    "timestamp": "2021-09-01T16:00:00",
-    "balance": 11989.802942720373,
+    "timestamp": "2021-09-03T10:00:00",
+    "balance": 10355.279840816293,
     "trade_number": 36
   },
   {
-    "timestamp": "2021-09-03T10:00:00",
-    "balance": 11369.138307988105,
+    "timestamp": "2021-09-22T15:00:00",
+    "balance": 11402.299105353683,
     "trade_number": 37
   },
   {
-    "timestamp": "2021-09-22T15:00:00",
-    "balance": 12518.66850057006,
+    "timestamp": "2021-09-24T09:00:00",
+    "balance": 10809.748860733433,
     "trade_number": 38
   },
   {
-    "timestamp": "2021-09-24T09:00:00",
-    "balance": 11868.103205466576,
+    "timestamp": "2021-10-04T14:00:00",
+    "balance": 10229.631166667763,
     "trade_number": 39
   },
   {
-    "timestamp": "2021-10-04T14:00:00",
-    "balance": 11231.187699547827,
+    "timestamp": "2021-10-12T00:00:00",
+    "balance": 11291.629634355357,
     "trade_number": 40
   },
   {
-    "timestamp": "2021-10-12T00:00:00",
-    "balance": 12397.163670030137,
+    "timestamp": "2021-10-15T02:00:00",
+    "balance": 12461.259531987133,
     "trade_number": 41
   },
   {
-    "timestamp": "2021-10-15T02:00:00",
-    "balance": 13681.308983314628,
+    "timestamp": "2021-10-20T14:00:00",
+    "balance": 13734.824824638805,
     "trade_number": 42
   },
   {
-    "timestamp": "2021-10-20T14:00:00",
-    "balance": 15079.565735328082,
+    "timestamp": "2021-10-27T08:00:00",
+    "balance": 15156.289401452479,
     "trade_number": 43
   },
   {
-    "timestamp": "2021-10-27T08:00:00",
-    "balance": 16640.20220504482,
+    "timestamp": "2021-10-29T16:00:00",
+    "balance": 16694.13265502601,
     "trade_number": 44
   },
   {
-    "timestamp": "2021-10-29T16:00:00",
-    "balance": 18328.611684523035,
+    "timestamp": "2021-11-01T17:00:00",
+    "balance": 18286.502680929843,
     "trade_number": 45
   },
   {
-    "timestamp": "2021-11-01T17:00:00",
-    "balance": 20076.886510533743,
+    "timestamp": "2021-11-08T15:00:00",
+    "balance": 17311.322070335238,
     "trade_number": 46
   },
   {
-    "timestamp": "2021-11-08T15:00:00",
-    "balance": 19006.228507317053,
+    "timestamp": "2021-11-10T20:00:00",
+    "balance": 16426.294722033203,
     "trade_number": 47
   },
   {
-    "timestamp": "2021-11-10T20:00:00",
-    "balance": 18034.55043739783,
+    "timestamp": "2021-11-17T16:00:00",
+    "balance": 15559.300715070478,
     "trade_number": 48
   },
   {
-    "timestamp": "2021-11-17T16:00:00",
-    "balance": 17082.671306280212,
+    "timestamp": "2021-11-24T02:00:00",
+    "balance": 14734.819536714465,
     "trade_number": 49
   },
   {
-    "timestamp": "2021-11-24T02:00:00",
-    "balance": 16177.467324045425,
+    "timestamp": "2021-11-24T18:00:00",
+    "balance": 13907.240497167522,
     "trade_number": 50
   },
   {
-    "timestamp": "2021-11-24T18:00:00",
-    "balance": 15268.862177102386,
+    "timestamp": "2021-11-29T17:00:00",
+    "balance": 15310.482212868144,
     "trade_number": 51
   },
   {
-    "timestamp": "2021-11-29T17:00:00",
-    "balance": 16809.491632856552,
+    "timestamp": "2021-11-30T18:00:00",
+    "balance": 14519.537509323218,
     "trade_number": 52
   },
   {
-    "timestamp": "2021-11-30T18:00:00",
-    "balance": 15941.107594297911,
+    "timestamp": "2021-12-02T15:00:00",
+    "balance": 13761.572561505458,
     "trade_number": 53
   },
   {
-    "timestamp": "2021-12-02T15:00:00",
-    "balance": 15108.9322734166,
+    "timestamp": "2021-12-03T18:00:00",
+    "balance": 15173.061340206057,
     "trade_number": 54
   },
   {
-    "timestamp": "2021-12-03T18:00:00",
-    "balance": 16658.616240620264,
+    "timestamp": "2021-12-09T09:00:00",
+    "balance": 14402.066907795108,
     "trade_number": 55
   },
   {
-    "timestamp": "2021-12-09T09:00:00",
-    "balance": 15812.135752259275,
+    "timestamp": "2021-12-14T20:00:00",
+    "balance": 13655.961530854112,
     "trade_number": 56
   },
   {
-    "timestamp": "2021-12-14T20:00:00",
-    "balance": 14992.981141937602,
+    "timestamp": "2021-12-17T06:00:00",
+    "balance": 15046.353185904707,
     "trade_number": 57
   },
   {
-    "timestamp": "2021-12-17T06:00:00",
-    "balance": 16519.502421086017,
+    "timestamp": "2021-12-21T03:00:00",
+    "balance": 16588.577154080966,
     "trade_number": 58
   },
   {
-    "timestamp": "2021-12-21T03:00:00",
-    "balance": 18212.721519519182,
+    "timestamp": "2021-12-21T19:00:00",
+    "balance": 15685.319999359843,
     "trade_number": 59
   },
   {
-    "timestamp": "2021-12-21T19:00:00",
-    "balance": 17221.028810334537,
+    "timestamp": "2022-01-04T14:00:00",
+    "balance": 14852.097834039301,
     "trade_number": 60
   },
   {
-    "timestamp": "2022-01-04T14:00:00",
-    "balance": 16306.228033877318,
+    "timestamp": "2022-01-05T17:00:00",
+    "balance": 14041.666293892311,
     "trade_number": 61
   },
   {
-    "timestamp": "2022-01-05T17:00:00",
-    "balance": 15416.449253320421,
+    "timestamp": "2022-01-06T18:00:00",
+    "balance": 13296.462271436658,
     "trade_number": 62
   },
   {
-    "timestamp": "2022-01-06T18:00:00",
-    "balance": 14598.284246753152,
+    "timestamp": "2022-01-10T17:00:00",
+    "balance": 12614.942717180169,
     "trade_number": 63
   },
   {
-    "timestamp": "2022-01-10T17:00:00",
-    "balance": 13850.038888728175,
+    "timestamp": "2022-01-18T08:00:00",
+    "balance": 11969.593904633894,
     "trade_number": 64
   },
   {
-    "timestamp": "2022-01-18T08:00:00",
-    "balance": 13141.505655486637,
+    "timestamp": "2022-01-26T18:00:00",
+    "balance": 11347.237729752265,
     "trade_number": 65
   },
   {
-    "timestamp": "2022-01-26T18:00:00",
-    "balance": 12458.21620915315,
+    "timestamp": "2022-01-31T02:00:00",
+    "balance": 10757.063437745008,
     "trade_number": 66
   },
   {
-    "timestamp": "2022-01-31T02:00:00",
-    "balance": 11810.25948999214,
+    "timestamp": "2022-02-02T15:00:00",
+    "balance": 11853.640810042301,
     "trade_number": 67
   },
   {
-    "timestamp": "2022-02-02T15:00:00",
-    "balance": 13014.199895534608,
+    "timestamp": "2022-02-04T15:00:00",
+    "balance": 11242.742332613605,
     "trade_number": 68
   },
   {
-    "timestamp": "2022-02-04T15:00:00",
-    "balance": 12343.489939957135,
+    "timestamp": "2022-02-07T15:00:00",
+    "balance": 12362.199777640679,
     "trade_number": 69
   },
   {
-    "timestamp": "2022-02-07T15:00:00",
-    "balance": 13572.550546533315,
+    "timestamp": "2022-02-10T15:00:00",
+    "balance": 11730.863807860253,
     "trade_number": 70
   },
   {
-    "timestamp": "2022-02-10T15:00:00",
-    "balance": 12879.402116980527,
+    "timestamp": "2022-02-16T19:00:00",
+    "balance": 11116.35111657687,
     "trade_number": 71
   },
   {
-    "timestamp": "2022-02-16T19:00:00",
-    "balance": 12204.724089287165,
+    "timestamp": "2022-03-02T19:00:00",
+    "balance": 10548.232199857443,
     "trade_number": 72
   },
   {
-    "timestamp": "2022-03-02T19:00:00",
-    "balance": 11580.98212974024,
+    "timestamp": "2022-03-04T00:00:00",
+    "balance": 11635.604652318172,
     "trade_number": 73
   },
   {
-    "timestamp": "2022-03-04T00:00:00",
-    "balance": 12774.816385729573,
+    "timestamp": "2022-03-14T00:00:00",
+    "balance": 12821.464423282821,
     "trade_number": 74
   },
   {
-    "timestamp": "2022-03-14T00:00:00",
-    "balance": 14076.780596955892,
+    "timestamp": "2022-03-14T22:00:00",
+    "balance": 12129.580514961197,
     "trade_number": 75
   },
   {
-    "timestamp": "2022-03-14T22:00:00",
-    "balance": 13317.156137964948,
+    "timestamp": "2022-03-15T13:00:00",
+    "balance": 11477.670550677905,
     "trade_number": 76
   },
   {
-    "timestamp": "2022-03-15T13:00:00",
-    "balance": 12601.419367715764,
+    "timestamp": "2022-03-18T20:00:00",
+    "balance": 12651.494203820028,
     "trade_number": 77
   },
   {
-    "timestamp": "2022-03-18T20:00:00",
-    "balance": 13890.169036185238,
+    "timestamp": "2022-03-24T15:00:00",
+    "balance": 13947.154084495427,
     "trade_number": 78
   },
   {
-    "timestamp": "2022-03-24T15:00:00",
-    "balance": 15312.683599765473,
+    "timestamp": "2022-03-30T16:00:00",
+    "balance": 13193.186289141468,
     "trade_number": 79
   },
   {
-    "timestamp": "2022-03-30T16:00:00",
-    "balance": 14484.896782130585,
+    "timestamp": "2022-03-31T23:00:00",
+    "balance": 14548.732993967189,
     "trade_number": 80
   },
   {
-    "timestamp": "2022-03-31T23:00:00",
-    "balance": 15973.161532770708,
+    "timestamp": "2022-04-04T14:00:00",
+    "balance": 13756.357724511674,
     "trade_number": 81
   },
   {
-    "timestamp": "2022-04-04T14:00:00",
-    "balance": 15103.206865320702,
+    "timestamp": "2022-04-08T17:00:00",
+    "balance": 13047.50232411674,
     "trade_number": 82
   },
   {
-    "timestamp": "2022-04-08T17:00:00",
-    "balance": 14324.949279689004,
+    "timestamp": "2022-04-12T16:00:00",
+    "balance": 12351.871668100624,
     "trade_number": 83
   },
   {
-    "timestamp": "2022-04-12T16:00:00",
-    "balance": 13561.211238699445,
+    "timestamp": "2022-04-14T19:00:00",
+    "balance": 11716.449825695978,
     "trade_number": 84
   },
   {
-    "timestamp": "2022-04-14T19:00:00",
-    "balance": 12863.576899380076,
+    "timestamp": "2022-04-15T14:00:00",
+    "balance": 11061.904465371508,
     "trade_number": 85
   },
   {
-    "timestamp": "2022-04-15T14:00:00",
-    "balance": 12144.946708330195,
+    "timestamp": "2022-04-18T18:00:00",
+    "balance": 12192.820037667168,
     "trade_number": 86
   },
   {
-    "timestamp": "2022-04-18T18:00:00",
-    "balance": 13386.587277560177,
+    "timestamp": "2022-04-20T11:00:00",
+    "balance": 13434.736490061026,
     "trade_number": 87
   },
   {
-    "timestamp": "2022-04-20T11:00:00",
-    "balance": 14750.096533831389,
+    "timestamp": "2022-04-22T13:00:00",
+    "balance": 12693.139098309277,
     "trade_number": 88
   },
   {
-    "timestamp": "2022-04-22T13:00:00",
-    "balance": 13935.891273782689,
+    "timestamp": "2022-04-28T15:00:00",
+    "balance": 12026.001255032008,
     "trade_number": 89
   },
   {
-    "timestamp": "2022-04-28T15:00:00",
-    "balance": 13203.43570258547,
+    "timestamp": "2022-05-03T18:00:00",
+    "balance": 13209.890062549322,
     "trade_number": 90
   },
   {
-    "timestamp": "2022-05-03T18:00:00",
-    "balance": 14503.23597846893,
+    "timestamp": "2022-05-17T14:00:00",
+    "balance": 12512.002514311615,
     "trade_number": 91
   },
   {
-    "timestamp": "2022-05-16T16:00:00",
-    "balance": 13743.728056825708,
+    "timestamp": "2022-05-23T00:00:00",
+    "balance": 11873.109494708522,
     "trade_number": 92
   },
   {
-    "timestamp": "2022-05-17T14:00:00",
-    "balance": 13017.637481369939,
+    "timestamp": "2022-05-31T00:00:00",
+    "balance": 11260.042259332047,
     "trade_number": 93
   },
   {
-    "timestamp": "2022-05-23T00:00:00",
-    "balance": 12352.925521069601,
+    "timestamp": "2022-06-01T14:00:00",
+    "balance": 10673.731713418507,
     "trade_number": 94
   },
   {
-    "timestamp": "2022-05-31T00:00:00",
-    "balance": 11715.083016425913,
+    "timestamp": "2022-06-08T13:00:00",
+    "balance": 10106.303391785495,
     "trade_number": 95
   },
   {
-    "timestamp": "2022-06-01T14:00:00",
-    "balance": 11105.078492411756,
+    "timestamp": "2022-06-09T15:00:00",
+    "balance": 9572.620844482113,
     "trade_number": 96
   },
   {
-    "timestamp": "2022-06-08T13:00:00",
-    "balance": 10514.719261007212,
+    "timestamp": "2022-06-15T16:00:00",
+    "balance": 9075.1182409011,
     "trade_number": 97
   },
   {
-    "timestamp": "2022-06-09T15:00:00",
-    "balance": 9959.469537952651,
+    "timestamp": "2022-06-21T05:00:00",
+    "balance": 8603.330964394354,
     "trade_number": 98
   },
   {
-    "timestamp": "2022-06-15T16:00:00",
-    "balance": 9441.86186227903,
+    "timestamp": "2022-06-22T15:00:00",
+    "balance": 8162.027251654808,
     "trade_number": 99
   },
   {
-    "timestamp": "2022-06-21T05:00:00",
-    "balance": 8951.008721315962,
+    "timestamp": "2022-06-23T19:00:00",
+    "balance": 7736.587100133416,
     "trade_number": 100
   },
   {
-    "timestamp": "2022-06-22T15:00:00",
-    "balance": 8491.87104570768,
+    "timestamp": "2022-06-24T17:00:00",
+    "balance": 7331.840468395551,
     "trade_number": 101
   },
   {
-    "timestamp": "2022-06-23T19:00:00",
-    "balance": 8049.238009453906,
+    "timestamp": "2022-06-29T06:00:00",
+    "balance": 8088.208763143859,
     "trade_number": 102
   },
   {
-    "timestamp": "2022-06-24T17:00:00",
-    "balance": 7628.13475937524,
+    "timestamp": "2022-07-11T13:00:00",
+    "balance": 7655.687020366286,
     "trade_number": 103
   },
   {
-    "timestamp": "2022-06-29T06:00:00",
-    "balance": 8415.069404902453,
+    "timestamp": "2022-07-12T19:00:00",
+    "balance": 7251.2481760702585,
     "trade_number": 104
   },
   {
-    "timestamp": "2022-07-11T13:00:00",
-    "balance": 7965.068596171114,
+    "timestamp": "2022-07-14T17:00:00",
+    "balance": 8002.203642737233,
     "trade_number": 105
   },
   {
-    "timestamp": "2022-07-12T19:00:00",
-    "balance": 7544.2855718384535,
+    "timestamp": "2022-07-15T18:00:00",
+    "balance": 7569.946995363084,
     "trade_number": 106
   },
   {
-    "timestamp": "2022-07-14T17:00:00",
-    "balance": 8325.588646109893,
+    "timestamp": "2022-07-28T15:00:00",
+    "balance": 8349.46143743642,
     "trade_number": 107
   },
   {
-    "timestamp": "2022-07-15T18:00:00",
-    "balance": 7875.863645815756,
+    "timestamp": "2022-08-08T06:00:00",
+    "balance": 7919.747476719625,
     "trade_number": 108
   },
   {
-    "timestamp": "2022-07-28T15:00:00",
-    "balance": 8686.879820628386,
+    "timestamp": "2022-08-12T11:00:00",
+    "balance": 8729.202110971717,
     "trade_number": 109
   },
   {
-    "timestamp": "2022-08-08T06:00:00",
-    "balance": 8239.800262028839,
+    "timestamp": "2022-08-15T18:00:00",
+    "balance": 8260.140416223861,
     "trade_number": 110
   },
   {
-    "timestamp": "2022-08-12T11:00:00",
-    "balance": 9081.96657187859,
+    "timestamp": "2022-08-22T17:00:00",
+    "balance": 7821.513204652478,
     "trade_number": 111
   },
   {
-    "timestamp": "2022-08-15T18:00:00",
-    "balance": 8593.949158867343,
+    "timestamp": "2022-08-26T05:00:00",
+    "balance": 8594.440546106704,
     "trade_number": 112
   },
   {
-    "timestamp": "2022-08-22T17:00:00",
-    "balance": 8137.596147175626,
+    "timestamp": "2022-08-30T13:00:00",
+    "balance": 8123.652783170187,
     "trade_number": 113
   },
   {
-    "timestamp": "2022-08-26T05:00:00",
-    "balance": 8941.759023500283,
+    "timestamp": "2022-09-02T17:00:00",
+    "balance": 7700.416421274665,
     "trade_number": 114
   },
   {
-    "timestamp": "2022-08-30T13:00:00",
-    "balance": 8451.945788443569,
+    "timestamp": "2022-09-08T20:00:00",
+    "balance": 7296.709416082627,
     "trade_number": 115
   },
   {
-    "timestamp": "2022-09-02T17:00:00",
-    "balance": 8011.605601348192,
+    "timestamp": "2022-09-19T06:00:00",
+    "balance": 8059.472002199476,
     "trade_number": 116
   },
   {
-    "timestamp": "2022-09-08T20:00:00",
-    "balance": 7591.583991196797,
+    "timestamp": "2022-09-27T16:00:00",
+    "balance": 8891.566550561844,
     "trade_number": 117
   },
   {
-    "timestamp": "2022-09-19T06:00:00",
-    "balance": 8385.171334155195,
+    "timestamp": "2022-09-30T14:00:00",
+    "balance": 9800.457059133383,
     "trade_number": 118
   },
   {
-    "timestamp": "2022-09-27T16:00:00",
-    "balance": 9250.892482182113,
+    "timestamp": "2022-10-04T14:00:00",
+    "balance": 10808.566117973642,
     "trade_number": 119
   },
   {
-    "timestamp": "2022-09-30T14:00:00",
-    "balance": 10196.513068280052,
+    "timestamp": "2022-10-11T15:00:00",
+    "balance": 10228.822631995083,
     "trade_number": 120
   },
   {
-    "timestamp": "2022-10-04T14:00:00",
-    "balance": 11245.36182407728,
+    "timestamp": "2022-10-12T16:00:00",
+    "balance": 9608.321700613491,
     "trade_number": 121
   },
   {
-    "timestamp": "2022-10-11T15:00:00",
-    "balance": 10642.18974798297,
+    "timestamp": "2022-10-18T18:00:00",
+    "balance": 10573.748493954055,
     "trade_number": 122
   },
   {
-    "timestamp": "2022-10-12T16:00:00",
-    "balance": 9996.613136857874,
+    "timestamp": "2022-10-20T14:00:00",
+    "balance": 9996.21010998488,
     "trade_number": 123
   },
   {
-    "timestamp": "2022-10-18T18:00:00",
-    "balance": 11001.054751709991,
+    "timestamp": "2022-10-24T00:00:00",
+    "balance": 11016.164707449703,
     "trade_number": 124
   },
   {
-    "timestamp": "2022-10-20T14:00:00",
-    "balance": 10400.176890193627,
+    "timestamp": "2022-10-25T17:00:00",
+    "balance": 12135.110359431877,
     "trade_number": 125
   },
   {
-    "timestamp": "2022-10-24T00:00:00",
-    "balance": 11461.349886447948,
+    "timestamp": "2022-11-02T18:00:00",
+    "balance": 11509.054107260368,
     "trade_number": 126
   },
   {
-    "timestamp": "2022-10-25T17:00:00",
-    "balance": 12625.514363093313,
+    "timestamp": "2022-11-07T21:00:00",
+    "balance": 10870.968517518493,
     "trade_number": 127
   },
   {
-    "timestamp": "2022-11-02T18:00:00",
-    "balance": 11974.157929589415,
+    "timestamp": "2022-11-08T16:00:00",
+    "balance": 10289.794988470483,
     "trade_number": 128
   },
   {
-    "timestamp": "2022-11-07T21:00:00",
-    "balance": 11310.286029000777,
+    "timestamp": "2022-11-21T00:00:00",
+    "balance": 9739.9455270821,
     "trade_number": 129
   },
   {
-    "timestamp": "2022-11-08T16:00:00",
-    "balance": 10705.626118945473,
+    "timestamp": "2022-11-23T18:00:00",
+    "balance": 9217.672449222679,
     "trade_number": 130
   },
   {
-    "timestamp": "2022-11-21T00:00:00",
-    "balance": 10133.556144575403,
+    "timestamp": "2022-11-28T16:00:00",
+    "balance": 8711.505975945887,
     "trade_number": 131
   },
   {
-    "timestamp": "2022-11-23T18:00:00",
-    "balance": 9590.176970372344,
+    "timestamp": "2022-11-29T20:00:00",
+    "balance": 8230.07018708676,
     "trade_number": 132
   },
   {
-    "timestamp": "2022-11-28T16:00:00",
-    "balance": 9063.55530075519,
+    "timestamp": "2022-12-13T09:00:00",
+    "balance": 7793.261645400805,
     "trade_number": 133
   },
   {
-    "timestamp": "2022-11-29T20:00:00",
-    "balance": 8562.66373181913,
+    "timestamp": "2022-12-22T09:00:00",
+    "balance": 7348.328818878555,
     "trade_number": 134
   },
   {
-    "timestamp": "2022-12-13T09:00:00",
-    "balance": 8108.202886088835,
+    "timestamp": "2023-01-04T03:00:00",
+    "balance": 6961.254248079081,
     "trade_number": 135
   },
   {
-    "timestamp": "2022-12-22T09:00:00",
-    "balance": 7645.2894369744445,
+    "timestamp": "2023-01-06T11:00:00",
+    "balance": 6560.340014389735,
     "trade_number": 136
   },
   {
-    "timestamp": "2023-01-04T03:00:00",
-    "balance": 7242.572411049867,
+    "timestamp": "2023-01-18T15:00:00",
+    "balance": 6213.826903041281,
     "trade_number": 137
   },
   {
-    "timestamp": "2023-01-06T11:00:00",
-    "balance": 6825.456433865598,
+    "timestamp": "2023-01-24T23:00:00",
+    "balance": 5887.919552140399,
     "trade_number": 138
   },
   {
-    "timestamp": "2023-01-18T15:00:00",
-    "balance": 6464.940036836731,
+    "timestamp": "2023-01-25T19:00:00",
+    "balance": 5564.170362074926,
     "trade_number": 139
   },
   {
-    "timestamp": "2023-01-24T23:00:00",
-    "balance": 6125.862120117282,
+    "timestamp": "2023-01-30T00:00:00",
+    "balance": 6128.03545485497,
     "trade_number": 140
   },
   {
-    "timestamp": "2023-01-25T19:00:00",
-    "balance": 5789.029579815372,
+    "timestamp": "2023-02-01T18:00:00",
+    "balance": 5793.948434487014,
     "trade_number": 141
   },
   {
-    "timestamp": "2023-01-30T00:00:00",
-    "balance": 6375.681585184913,
+    "timestamp": "2023-02-03T14:00:00",
+    "balance": 5488.595705482263,
     "trade_number": 142
   },
   {
-    "timestamp": "2023-02-01T18:00:00",
-    "balance": 6028.093442247238,
+    "timestamp": "2023-02-07T16:00:00",
+    "balance": 5174.010941292313,
     "trade_number": 143
   },
   {
-    "timestamp": "2023-02-03T14:00:00",
-    "balance": 5710.400800674944,
+    "timestamp": "2023-02-15T20:00:00",
+    "balance": 5711.381342672616,
     "trade_number": 144
   },
   {
-    "timestamp": "2023-02-07T16:00:00",
-    "balance": 5383.103038969504,
+    "timestamp": "2023-02-16T21:00:00",
+    "balance": 5418.997432491351,
     "trade_number": 145
   },
   {
-    "timestamp": "2023-02-15T20:00:00",
-    "balance": 5942.189649636789,
+    "timestamp": "2023-02-22T23:00:00",
+    "balance": 5125.723289995953,
     "trade_number": 146
   },
   {
-    "timestamp": "2023-02-16T21:00:00",
-    "balance": 5637.989922712859,
+    "timestamp": "2023-02-27T16:00:00",
+    "balance": 4859.320870650257,
     "trade_number": 147
   },
   {
-    "timestamp": "2023-02-22T23:00:00",
-    "balance": 5332.8639874121045,
+    "timestamp": "2023-03-13T00:00:00",
+    "balance": 5357.088574084548,
     "trade_number": 148
   },
   {
-    "timestamp": "2023-02-27T16:00:00",
-    "balance": 5055.695715168279,
+    "timestamp": "2023-03-13T15:00:00",
+    "balance": 5910.546259800497,
     "trade_number": 149
   },
   {
-    "timestamp": "2023-03-13T00:00:00",
-    "balance": 5573.579203908782,
+    "timestamp": "2023-03-20T21:00:00",
+    "balance": 5603.751119616944,
     "trade_number": 150
   },
   {
-    "timestamp": "2023-03-13T15:00:00",
-    "balance": 6149.403218145289,
+    "timestamp": "2023-03-22T14:00:00",
+    "balance": 6155.230071030831,
     "trade_number": 151
   },
   {
-    "timestamp": "2023-03-20T21:00:00",
-    "balance": 5830.2098746826905,
+    "timestamp": "2023-03-24T21:00:00",
+    "balance": 5840.181609897638,
     "trade_number": 152
   },
   {
-    "timestamp": "2023-03-22T14:00:00",
-    "balance": 6403.975190018944,
+    "timestamp": "2023-03-27T14:00:00",
+    "balance": 6430.151976829244,
     "trade_number": 153
   },
   {
-    "timestamp": "2023-03-24T21:00:00",
-    "balance": 6076.194992452302,
+    "timestamp": "2023-03-30T17:00:00",
+    "balance": 7079.505175946759,
     "trade_number": 154
   },
   {
-    "timestamp": "2023-03-27T14:00:00",
-    "balance": 6690.007238148528,
+    "timestamp": "2023-04-03T00:00:00",
+    "balance": 6711.163014606659,
     "trade_number": 155
   },
   {
-    "timestamp": "2023-03-30T17:00:00",
-    "balance": 7365.6020946721555,
+    "timestamp": "2023-04-06T12:00:00",
+    "balance": 7393.848541171149,
     "trade_number": 156
   },
   {
-    "timestamp": "2023-04-03T00:00:00",
-    "balance": 6982.374492220423,
+    "timestamp": "2023-04-10T16:00:00",
+    "balance": 8122.1965901037365,
     "trade_number": 157
   },
   {
-    "timestamp": "2023-04-06T12:00:00",
-    "balance": 7692.648701998554,
+    "timestamp": "2023-04-11T14:00:00",
+    "balance": 7670.686736942278,
     "trade_number": 158
   },
   {
-    "timestamp": "2023-04-10T16:00:00",
-    "balance": 8450.430747712055,
+    "timestamp": "2023-05-01T13:00:00",
+    "balance": 7241.658204395596,
     "trade_number": 159
   },
   {
-    "timestamp": "2023-04-11T14:00:00",
-    "balance": 7980.674481199204,
+    "timestamp": "2023-05-03T17:00:00",
+    "balance": 6858.962401877772,
     "trade_number": 160
   },
   {
-    "timestamp": "2023-05-01T13:00:00",
-    "balance": 7534.308050288677,
+    "timestamp": "2023-05-10T17:00:00",
+    "balance": 6504.72011346906,
     "trade_number": 161
   },
   {
-    "timestamp": "2023-05-03T17:00:00",
-    "balance": 7136.146747402057,
+    "timestamp": "2023-05-18T17:00:00",
+    "balance": 7163.750119615424,
     "trade_number": 162
   },
   {
-    "timestamp": "2023-05-05T01:00:00",
-    "balance": 6750.213246938065,
+    "timestamp": "2023-05-31T05:00:00",
+    "balance": 7889.1477754402695,
     "trade_number": 163
   },
   {
-    "timestamp": "2023-05-10T17:00:00",
-    "balance": 6401.5874858189345,
+    "timestamp": "2023-06-05T01:00:00",
+    "balance": 7446.309857077955,
     "trade_number": 164
   },
   {
-    "timestamp": "2023-05-18T17:00:00",
-    "balance": 7050.168541810869,
+    "timestamp": "2023-06-06T19:00:00",
+    "balance": 7065.783628145189,
     "trade_number": 165
   },
   {
-    "timestamp": "2023-05-31T05:00:00",
-    "balance": 7764.064985434201,
+    "timestamp": "2023-06-12T00:00:00",
+    "balance": 7773.618166872193,
     "trade_number": 166
   },
   {
-    "timestamp": "2023-06-05T01:00:00",
-    "balance": 7328.248282027661,
+    "timestamp": "2023-06-15T17:00:00",
+    "balance": 7306.6654923656715,
     "trade_number": 167
   },
   {
-    "timestamp": "2023-06-06T19:00:00",
-    "balance": 6953.755313434317,
+    "timestamp": "2023-06-16T14:00:00",
+    "balance": 6889.000078720895,
     "trade_number": 168
   },
   {
-    "timestamp": "2023-06-12T00:00:00",
-    "balance": 7650.367103965088,
+    "timestamp": "2023-06-20T18:00:00",
+    "balance": 7596.045740801414,
     "trade_number": 169
   },
   {
-    "timestamp": "2023-06-15T17:00:00",
-    "balance": 7190.817984949047,
+    "timestamp": "2023-06-28T16:00:00",
+    "balance": 7170.1759379314235,
     "trade_number": 170
   },
   {
-    "timestamp": "2023-06-16T14:00:00",
-    "balance": 6779.774675074511,
+    "timestamp": "2023-07-03T15:00:00",
+    "balance": 7853.315130886911,
     "trade_number": 171
   },
   {
-    "timestamp": "2023-06-20T18:00:00",
-    "balance": 7475.610096633228,
+    "timestamp": "2023-07-10T19:00:00",
+    "balance": 7437.745219524445,
     "trade_number": 172
   },
   {
-    "timestamp": "2023-06-28T16:00:00",
-    "balance": 7056.492478490738,
+    "timestamp": "2023-07-13T15:00:00",
+    "balance": 7043.017930659518,
     "trade_number": 173
   },
   {
-    "timestamp": "2023-07-03T15:00:00",
-    "balance": 7728.800469059146,
+    "timestamp": "2023-07-17T15:00:00",
+    "balance": 6642.997699872632,
     "trade_number": 174
   },
   {
-    "timestamp": "2023-07-10T19:00:00",
-    "balance": 7319.81943718473,
+    "timestamp": "2023-07-21T19:00:00",
+    "balance": 6257.3983626835625,
     "trade_number": 175
   },
   {
-    "timestamp": "2023-07-13T15:00:00",
-    "balance": 6931.350567098124,
+    "timestamp": "2023-07-26T18:00:00",
+    "balance": 6840.890623714541,
     "trade_number": 176
   },
   {
-    "timestamp": "2023-07-17T15:00:00",
-    "balance": 6537.672674919911,
+    "timestamp": "2023-07-27T15:00:00",
+    "balance": 7470.895595676685,
     "trade_number": 177
   },
   {
-    "timestamp": "2023-07-21T19:00:00",
-    "balance": 6158.187032428036,
+    "timestamp": "2023-08-01T02:00:00",
+    "balance": 8210.743517335803,
     "trade_number": 178
   },
   {
-    "timestamp": "2023-07-26T18:00:00",
-    "balance": 6732.427997624007,
+    "timestamp": "2023-08-04T02:00:00",
+    "balance": 7740.541450194255,
     "trade_number": 179
   },
   {
-    "timestamp": "2023-07-27T15:00:00",
-    "balance": 7352.444212643856,
+    "timestamp": "2023-08-14T14:00:00",
+    "balance": 7309.698911772181,
     "trade_number": 180
   },
   {
-    "timestamp": "2023-08-01T02:00:00",
-    "balance": 8080.561812491864,
+    "timestamp": "2023-08-16T20:00:00",
+    "balance": 8039.196899978854,
     "trade_number": 181
   },
   {
-    "timestamp": "2023-08-04T02:00:00",
-    "balance": 7617.814820106018,
+    "timestamp": "2023-08-18T16:00:00",
+    "balance": 8840.985435385128,
     "trade_number": 182
   },
   {
-    "timestamp": "2023-08-14T14:00:00",
-    "balance": 7193.803309355513,
+    "timestamp": "2023-08-21T15:00:00",
+    "balance": 8351.885394188492,
     "trade_number": 183
   },
   {
-    "timestamp": "2023-08-16T20:00:00",
-    "balance": 7911.735074407795,
+    "timestamp": "2023-08-22T17:00:00",
+    "balance": 9151.72750209566,
     "trade_number": 184
   },
   {
-    "timestamp": "2023-08-18T16:00:00",
-    "balance": 8700.811216808108,
+    "timestamp": "2023-08-23T17:00:00",
+    "balance": 10062.495389703123,
     "trade_number": 185
   },
   {
-    "timestamp": "2023-08-21T15:00:00",
-    "balance": 8219.465878589075,
+    "timestamp": "2023-08-24T14:00:00",
+    "balance": 10986.070695861756,
     "trade_number": 186
   },
   {
-    "timestamp": "2023-08-22T17:00:00",
-    "balance": 9006.626454185134,
+    "timestamp": "2023-09-07T21:00:00",
+    "balance": 12078.491977419813,
     "trade_number": 187
   },
   {
-    "timestamp": "2023-08-23T17:00:00",
-    "balance": 9902.954076294653,
+    "timestamp": "2023-09-20T19:00:00",
+    "balance": 11415.872686921537,
     "trade_number": 188
   },
   {
-    "timestamp": "2023-08-24T14:00:00",
-    "balance": 10811.886054762726,
+    "timestamp": "2023-09-22T14:00:00",
+    "balance": 10712.46523193276,
     "trade_number": 189
   },
   {
-    "timestamp": "2023-09-07T21:00:00",
-    "balance": 11886.986948156087,
+    "timestamp": "2023-09-26T14:00:00",
+    "balance": 10121.161730640953,
     "trade_number": 190
   },
   {
-    "timestamp": "2023-09-20T19:00:00",
-    "balance": 11234.873516075799,
+    "timestamp": "2023-09-29T14:00:00",
+    "balance": 9558.24842626096,
     "trade_number": 191
   },
   {
-    "timestamp": "2023-09-22T14:00:00",
-    "balance": 10542.61861767304,
+    "timestamp": "2023-10-11T02:00:00",
+    "balance": 10541.077513753753,
     "trade_number": 192
   },
   {
-    "timestamp": "2023-09-26T14:00:00",
-    "balance": 9960.69025977913,
+    "timestamp": "2023-10-13T21:00:00",
+    "balance": 9988.321619566917,
     "trade_number": 193
   },
   {
-    "timestamp": "2023-09-29T14:00:00",
-    "balance": 9406.701970958178,
+    "timestamp": "2023-10-23T19:00:00",
+    "balance": 10994.872094079503,
     "trade_number": 194
   },
   {
-    "timestamp": "2023-10-11T02:00:00",
-    "balance": 10373.94825941336,
+    "timestamp": "2023-10-30T00:00:00",
+    "balance": 10406.807013127553,
     "trade_number": 195
   },
   {
-    "timestamp": "2023-10-13T21:00:00",
-    "balance": 9829.956334593715,
+    "timestamp": "2023-10-31T14:00:00",
+    "balance": 9827.396350101877,
     "trade_number": 196
   },
   {
-    "timestamp": "2023-10-23T19:00:00",
-    "balance": 10820.547906419004,
+    "timestamp": "2023-11-03T17:00:00",
+    "balance": 9290.083429939821,
     "trade_number": 197
   },
   {
-    "timestamp": "2023-10-30T00:00:00",
-    "balance": 10241.806623565955,
+    "timestamp": "2023-11-13T16:00:00",
+    "balance": 8760.29060479784,
     "trade_number": 198
   },
   {
-    "timestamp": "2023-10-31T14:00:00",
-    "balance": 9671.582542456788,
+    "timestamp": "2023-11-17T17:00:00",
+    "balance": 8291.193594728593,
     "trade_number": 199
   },
   {
-    "timestamp": "2023-11-03T17:00:00",
-    "balance": 9142.788742619668,
+    "timestamp": "2023-11-22T18:00:00",
+    "balance": 7849.293706226828,
     "trade_number": 200
   },
   {
-    "timestamp": "2023-11-13T16:00:00",
-    "balance": 8621.39580636052,
+    "timestamp": "2023-12-01T04:00:00",
+    "balance": 7431.585768486677,
     "trade_number": 201
   },
   {
-    "timestamp": "2023-11-17T17:00:00",
-    "balance": 8159.736350317785,
+    "timestamp": "2023-12-05T17:00:00",
+    "balance": 8187.4960450332965,
     "trade_number": 202
   },
   {
-    "timestamp": "2023-11-22T18:00:00",
-    "balance": 7724.842804266499,
+    "timestamp": "2023-12-11T18:00:00",
+    "balance": 9016.499868020062,
     "trade_number": 203
   },
   {
-    "timestamp": "2023-12-01T04:00:00",
-    "balance": 7313.7576445180175,
+    "timestamp": "2023-12-13T15:00:00",
+    "balance": 8543.759177160955,
     "trade_number": 204
   },
   {
-    "timestamp": "2023-12-05T17:00:00",
-    "balance": 8057.682929900059,
+    "timestamp": "2023-12-18T21:00:00",
+    "balance": 9417.960478116074,
     "trade_number": 205
   },
   {
-    "timestamp": "2023-12-11T18:00:00",
-    "balance": 8873.542860281887,
+    "timestamp": "2023-12-19T14:00:00",
+    "balance": 10336.503068154052,
     "trade_number": 206
   },
   {
-    "timestamp": "2023-12-13T15:00:00",
-    "balance": 8408.297494170802,
+    "timestamp": "2023-12-22T01:00:00",
+    "balance": 9798.837669997829,
     "trade_number": 207
   },
   {
-    "timestamp": "2023-12-18T21:00:00",
-    "balance": 9268.63829449101,
+    "timestamp": "2024-01-02T00:00:00",
+    "balance": 9293.609482937363,
     "trade_number": 208
   },
   {
-    "timestamp": "2023-12-19T14:00:00",
-    "balance": 10172.617350777089,
+    "timestamp": "2024-01-09T21:00:00",
+    "balance": 8800.258285928623,
     "trade_number": 209
   },
   {
-    "timestamp": "2023-12-22T01:00:00",
-    "balance": 9643.476661500128,
+    "timestamp": "2024-01-12T22:00:00",
+    "balance": 9713.563915793966,
     "trade_number": 210
   },
   {
-    "timestamp": "2024-01-02T00:00:00",
-    "balance": 9146.2588898896,
+    "timestamp": "2024-01-17T12:00:00",
+    "balance": 9209.658394156857,
     "trade_number": 211
   },
   {
-    "timestamp": "2024-01-09T21:00:00",
-    "balance": 8660.729798123553,
+    "timestamp": "2024-01-19T18:00:00",
+    "balance": 8728.365727339104,
     "trade_number": 212
   },
   {
-    "timestamp": "2024-01-12T22:00:00",
-    "balance": 9559.554926474215,
+    "timestamp": "2024-02-07T21:00:00",
+    "balance": 9628.16360695879,
     "trade_number": 213
   },
   {
-    "timestamp": "2024-01-17T12:00:00",
-    "balance": 9063.638849367739,
+    "timestamp": "2024-02-14T08:00:00",
+    "balance": 10620.56247925735,
     "trade_number": 214
   },
   {
-    "timestamp": "2024-01-19T18:00:00",
-    "balance": 8589.977099258433,
+    "timestamp": "2024-02-26T15:00:00",
+    "balance": 11699.51262895988,
     "trade_number": 215
   },
   {
-    "timestamp": "2024-01-26T02:00:00",
-    "balance": 8111.929349468625,
+    "timestamp": "2024-03-05T14:00:00",
+    "balance": 11076.845646760503,
     "trade_number": 216
   },
   {
-    "timestamp": "2024-02-07T21:00:00",
-    "balance": 8948.179462753205,
+    "timestamp": "2024-03-06T22:00:00",
+    "balance": 10495.363084445147,
     "trade_number": 217
   },
   {
-    "timestamp": "2024-02-14T08:00:00",
-    "balance": 9870.49067083688,
+    "timestamp": "2024-03-12T17:00:00",
+    "balance": 11579.377689049172,
     "trade_number": 218
   },
   {
-    "timestamp": "2024-02-26T15:00:00",
-    "balance": 10873.24051650057,
+    "timestamp": "2024-03-19T07:00:00",
+    "balance": 12777.546153467008,
     "trade_number": 219
   },
   {
-    "timestamp": "2024-03-01T20:00:00",
-    "balance": 10312.978303902313,
+    "timestamp": "2024-03-22T11:00:00",
+    "balance": 14092.699073662126,
     "trade_number": 220
   },
   {
-    "timestamp": "2024-03-05T14:00:00",
-    "balance": 9764.104920742471,
+    "timestamp": "2024-03-25T17:00:00",
+    "balance": 15543.989221215474,
     "trade_number": 221
   },
   {
-    "timestamp": "2024-03-06T22:00:00",
-    "balance": 9251.53510356805,
+    "timestamp": "2024-03-29T15:00:00",
+    "balance": 17097.33213823503,
     "trade_number": 222
   },
   {
-    "timestamp": "2024-03-12T17:00:00",
-    "balance": 10207.080813286082,
+    "timestamp": "2024-04-02T09:00:00",
+    "balance": 18863.356019950985,
     "trade_number": 223
   },
   {
-    "timestamp": "2024-03-19T07:00:00",
-    "balance": 11263.251764148985,
+    "timestamp": "2024-04-08T07:00:00",
+    "balance": 20803.1156593037,
     "trade_number": 224
   },
   {
-    "timestamp": "2024-03-22T11:00:00",
-    "balance": 12422.543092123886,
+    "timestamp": "2024-04-17T15:00:00",
+    "balance": 22963.095172248683,
     "trade_number": 225
   },
   {
-    "timestamp": "2024-03-25T17:00:00",
-    "balance": 13701.837732768714,
+    "timestamp": "2024-04-23T20:00:00",
+    "balance": 21718.729451868316,
     "trade_number": 226
   },
   {
-    "timestamp": "2024-03-29T15:00:00",
-    "balance": 15071.090650372273,
+    "timestamp": "2024-04-29T00:00:00",
+    "balance": 20582.86714631515,
     "trade_number": 227
   },
   {
-    "timestamp": "2024-04-02T09:00:00",
-    "balance": 16627.819255564536,
+    "timestamp": "2024-04-29T13:00:00",
+    "balance": 19483.028356886465,
     "trade_number": 228
   },
   {
-    "timestamp": "2024-04-08T07:00:00",
-    "balance": 18337.69382127184,
+    "timestamp": "2024-05-06T07:00:00",
+    "balance": 21505.278511519515,
     "trade_number": 229
   },
   {
-    "timestamp": "2024-04-12T03:00:00",
-    "balance": 17387.7566247916,
+    "timestamp": "2024-05-07T14:00:00",
+    "balance": 20354.360547219345,
     "trade_number": 230
   },
   {
-    "timestamp": "2024-04-17T15:00:00",
-    "balance": 19193.120720281142,
+    "timestamp": "2024-05-10T14:00:00",
+    "balance": 19286.11037651782,
     "trade_number": 231
   },
   {
-    "timestamp": "2024-04-23T20:00:00",
-    "balance": 18153.04919193146,
+    "timestamp": "2024-05-17T07:00:00",
+    "balance": 18270.065821605564,
     "trade_number": 232
   },
   {
-    "timestamp": "2024-04-29T00:00:00",
-    "balance": 17203.66749105146,
+    "timestamp": "2024-05-23T13:00:00",
+    "balance": 20135.5255104671,
     "trade_number": 233
   },
   {
-    "timestamp": "2024-04-29T13:00:00",
-    "balance": 16284.395132512282,
+    "timestamp": "2024-05-31T16:00:00",
+    "balance": 19084.561552455532,
     "trade_number": 234
   },
   {
-    "timestamp": "2024-05-06T07:00:00",
-    "balance": 17974.641636885346,
+    "timestamp": "2024-06-03T23:00:00",
+    "balance": 18078.748462553656,
     "trade_number": 235
   },
   {
-    "timestamp": "2024-05-07T14:00:00",
-    "balance": 17012.676045476343,
+    "timestamp": "2024-06-05T15:00:00",
+    "balance": 19928.541717705964,
     "trade_number": 236
   },
   {
-    "timestamp": "2024-05-10T14:00:00",
-    "balance": 16119.806232764266,
+    "timestamp": "2024-06-11T01:00:00",
+    "balance": 18806.77653741549,
     "trade_number": 237
   },
   {
-    "timestamp": "2024-05-17T07:00:00",
-    "balance": 15270.571159994866,
+    "timestamp": "2024-06-17T18:00:00",
+    "balance": 17807.846904396185,
     "trade_number": 238
   },
   {
-    "timestamp": "2024-05-23T13:00:00",
-    "balance": 16829.76833000039,
+    "timestamp": "2024-06-24T00:00:00",
+    "balance": 19632.880294872783,
     "trade_number": 239
   },
   {
-    "timestamp": "2024-05-31T16:00:00",
-    "balance": 15951.346759760247,
+    "timestamp": "2024-06-26T15:00:00",
+    "balance": 18562.604839623124,
     "trade_number": 240
   },
   {
-    "timestamp": "2024-06-03T23:00:00",
-    "balance": 15110.663397534072,
+    "timestamp": "2024-07-10T04:00:00",
+    "balance": 20451.251611634616,
     "trade_number": 241
   },
   {
-    "timestamp": "2024-06-05T15:00:00",
-    "balance": 16656.76617624861,
+    "timestamp": "2024-07-15T00:00:00",
+    "balance": 19392.941626978205,
     "trade_number": 242
   },
   {
-    "timestamp": "2024-06-11T01:00:00",
-    "balance": 15719.167199994636,
+    "timestamp": "2024-07-15T17:00:00",
+    "balance": 21318.883641328146,
     "trade_number": 243
   },
   {
-    "timestamp": "2024-06-17T18:00:00",
-    "balance": 14884.23720062869,
+    "timestamp": "2024-07-17T01:00:00",
+    "balance": 23501.918326561157,
     "trade_number": 244
   },
   {
-    "timestamp": "2024-06-24T00:00:00",
-    "balance": 16409.64507440232,
+    "timestamp": "2024-07-19T13:00:00",
+    "balance": 25841.77632108714,
     "trade_number": 245
   },
   {
-    "timestamp": "2024-06-26T15:00:00",
-    "balance": 15515.082478965018,
+    "timestamp": "2024-07-26T13:00:00",
+    "balance": 28513.617651536235,
     "trade_number": 246
   },
   {
-    "timestamp": "2024-07-10T04:00:00",
-    "balance": 17093.659984361304,
+    "timestamp": "2024-07-29T16:00:00",
+    "balance": 31441.71688351316,
     "trade_number": 247
   },
   {
-    "timestamp": "2024-07-15T00:00:00",
-    "balance": 16209.098424056616,
+    "timestamp": "2024-08-01T21:00:00",
+    "balance": 29789.38788197973,
     "trade_number": 248
   },
   {
-    "timestamp": "2024-07-15T17:00:00",
-    "balance": 17818.84821189674,
+    "timestamp": "2024-08-05T00:00:00",
+    "balance": 32890.31942078619,
     "trade_number": 249
   },
   {
-    "timestamp": "2024-07-17T01:00:00",
-    "balance": 19643.482388428576,
+    "timestamp": "2024-08-08T16:00:00",
+    "balance": 36318.279176164215,
     "trade_number": 250
   },
   {
-    "timestamp": "2024-07-19T13:00:00",
-    "balance": 18591.343747281197,
+    "timestamp": "2024-08-12T14:00:00",
+    "balance": 34463.788119077224,
     "trade_number": 251
   },
   {
-    "timestamp": "2024-07-26T13:00:00",
-    "balance": 20513.54599821696,
+    "timestamp": "2024-08-13T16:00:00",
+    "balance": 37966.97604244731,
     "trade_number": 252
   },
   {
-    "timestamp": "2024-07-29T16:00:00",
-    "balance": 22620.107817785523,
+    "timestamp": "2024-08-20T05:00:00",
+    "balance": 36022.779832127715,
     "trade_number": 253
   },
   {
-    "timestamp": "2024-08-01T21:00:00",
-    "balance": 21431.373108939566,
+    "timestamp": "2024-08-23T00:00:00",
+    "balance": 34088.479301985986,
     "trade_number": 254
   },
   {
-    "timestamp": "2024-08-05T00:00:00",
-    "balance": 23662.275638952302,
+    "timestamp": "2024-08-23T19:00:00",
+    "balance": 37584.2915221035,
     "trade_number": 255
   },
   {
-    "timestamp": "2024-08-08T16:00:00",
-    "balance": 26128.45201058486,
+    "timestamp": "2024-09-06T07:00:00",
+    "balance": 41478.66085828331,
     "trade_number": 256
   },
   {
-    "timestamp": "2024-08-12T14:00:00",
-    "balance": 24794.275896289302,
+    "timestamp": "2024-09-09T19:00:00",
+    "balance": 45712.572018238214,
     "trade_number": 257
   },
   {
-    "timestamp": "2024-08-13T16:00:00",
-    "balance": 27314.57365312545,
+    "timestamp": "2024-09-10T15:00:00",
+    "balance": 43275.44439832233,
     "trade_number": 258
   },
   {
-    "timestamp": "2024-08-20T05:00:00",
-    "balance": 25915.86097915504,
+    "timestamp": "2024-09-11T16:00:00",
+    "balance": 41054.921375842554,
     "trade_number": 259
   },
   {
-    "timestamp": "2024-08-23T00:00:00",
-    "balance": 24524.267552310448,
+    "timestamp": "2024-09-25T15:00:00",
+    "balance": 38715.76715406479,
     "trade_number": 260
   },
   {
-    "timestamp": "2024-08-23T19:00:00",
-    "balance": 27039.259008494402,
+    "timestamp": "2024-10-02T18:00:00",
+    "balance": 36687.975779969485,
     "trade_number": 261
   },
   {
-    "timestamp": "2024-09-06T07:00:00",
-    "balance": 29840.984327535632,
+    "timestamp": "2024-10-07T18:00:00",
+    "balance": 34749.09938797427,
     "trade_number": 262
   },
   {
-    "timestamp": "2024-09-09T19:00:00",
-    "balance": 32886.9861500164,
+    "timestamp": "2024-10-08T14:00:00",
+    "balance": 32910.857552924965,
     "trade_number": 263
   },
   {
-    "timestamp": "2024-09-10T15:00:00",
-    "balance": 31133.643934880954,
+    "timestamp": "2024-10-15T13:00:00",
+    "balance": 36241.03909018403,
     "trade_number": 264
   },
   {
-    "timestamp": "2024-09-11T16:00:00",
-    "balance": 29536.133520088515,
+    "timestamp": "2024-10-21T00:00:00",
+    "balance": 39892.937250034396,
     "trade_number": 265
   },
   {
-    "timestamp": "2024-09-25T15:00:00",
-    "balance": 27853.276286335287,
+    "timestamp": "2024-11-04T16:00:00",
+    "balance": 37725.58400134781,
     "trade_number": 266
   },
   {
-    "timestamp": "2024-10-02T18:00:00",
-    "balance": 26394.422761130267,
+    "timestamp": "2024-11-07T18:00:00",
+    "balance": 41589.771198286406,
     "trade_number": 267
   },
   {
-    "timestamp": "2024-10-07T18:00:00",
-    "balance": 24999.537322947086,
+    "timestamp": "2024-11-15T21:00:00",
+    "balance": 39469.55303171613,
     "trade_number": 268
   },
   {
-    "timestamp": "2024-10-08T14:00:00",
-    "balance": 23677.051383072005,
+    "timestamp": "2024-11-19T13:00:00",
+    "balance": 37411.65328262218,
     "trade_number": 269
   },
   {
-    "timestamp": "2024-10-15T13:00:00",
-    "balance": 26072.88319164282,
+    "timestamp": "2024-11-25T14:00:00",
+    "balance": 35430.11792426475,
     "trade_number": 270
   },
   {
-    "timestamp": "2024-10-21T00:00:00",
-    "balance": 28700.167522884396,
+    "timestamp": "2024-12-02T17:00:00",
+    "balance": 33571.263818491876,
     "trade_number": 271
   },
   {
-    "timestamp": "2024-11-04T16:00:00",
-    "balance": 27140.90902735912,
+    "timestamp": "2024-12-05T22:00:00",
+    "balance": 37053.79174410738,
     "trade_number": 272
   },
   {
-    "timestamp": "2024-11-07T18:00:00",
-    "balance": 29920.920416262983,
+    "timestamp": "2024-12-09T15:00:00",
+    "balance": 35114.064925059574,
     "trade_number": 273
   },
   {
-    "timestamp": "2024-11-15T21:00:00",
-    "balance": 28395.572303030804,
+    "timestamp": "2024-12-11T08:00:00",
+    "balance": 33312.36312475033,
     "trade_number": 274
   },
   {
-    "timestamp": "2024-11-19T13:00:00",
-    "balance": 26915.057915882055,
+    "timestamp": "2024-12-16T00:00:00",
+    "balance": 36732.0671941266,
     "trade_number": 275
   },
   {
-    "timestamp": "2024-11-25T14:00:00",
-    "balance": 25489.482346428893,
+    "timestamp": "2024-12-18T04:00:00",
+    "balance": 34834.31378335396,
     "trade_number": 276
   },
   {
-    "timestamp": "2024-12-02T17:00:00",
-    "balance": 24152.16732492752,
+    "timestamp": "2024-12-19T19:00:00",
+    "balance": 38436.389965785296,
     "trade_number": 277
   },
   {
-    "timestamp": "2024-12-05T22:00:00",
-    "balance": 26657.601663889407,
+    "timestamp": "2024-12-24T14:00:00",
+    "balance": 36433.21368558361,
     "trade_number": 278
   },
   {
-    "timestamp": "2024-12-09T15:00:00",
-    "balance": 25262.10440314921,
+    "timestamp": "2024-12-30T14:00:00",
+    "balance": 40171.53099134429,
     "trade_number": 279
   },
   {
-    "timestamp": "2024-12-11T08:00:00",
-    "balance": 23965.906452843778,
+    "timestamp": "2025-01-06T02:00:00",
+    "balance": 44232.90103345407,
     "trade_number": 280
   },
   {
-    "timestamp": "2024-12-16T00:00:00",
-    "balance": 26426.143438018484,
+    "timestamp": "2025-01-07T15:00:00",
+    "balance": 41963.2414399632,
     "trade_number": 281
   },
   {
-    "timestamp": "2024-12-18T04:00:00",
-    "balance": 25060.843097636724,
+    "timestamp": "2025-01-09T17:00:00",
+    "balance": 39795.81021207803,
     "trade_number": 282
   },
   {
-    "timestamp": "2024-12-19T19:00:00",
-    "balance": 27652.284014058147,
+    "timestamp": "2025-01-17T15:00:00",
+    "balance": 43912.40679423599,
     "trade_number": 283
   },
   {
-    "timestamp": "2024-12-24T14:00:00",
-    "balance": 26211.13932071754,
+    "timestamp": "2025-01-24T14:00:00",
+    "balance": 41522.012260656265,
     "trade_number": 284
   },
   {
-    "timestamp": "2024-12-30T14:00:00",
-    "balance": 28900.596160071655,
+    "timestamp": "2025-01-29T14:00:00",
+    "balance": 39224.73753753162,
     "trade_number": 285
   },
   {
-    "timestamp": "2025-01-06T02:00:00",
-    "balance": 31822.466762138545,
+    "timestamp": "2025-01-31T00:00:00",
+    "balance": 37174.72673245181,
     "trade_number": 286
   },
   {
-    "timestamp": "2025-01-07T15:00:00",
-    "balance": 30189.606034315013,
+    "timestamp": "2025-02-04T14:00:00",
+    "balance": 35108.34804478625,
     "trade_number": 287
   },
   {
-    "timestamp": "2025-01-09T17:00:00",
-    "balance": 28630.29143823117,
+    "timestamp": "2025-02-07T14:00:00",
+    "balance": 33250.27649637158,
     "trade_number": 288
   },
   {
-    "timestamp": "2025-01-17T15:00:00",
-    "balance": 31591.893658482946,
+    "timestamp": "2025-02-18T08:00:00",
+    "balance": 31533.292345265298,
     "trade_number": 289
   },
   {
-    "timestamp": "2025-01-24T14:00:00",
-    "balance": 29872.172617900353,
+    "timestamp": "2025-02-28T01:00:00",
+    "balance": 34783.08519397255,
     "trade_number": 290
   },
   {
-    "timestamp": "2025-01-29T14:00:00",
-    "balance": 28219.44474312576,
+    "timestamp": "2025-03-10T14:00:00",
+    "balance": 38413.36592012297,
     "trade_number": 291
   },
   {
-    "timestamp": "2025-01-31T00:00:00",
-    "balance": 26744.60589732323,
+    "timestamp": "2025-03-19T18:00:00",
+    "balance": 42391.50653240529,
     "trade_number": 292
   },
   {
-    "timestamp": "2025-02-04T14:00:00",
-    "balance": 25257.99150916688,
+    "timestamp": "2025-03-24T00:00:00",
+    "balance": 40197.38890530484,
     "trade_number": 293
   },
   {
-    "timestamp": "2025-02-07T14:00:00",
-    "balance": 23921.23948274245,
+    "timestamp": "2025-03-28T15:00:00",
+    "balance": 44322.38412064415,
     "trade_number": 294
   },
   {
-    "timestamp": "2025-02-18T08:00:00",
-    "balance": 22685.989933128367,
+    "timestamp": "2025-04-07T13:00:00",
+    "balance": 42014.96412011998,
     "trade_number": 295
   },
   {
-    "timestamp": "2025-02-28T01:00:00",
-    "balance": 25023.987724265924,
+    "timestamp": "2025-04-09T01:00:00",
+    "balance": 46365.61516745497,
     "trade_number": 296
   },
   {
-    "timestamp": "2025-03-10T14:00:00",
-    "balance": 27635.719829690817,
+    "timestamp": "2025-05-01T09:00:00",
+    "balance": 43954.57826829216,
     "trade_number": 297
   },
   {
-    "timestamp": "2025-03-19T18:00:00",
-    "balance": 30497.71270042119,
+    "timestamp": "2025-05-02T21:00:00",
+    "balance": 41494.08106561087,
     "trade_number": 298
   },
   {
-    "timestamp": "2025-03-24T00:00:00",
-    "balance": 28919.199113717514,
+    "timestamp": "2025-05-05T13:00:00",
+    "balance": 39128.6454471882,
     "trade_number": 299
   },
   {
-    "timestamp": "2025-03-28T15:00:00",
-    "balance": 31886.84356088673,
+    "timestamp": "2025-05-06T22:00:00",
+    "balance": 43048.19367117319,
     "trade_number": 300
   },
   {
-    "timestamp": "2025-04-07T13:00:00",
-    "balance": 30226.816871309224,
+    "timestamp": "2025-05-13T18:00:00",
+    "balance": 40814.777388959075,
     "trade_number": 301
   },
   {
-    "timestamp": "2025-04-09T01:00:00",
-    "balance": 33356.80484661227,
+    "timestamp": "2025-05-15T17:00:00",
+    "balance": 38642.3843869247,
     "trade_number": 302
   },
   {
-    "timestamp": "2025-04-24T19:00:00",
-    "balance": 36587.774691556566,
+    "timestamp": "2025-05-16T20:00:00",
+    "balance": 36520.117303692496,
     "trade_number": 303
   },
   {
-    "timestamp": "2025-05-01T09:00:00",
-    "balance": 34685.1907503967,
+    "timestamp": "2025-05-20T00:00:00",
+    "balance": 40248.207633770166,
     "trade_number": 304
   },
   {
-    "timestamp": "2025-05-02T21:00:00",
-    "balance": 32743.57697139743,
+    "timestamp": "2025-05-21T04:00:00",
+    "balance": 44316.57083063401,
     "trade_number": 305
   },
   {
-    "timestamp": "2025-05-05T13:00:00",
-    "balance": 30876.97765762449,
+    "timestamp": "2025-05-22T14:00:00",
+    "balance": 41901.2046147677,
     "trade_number": 306
   },
   {
-    "timestamp": "2025-05-06T22:00:00",
-    "balance": 33969.949610954995,
+    "timestamp": "2025-05-30T00:00:00",
+    "balance": 46172.33444519638,
     "trade_number": 307
   },
   {
-    "timestamp": "2025-05-13T18:00:00",
-    "balance": 32207.52865674188,
+    "timestamp": "2025-06-04T00:00:00",
+    "balance": 43757.366799104464,
     "trade_number": 308
   },
   {
-    "timestamp": "2025-05-15T17:00:00",
-    "balance": 30493.2620517829,
+    "timestamp": "2025-06-05T13:00:00",
+    "balance": 41414.0709079667,
     "trade_number": 309
   },
   {
-    "timestamp": "2025-05-16T20:00:00",
-    "balance": 28818.55053126995,
+    "timestamp": "2025-06-10T13:00:00",
+    "balance": 38839.93604942776,
     "trade_number": 310
   },
   {
-    "timestamp": "2025-05-20T00:00:00",
-    "balance": 31760.440303119598,
+    "timestamp": "2025-06-23T17:00:00",
+    "balance": 36777.715042308664,
     "trade_number": 311
   },
   {
-    "timestamp": "2025-05-21T04:00:00",
-    "balance": 34970.84429479914,
+    "timestamp": "2025-06-25T10:00:00",
+    "balance": 40417.71472137198,
     "trade_number": 312
   },
   {
-    "timestamp": "2025-05-22T14:00:00",
-    "balance": 33064.84402747723,
+    "timestamp": "2025-06-27T17:00:00",
+    "balance": 38241.0699943682,
     "trade_number": 313
   },
   {
-    "timestamp": "2025-05-30T00:00:00",
-    "balance": 36435.25408997114,
+    "timestamp": "2025-07-03T19:00:00",
+    "balance": 36138.76266896392,
     "trade_number": 314
   },
   {
-    "timestamp": "2025-06-04T00:00:00",
-    "balance": 34529.56833979845,
+    "timestamp": "2025-07-10T17:00:00",
+    "balance": 39736.342470389005,
     "trade_number": 315
   },
   {
-    "timestamp": "2025-06-05T13:00:00",
-    "balance": 32680.43980368493,
+    "timestamp": "2025-07-11T19:00:00",
+    "balance": 37623.4154066638,
     "trade_number": 316
   },
   {
-    "timestamp": "2025-06-10T13:00:00",
-    "balance": 30649.152913825805,
+    "timestamp": "2025-07-17T21:00:00",
+    "balance": 41357.73285616625,
     "trade_number": 317
   },
   {
-    "timestamp": "2025-06-23T17:00:00",
-    "balance": 29021.824616764203,
+    "timestamp": "2025-07-21T16:00:00",
+    "balance": 39155.0358207214,
     "trade_number": 318
   },
   {
-    "timestamp": "2025-06-25T10:00:00",
-    "balance": 31894.20078720674,
+    "timestamp": "2025-07-25T17:00:00",
+    "balance": 37086.36658384632,
     "trade_number": 319
   },
   {
-    "timestamp": "2025-06-27T17:00:00",
-    "balance": 30176.57908484056,
+    "timestamp": "2025-07-29T15:00:00",
+    "balance": 40697.93193858507,
     "trade_number": 320
   },
   {
-    "timestamp": "2025-07-03T19:00:00",
-    "balance": 28517.618096692353,
+    "timestamp": "2025-07-30T18:00:00",
+    "balance": 38519.765917665885,
     "trade_number": 321
   },
   {
-    "timestamp": "2025-07-10T17:00:00",
-    "balance": 31356.520130754612,
+    "timestamp": "2025-07-31T13:00:00",
+    "balance": 36189.31458904276,
     "trade_number": 322
   },
   {
-    "timestamp": "2025-07-11T19:00:00",
-    "balance": 29689.178954150673,
+    "timestamp": "2025-08-01T13:00:00",
+    "balance": 34192.1228109468,
     "trade_number": 323
   },
   {
-    "timestamp": "2025-07-17T21:00:00",
-    "balance": 32635.982635622102,
+    "timestamp": "2025-08-08T14:00:00",
+    "balance": 32194.59108463001,
     "trade_number": 324
   },
   {
-    "timestamp": "2025-07-21T16:00:00",
-    "balance": 30897.802681456735,
+    "timestamp": "2025-08-13T13:00:00",
+    "balance": 35442.752620333566,
     "trade_number": 325
   },
   {
-    "timestamp": "2025-07-25T17:00:00",
-    "balance": 29265.38599342653,
+    "timestamp": "2025-08-15T15:00:00",
+    "balance": 38937.073986210766,
     "trade_number": 326
   },
   {
-    "timestamp": "2025-07-29T15:00:00",
-    "balance": 32115.32422903015,
+    "timestamp": "2025-08-18T13:00:00",
+    "balance": 36747.894958752535,
     "trade_number": 327
   },
   {
-    "timestamp": "2025-07-30T18:00:00",
-    "balance": 30396.50205172548,
+    "timestamp": "2025-08-22T14:00:00",
+    "balance": 34822.986678083726,
     "trade_number": 328
   },
   {
-    "timestamp": "2025-07-31T13:00:00",
-    "balance": 28557.509344881135,
+    "timestamp": "2025-08-25T19:00:00",
+    "balance": 32949.40195147225,
     "trade_number": 329
   },
   {
-    "timestamp": "2025-08-01T13:00:00",
-    "balance": 26981.49654900011,
+    "timestamp": "2025-08-26T18:00:00",
+    "balance": 31180.374042684718,
     "trade_number": 330
   },
   {
-    "timestamp": "2025-08-08T14:00:00",
-    "balance": 25405.21549508206,
+    "timestamp": "2025-08-29T07:00:00",
+    "balance": 34324.004808502345,
     "trade_number": 331
   },
   {
-    "timestamp": "2025-08-13T13:00:00",
-    "balance": 27968.38654330144,
+    "timestamp": "2025-09-12T19:00:00",
+    "balance": 37875.71968975455,
     "trade_number": 332
   },
   {
-    "timestamp": "2025-08-15T15:00:00",
-    "balance": 30725.80585873301,
+    "timestamp": "2025-09-17T18:00:00",
+    "balance": 35818.89318510721,
     "trade_number": 333
   },
   {
-    "timestamp": "2025-08-18T13:00:00",
-    "balance": 28998.29315935779,
+    "timestamp": "2025-09-18T23:00:00",
+    "balance": 33815.17508391122,
     "trade_number": 334
   },
   {
-    "timestamp": "2025-08-22T14:00:00",
-    "balance": 27479.32031233177,
+    "timestamp": "2025-10-10T15:00:00",
+    "balance": 37285.4674309512,
     "trade_number": 335
   },
   {
-    "timestamp": "2025-08-25T19:00:00",
-    "balance": 26000.847620980116,
+    "timestamp": "2025-10-15T13:00:00",
+    "balance": 35344.90999910785,
     "trade_number": 336
   },
   {
-    "timestamp": "2025-08-26T18:00:00",
-    "balance": 24604.882220412634,
+    "timestamp": "2025-10-16T15:00:00",
+    "balance": 38904.68457521255,
     "trade_number": 337
   },
   {
-    "timestamp": "2025-08-29T07:00:00",
-    "balance": 27085.566532650868,
+    "timestamp": "2025-10-20T05:00:00",
+    "balance": 42908.609479103994,
     "trade_number": 338
   },
   {
-    "timestamp": "2025-09-12T19:00:00",
-    "balance": 29888.275897652853,
+    "timestamp": "2025-10-23T20:00:00",
+    "balance": 40516.287450216696,
     "trade_number": 339
   },
   {
-    "timestamp": "2025-09-17T18:00:00",
-    "balance": 28265.204480183955,
+    "timestamp": "2025-10-27T16:00:00",
+    "balance": 38134.908990803175,
     "trade_number": 340
   },
   {
-    "timestamp": "2025-09-18T23:00:00",
-    "balance": 26684.041668751837,
+    "timestamp": "2025-10-31T14:00:00",
+    "balance": 36095.192728260576,
     "trade_number": 341
   },
   {
-    "timestamp": "2025-10-10T15:00:00",
-    "balance": 29422.49933935026,
+    "timestamp": "2025-11-04T21:00:00",
+    "balance": 39837.98775630587,
     "trade_number": 342
   },
   {
-    "timestamp": "2025-10-15T13:00:00",
-    "balance": 27891.17752175154,
+    "timestamp": "2025-11-07T20:00:00",
+    "balance": 37755.91336535603,
     "trade_number": 343
   },
   {
-    "timestamp": "2025-10-16T15:00:00",
-    "balance": 30700.24690803828,
+    "timestamp": "2025-11-13T16:00:00",
+    "balance": 41649.73309652888,
     "trade_number": 344
   },
   {
-    "timestamp": "2025-10-20T05:00:00",
-    "balance": 33859.8017146856,
+    "timestamp": "2025-11-20T01:00:00",
+    "balance": 39516.06125109962,
     "trade_number": 345
   },
   {
-    "timestamp": "2025-10-23T20:00:00",
-    "balance": 31971.985947193854,
+    "timestamp": "2025-11-26T18:00:00",
+    "balance": 43619.86186166769,
     "trade_number": 346
   },
   {
-    "timestamp": "2025-10-27T16:00:00",
-    "balance": 30092.80590798441,
+    "timestamp": "2025-12-01T00:00:00",
+    "balance": 48112.56628205867,
     "trade_number": 347
   },
   {
-    "timestamp": "2025-10-31T14:00:00",
-    "balance": 28483.23642898403,
+    "timestamp": "2025-12-09T15:00:00",
+    "balance": 45556.52803680482,
     "trade_number": 348
   },
   {
-    "timestamp": "2025-11-04T21:00:00",
-    "balance": 31436.729889778675,
+    "timestamp": "2025-12-15T14:00:00",
+    "balance": 42990.10476467896,
     "trade_number": 349
   },
   {
-    "timestamp": "2025-11-07T20:00:00",
-    "balance": 29793.73500160551,
+    "timestamp": "2025-12-23T17:00:00",
+    "balance": 40693.362600000546,
     "trade_number": 350
   },
   {
-    "timestamp": "2025-11-13T16:00:00",
-    "balance": 32866.40423071324,
+    "timestamp": "2026-01-02T08:00:00",
+    "balance": 38526.71175689582,
     "trade_number": 351
   },
   {
-    "timestamp": "2025-11-20T01:00:00",
-    "balance": 31182.693048097903,
+    "timestamp": "2026-01-06T21:00:00",
+    "balance": 36516.56689357829,
     "trade_number": 352
   },
   {
-    "timestamp": "2025-11-26T18:00:00",
-    "balance": 34421.061213305155,
+    "timestamp": "2026-01-13T16:00:00",
+    "balance": 40233.028231663186,
     "trade_number": 353
   },
   {
-    "timestamp": "2025-12-01T00:00:00",
-    "balance": 37966.31897588103,
+    "timestamp": "2026-01-16T15:00:00",
+    "balance": 38150.89944444476,
     "trade_number": 354
   },
   {
-    "timestamp": "2025-12-09T15:00:00",
-    "balance": 35949.31238419468,
+    "timestamp": "2026-01-21T16:00:00",
+    "balance": 36161.32206861017,
     "trade_number": 355
   },
   {
-    "timestamp": "2025-12-12T14:00:00",
-    "balance": 33757.84848984082,
-    "trade_number": 356
-  },
-  {
-    "timestamp": "2025-12-15T14:00:00",
-    "balance": 31856.102862710653,
-    "trade_number": 357
-  },
-  {
-    "timestamp": "2025-12-23T17:00:00",
-    "balance": 30154.193666452233,
-    "trade_number": 358
-  },
-  {
-    "timestamp": "2026-01-02T08:00:00",
-    "balance": 28548.683456525243,
-    "trade_number": 359
-  },
-  {
-    "timestamp": "2026-01-06T21:00:00",
-    "balance": 27059.14576208806,
-    "trade_number": 360
-  },
-  {
-    "timestamp": "2026-01-13T16:00:00",
-    "balance": 29813.081239086285,
-    "trade_number": 361
-  },
-  {
-    "timestamp": "2026-01-16T15:00:00",
-    "balance": 28270.20272827286,
-    "trade_number": 362
-  },
-  {
-    "timestamp": "2026-01-21T16:00:00",
-    "balance": 26795.90575028591,
-    "trade_number": 363
-  },
-  {
     "timestamp": "2026-01-23T16:00:00",
-    "balance": 25361.080885200507,
-    "trade_number": 364
+    "balance": 34225.012673364225,
+    "trade_number": 356
   }
 ]
