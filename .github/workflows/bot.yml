@@ -1,46 +1,83 @@
-name: Paper Trading Bot
+"""
+test_telegram.py
 
-on:
-  schedule:
-    # Roda todo dia às 16:10 BRT (19:10 UTC)
-    - cron: '10 19 * * *'
-  
-  workflow_dispatch:  # Permite rodar manualmente
+Script simples para testar conexão com Telegram
+"""
 
-permissions:
-  contents: write  # Permissão para fazer commit
+import os
+from dotenv import load_dotenv
+import requests
+import json
 
-jobs:
-  run-bot:
-    runs-on: ubuntu-latest
+load_dotenv()
+
+print("="*80)
+print("🧪 TESTE DE CONEXÃO TELEGRAM")
+print("="*80 + "\n")
+
+TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "")
+CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "")
+
+print("📋 VARIÁVEIS DE AMBIENTE:")
+print(f"Token presente: {'✅ Sim' if TOKEN else '❌ NÃO'}")
+if TOKEN:
+    print(f"Token (primeiros 20 chars): {TOKEN[:20]}...")
+    print(f"Token (tamanho): {len(TOKEN)} caracteres")
+else:
+    print("Token: ❌ VAZIO")
+
+print(f"\nChat ID presente: {'✅ Sim' if CHAT_ID else '❌ NÃO'}")
+if CHAT_ID:
+    print(f"Chat ID: {CHAT_ID}")
+else:
+    print("Chat ID: ❌ VAZIO")
+
+print("\n" + "="*80)
+
+if TOKEN and CHAT_ID:
+    print("📤 ENVIANDO MENSAGEM DE TESTE...")
+    print("="*80)
     
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          fetch-depth: 0
-      
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-      
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-      
-      - name: Run Paper Trading Bot
-        env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: |
-          python telegram_paper_trading_bot.py
-      
-      - name: Commit and push data
-        run: |
-          git config --local user.name 'github-actions[bot]'
-          git config --local user.email 'github-actions[bot]@users.noreply.github.com'
-          git add data/
-          git diff --quiet && git diff --staged --quiet || (git commit -m "📊 Update trading data [$(date +'%Y-%m-%d %H:%M')]" && git push)
+    url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
+    data = {
+        'chat_id': CHAT_ID,
+        'text': '🧪 <b>Teste de Conexão</b>\n\nSe você recebeu esta mensagem, o bot está funcionando! ✅',
+        'parse_mode': 'HTML'
+    }
+    
+    try:
+        print(f"URL: {url[:60]}...")
+        print(f"Chat ID: {CHAT_ID}")
+        print("\nEnviando...")
+        
+        response = requests.post(url, data=data, timeout=10)
+        
+        print(f"\n✅ Status Code: {response.status_code}")
+        result = response.json()
+        print(f"\nResposta completa:")
+        print(json.dumps(result, indent=2))
+        
+        if result.get('ok'):
+            print("\n" + "="*80)
+            print("✅ SUCESSO! Mensagem enviada!")
+            print("="*80)
+        else:
+            print("\n" + "="*80)
+            print("❌ ERRO na resposta do Telegram:")
+            print(f"Descrição: {result.get('description', 'Sem descrição')}")
+            print("="*80)
+            
+    except Exception as e:
+        print("\n" + "="*80)
+        print(f"❌ EXCEÇÃO: {e}")
+        print("="*80)
+        import traceback
+        traceback.print_exc()
+else:
+    print("\n" + "="*80)
+    print("❌ VARIÁVEIS NÃO CONFIGURADAS!")
+    print("="*80)
+    print("\nConfigure no arquivo .env:")
+    print("TELEGRAM_BOT_TOKEN=seu_token_aqui")
+    print("TELEGRAM_CHAT_ID=seu_chat_id_aqui")
+    print("="*80)
