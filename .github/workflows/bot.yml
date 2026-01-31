@@ -11,38 +11,49 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
-          node-version: 20
+          python-version: '3.11'
 
       - name: Install dependencies
-        run: npm ci || npm install
+        run: |
+          pip install python-telegram-bot python-socketio aiohttp
 
-      - name: Keep Alive 24/7 with Socket
+      - name: Run Bot 24/7
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
-          npm install telegraf socket.io-client
-          node -e "
-          const { Telegraf } = require('telegraf');
-          const io = require('socket.io-client');
-          const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN);
-          
-          bot.start((ctx) => ctx.reply('Bot rodando 24/7 com GitHub Actions + Socket! 🚀'));
-          bot.launch();
-          console.log('Bot iniciado! Chat ID configurado:', process.env.TELEGRAM_CHAT_ID);
+          python -c "
+          import asyncio
+          import os
+          from telegram import Bot
+          from telegram.ext import Application, CommandHandler
+          import socketio
 
-          const socket = io('https://socket.xf.bs', { 
-            transports: ['websocket'],
-            query: { token: 'bot_' + process.env.TELEGRAM_BOT_TOKEN.slice(-10) }
-          });
+          sio = socketio.AsyncClient()
 
-          socket.on('connect', () => {
-            console.log('Conectado ao socket - Bot 100% online 24/7');
-            bot.telegram.sendMessage(process.env.TELEGRAM_CHAT_ID, '✅ Bot online e rodando 24/7!').catch(() => {});
-          });
+          async def start(update, context):
+              await update.message.reply_text('Bot rodando 24/7! 🚀')
 
-          setInterval(() => socket.emit('ping'), 250000);
+          async def main():
+              app = Application.builder().token(os.getenv('TELEGRAM_BOT_TOKEN')).build()
+              app.add_handler(CommandHandler('start', start))
+              
+              await sio.connect('https://socket.xf.bs')
+              print('✅ Conectado ao socket - Bot online 24/7')
+              
+              bot = Bot(os.getenv('TELEGRAM_BOT_TOKEN'))
+              await bot.send_message(chat_id=os.getenv('TELEGRAM_CHAT_ID'), text='✅ Bot online!')
+              
+              async def keep_alive():
+                  while True:
+                      await sio.emit('ping')
+                      await asyncio.sleep(250)
+              
+              asyncio.create_task(keep_alive())
+              await app.run_polling()
+
+          asyncio.run(main())
           "
