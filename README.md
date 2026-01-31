@@ -1,63 +1,64 @@
-# 📱 Telegram Paper Trading Bot
+# 🤖 BTC Paper Trading Bot
 
-Bot de paper trading automatizado com notificações Telegram para estratégia de trend following em BTC/USDT.
+Bot de Paper Trading automático para Bitcoin (BTC/USDT) com notificações via Telegram.
 
-## 🎯 Features
+## 📊 Estratégia
 
-- ✅ Paper trading simulado (sem risco real)
-- ✅ Notificações Telegram em tempo real
-- ✅ Relatório diário automático (18h)
-- ✅ Rastreamento completo desde o início
-- ✅ Gráfico de equity curve
-- ✅ Análise de win/loss desde o dia 1
+- **Ativo:** BTC/USDT (Binance Futures)
+- **Timeframe:** 1 hora (H1)
+- **Indicador:** SMA de 8 períodos
+- **Entrada:** Rompimento da máxima/mínima do candle após virada da média
+- **Body%:** Mínimo 45%
+- **R:R:** 2.1:1
+- **Leverage:** 2.5x
+- **Risk:** 2% por trade
+- **Cooldown:** 12 horas após cada trade
 
-## 📊 Setup da Estratégia
+### 🕐 Horário de Operação
 
-- **Timeframe**: 1H
-- **Ativo**: BTC/USDT
-- **Sessão**: NY (08:00-17:00)
-- **Janela**: Primeiras 3 horas
-- **MA**: SMA 8
-- **Filtro**: Body% > 45
-- **R:R**: 2.2
-- **Leverage**: 2.5x (paper)
-- **Risk**: 2% por trade
+- **Horário:** 8:00 - 11:00 AM (horário de Nova York)
+- **Dias:** Segunda a sexta (exceto feriados americanos)
 
 ## 🚀 Como Usar
 
-### 1. Criar Bot no Telegram
+### 1️⃣ Configurar Secrets no GitHub
 
-1. Procure por `@BotFather` no Telegram
-2. Envie `/newbot`
-3. Escolha um nome
-4. Guarde o **token** que o BotFather enviar
+1. Vá em **Settings** → **Secrets and variables** → **Actions**
+2. Adicione:
+   - `TELEGRAM_BOT_TOKEN`: Token do seu bot
+   - `TELEGRAM_CHAT_ID`: ID do chat para receber notificações
 
-### 2. Pegar seu Chat ID
+### 2️⃣ Executar
 
-1. Procure por `@userinfobot` no Telegram
-2. Envie qualquer mensagem
-3. Guarde o **Chat ID** que ele responder
+O bot roda **automaticamente todos os dias às 16:10 BRT** (11:10 AM NY).
 
-### 3. Clonar e Configurar
+Você também pode rodar manualmente:
+1. Vá em **Actions**
+2. Selecione **Paper Trading Bot**
+3. Clique em **Run workflow**
 
-```bash
-# Clone o repositório
-git clone https://github.com/seu-usuario/trading-bot.git
-cd trading-bot
+## 📈 Notificações
 
-# Crie ambiente virtual
-python -m venv venv
-source venv/bin/activate  # Linux/Mac
-# ou
-venv\Scripts\activate  # Windows
+Você receberá via Telegram:
+- ✅ Entrada em posições
+- ✅ Saída de posições (stop/target)
+- ✅ Relatório diário com equity curve
 
-# Instale dependências
-pip install -r requirements.txt
+## 📂 Dados Salvos
 
-# Configure suas credenciais
-cp .env.example .env
-nano .env  # ou use seu editor favorito
+Os dados ficam salvos em `/data`:
+- `telegram_state.json`: Estado atual do bot
+- `telegram_trades.json`: Histórico completo de trades
+- `equity_curve.json`: Curva de capital
 
-# Edite .env e coloque:
-# TELEGRAM_BOT_TOKEN=seu_token_aqui
-# TELEGRAM_CHAT_ID=seu_chat_id_aqui
+## ⚙️ Configuração
+
+Principais parâmetros em `telegram_paper_trading_bot.py`:
+
+```python
+INITIAL_BALANCE = 10000
+RISK_PER_TRADE = 0.02  # 2%
+LEVERAGE = 2.5
+RR_RATIO = 2.1
+MA_PERIOD = 8
+BODY_MIN_PERCENT = 45
