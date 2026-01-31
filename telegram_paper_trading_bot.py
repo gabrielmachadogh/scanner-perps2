@@ -1,9 +1,9 @@
 """
 Bot de Paper Trading - BTC/USDT - MEXC
+- SEMPRE refaz backtest do zero
 - 3h10 de mercado NY (8:00 AM - 11:10 AM)
 - Body% 44%
-- Maximo de dados disponiveis
-- Continua operando
+- Relatorio completo por ano
 """
 import ccxt
 import pandas as pd
@@ -32,7 +32,7 @@ TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "")
 SYMBOL = 'BTC/USDT'
 TIMEFRAME = '1h'
 MA_PERIOD = 8
-BODY_MIN_PERCENT = 44  # AJUSTADO PARA 44%
+BODY_MIN_PERCENT = 44
 RR_RATIO = 2.1
 COOLDOWN_HOURS = 12
 RISK_PER_TRADE = 0.02
@@ -41,17 +41,14 @@ TAKER_FEE = 0.0004
 SLIPPAGE = 0.0002
 INITIAL_BALANCE = 10000
 
-# Tenta 5 anos (mais realista para MEXC)
 START_DATE = datetime.now() - timedelta(days=1825)  # 5 anos
 
 NY_TZ = pytz.timezone('America/New_York')
-SESSION_START_HOUR = 8      # 8:00 AM NY
-SESSION_START_MINUTE = 0    # 8:00 AM
-SESSION_END_HOUR = 11       # 11:10 AM NY
-SESSION_END_MINUTE = 10     # 11:10 AM (3h10 total)
+SESSION_START_HOUR = 8
+SESSION_START_MINUTE = 0
+SESSION_END_HOUR = 11
+SESSION_END_MINUTE = 10
 
-REPORT_HOUR_NY = 11
-REPORT_MINUTE_NY = 10
 TICK_SIZE = 0.1
 
 DATA_DIR = Path('data')
@@ -59,7 +56,6 @@ DATA_DIR.mkdir(exist_ok=True)
 TRADES_FILE = DATA_DIR / 'telegram_trades.json'
 STATE_FILE = DATA_DIR / 'telegram_state.json'
 EQUITY_FILE = DATA_DIR / 'equity_curve.json'
-BACKTEST_DONE_FILE = DATA_DIR / 'backtest_done.flag'
 
 class TelegramNotifier:
     def __init__(self, token, chat_id):
@@ -91,7 +87,8 @@ class TelegramNotifier:
 class PaperTradingBot:
     def __init__(self):
         print("="*80)
-        print("BOT PAPER TRADING - 3H10 NY - BODY 44%")
+        print("BACKTEST COMPLETO - 3H10 NY - BODY 44%")
+        print("DELETANDO DADOS ANTIGOS E RECOMEÇANDO")
         print("="*80)
         
         if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
@@ -99,7 +96,13 @@ class PaperTradingBot:
         
         self.telegram = TelegramNotifier(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID)
         
-        print("Conectando MEXC...")
+        print("\n🔄 DELETANDO ARQUIVOS ANTIGOS...")
+        for f in [TRADES_FILE, STATE_FILE, EQUITY_FILE]:
+            if f.exists():
+                f.unlink()
+                print(f"✅ {f.name} deletado")
+        
+        print("\nConectando MEXC...")
         self.exchange = ccxt.mexc({
             'enableRateLimit': True,
             'options': {'defaultType': 'swap'}
@@ -113,50 +116,15 @@ class PaperTradingBot:
         self.equity_curve = []
         self.start_date = START_DATE
         self.last_trade_time = None
-        self.last_daily_report = None
         self.us_holidays = holidays.US(years=range(2019, 2027))
-        self.backtest_completed = False
-        
-        if BACKTEST_DONE_FILE.exists():
-            print("\n✅ Backtest ja executado")
-            self.backtest_completed = True
-            self._load_state()
-        else:
-            print("\n🆕 Primeira execucao")
-            for f in [TRADES_FILE, STATE_FILE, EQUITY_FILE]:
-                if f.exists():
-                    f.unlink()
         
         self._send_startup_message()
-    
-    def _load_state(self):
-        if STATE_FILE.exists():
-            with open(STATE_FILE, 'r') as f:
-                state = json.load(f)
-                self.paper_balance = state.get('balance', INITIAL_BALANCE)
-                self.initial_balance = state.get('initial_balance', INITIAL_BALANCE)
-                self.start_date = datetime.fromisoformat(state.get('start_date', START_DATE.isoformat()))
-                self.last_daily_report = state.get('last_daily_report')
-                if state.get('last_trade_time'):
-                    self.last_trade_time = datetime.fromisoformat(state['last_trade_time'])
-                print(f"✅ Balance: ${self.paper_balance:,.2f}")
-        
-        if TRADES_FILE.exists():
-            with open(TRADES_FILE, 'r') as f:
-                self.all_trades = json.load(f)
-                print(f"✅ {len(self.all_trades)} trades")
-        
-        if EQUITY_FILE.exists():
-            with open(EQUITY_FILE, 'r') as f:
-                self.equity_curve = json.load(f)
     
     def _save_state(self):
         state = {
             'balance': self.paper_balance,
             'initial_balance': self.initial_balance,
             'start_date': self.start_date.isoformat(),
-            'last_daily_report': self.last_daily_report,
-            'last_trade_time': self.last_trade_time.isoformat() if self.last_trade_time else None,
             'last_update': datetime.now().isoformat()
         }
         with open(STATE_FILE, 'w') as f:
@@ -174,15 +142,11 @@ class PaperTradingBot:
         return True
     
     def _is_trading_hours(self, dt):
-        """
-        3h10 de mercado NY
-        8:00 AM - 11:10 AM
-        """
+        """3h10: 8:00-11:10 AM NY"""
         ny_time = dt.astimezone(NY_TZ)
         hour = ny_time.hour
         minute = ny_time.minute
         
-        # 8:00 - 11:09
         if hour == 8 or hour == 9 or hour == 10:
             return True
         if hour == 11 and minute < 10:
@@ -228,7 +192,7 @@ class PaperTradingBot:
             return 0
         return (risk_usd / risk_per_btc) * LEVERAGE
     
-    def _execute_trade(self, side, entry, stop, signal_time, notify=True):
+    def _execute_trade(self, side, entry, stop, signal_time):
         entry_executed = entry * (1 + SLIPPAGE) if side == 'LONG' else entry * (1 - SLIPPAGE)
         
         risk_distance = abs(entry_executed - stop)
@@ -250,19 +214,8 @@ class PaperTradingBot:
             'entry_time': signal_time.isoformat(),
             'entry_fee': entry_fee
         }
-        
-        if notify:
-            msg = f"""🟢 <b>{side}</b>
-
-Entry: ${entry_executed:,.2f}
-Stop: ${stop:,.2f}
-Target: ${target:,.2f}
-Size: {size:.4f} BTC
-
-{signal_time.strftime('%d/%m %H:%M')}"""
-            self.telegram.send_message(msg)
     
-    def _close_position(self, exit_price, outcome, exit_time, notify=True):
+    def _close_position(self, exit_price, outcome, exit_time):
         if not self.position:
             return
         
@@ -305,36 +258,14 @@ Size: {size:.4f} BTC
             'trade_number': len(self.all_trades)
         })
         
-        if notify:
-            emoji = "🎯" if outcome == 'TARGET' else "🛑"
-            msg = f"""{emoji} <b>{outcome}</b>
-
-Exit: ${exit_executed:,.2f}
-PnL: ${pnl_net:+,.2f}
-Balance: ${self.paper_balance:,.2f}
-
-{exit_time.strftime('%d/%m %H:%M')}"""
-            self.telegram.send_message(msg)
-        
         self.position = None
-        self._save_state()
     
     def _send_startup_message(self):
-        if self.backtest_completed:
-            msg = f"""🤖 <b>BOT OPERACIONAL</b>
-
-⏰ Horario: 8:00-11:10 AM NY (3h10)
-💪 Body%: 44%
-
-Balance: ${self.paper_balance:,.2f}
-Trades: {len(self.all_trades)}
-
-⏰ {datetime.now().strftime('%d/%m/%Y %H:%M')}"""
-        else:
-            msg = f"""🚀 <b>BACKTEST - 3H10 NY</b>
+        msg = f"""🚀 <b>NOVO BACKTEST - 3H10 NY</b>
 
 ⏰ Horario: 8:00-11:10 AM NY
 💪 Body%: 44%
+💰 Capital: ${INITIAL_BALANCE:,.2f}
 
 Baixando maximo de dados...
 
@@ -439,7 +370,7 @@ Baixando maximo de dados...
         total_trades = len(self.all_trades)
         
         if total_trades == 0:
-            self.telegram.send_message("Nenhum trade!")
+            self.telegram.send_message("❌ Nenhum trade executado!")
             return
         
         wins = [t for t in self.all_trades if t['pnl_usd'] > 0]
@@ -483,6 +414,7 @@ Baixando maximo de dados...
 • Body%: 44%
 
 💰 <b>Capital:</b>
+• Inicial: ${self.initial_balance:,.2f}
 • Final: ${self.paper_balance:,.2f}
 • Return: {return_pct:+.2f}%
 • PnL: ${net_pnl:+,.2f}
@@ -507,6 +439,7 @@ Baixando maximo de dados...
         
         self.telegram.send_message(msg)
         
+        # Performance por ano
         if years_data:
             year_msg = "📊 <b>PERFORMANCE POR ANO:</b>\n━━━━━━━━━━━━━━━━━━━━━━\n\n"
             
@@ -525,6 +458,7 @@ Baixando maximo de dados...
             
             self.telegram.send_message(year_msg)
         
+        # Grafico
         chart_bytes = self._create_equity_chart()
         if chart_bytes:
             caption = f"""📈 <b>Equity - 3h10 NY - Body 44%</b>
@@ -533,12 +467,8 @@ Baixando maximo de dados...
             self.telegram.send_photo(chart_bytes, caption=caption)
     
     def run_backtest(self):
-        if self.backtest_completed:
-            print("Backtest ja feito")
-            return
-        
         print("\n" + "="*80)
-        print("BACKTEST - MAXIMO DISPONIVEL")
+        print("INICIANDO BACKTEST")
         print("="*80)
         
         print("Testando limite de dados MEXC...")
@@ -563,7 +493,7 @@ Baixando maximo de dados...
                 continue
         
         if not actual_start:
-            print("Usando default: 3 anos")
+            print("Default: 3 anos")
             actual_start = datetime.now() - timedelta(days=1095)
         
         self.start_date = actual_start
@@ -599,7 +529,8 @@ Baixando maximo de dados...
                 break
         
         if not all_candles:
-            print("Nenhum candle!")
+            print("❌ Nenhum candle!")
+            self.telegram.send_message("❌ Erro: nenhum dado baixado da MEXC")
             return
         
         first_candle = datetime.fromtimestamp(all_candles[0][0] / 1000)
@@ -640,14 +571,14 @@ Baixando maximo de dados...
             if self.position:
                 if self.position['side'] == 'LONG':
                     if current['low'] <= self.position['stop']:
-                        self._close_position(self.position['stop'], 'STOP', current_time, notify=False)
+                        self._close_position(self.position['stop'], 'STOP', current_time)
                     elif current['high'] >= self.position['target']:
-                        self._close_position(self.position['target'], 'TARGET', current_time, notify=False)
+                        self._close_position(self.position['target'], 'TARGET', current_time)
                 else:
                     if current['high'] >= self.position['stop']:
-                        self._close_position(self.position['stop'], 'STOP', current_time, notify=False)
+                        self._close_position(self.position['stop'], 'STOP', current_time)
                     elif current['low'] <= self.position['target']:
-                        self._close_position(self.position['target'], 'TARGET', current_time, notify=False)
+                        self._close_position(self.position['target'], 'TARGET', current_time)
                 continue
             
             if not self._is_trading_hours(current_time):
@@ -676,7 +607,7 @@ Baixando maximo de dados...
                     next_candle = df.loc[i + 1]
                     if next_candle['high'] >= trigger:
                         self._execute_trade('LONG', trigger, stop, 
-                                          next_candle['timestamp'].to_pydatetime(), notify=False)
+                                          next_candle['timestamp'].to_pydatetime())
             
             elif ma_turn == 'DOWN':
                 trigger = current['low']
@@ -686,7 +617,7 @@ Baixando maximo de dados...
                     next_candle = df.loc[i + 1]
                     if next_candle['low'] <= trigger:
                         self._execute_trade('SHORT', trigger, stop, 
-                                          next_candle['timestamp'].to_pydatetime(), notify=False)
+                                          next_candle['timestamp'].to_pydatetime())
         
         print("\n" + "="*80)
         print("CONCLUIDO")
@@ -703,161 +634,13 @@ Baixando maximo de dados...
         print("="*80)
         
         self._save_state()
-        
-        with open(BACKTEST_DONE_FILE, 'w') as f:
-            f.write(datetime.now().isoformat())
-        
-        self.backtest_completed = True
         self._send_summary()
-    
-    def check_new_signals(self):
-        if not self.backtest_completed:
-            return
-        
-        print("\nChecando sinais...")
-        
-        try:
-            since = int((datetime.now() - timedelta(hours=100)).timestamp() * 1000)
-            candles = self.exchange.fetch_ohlcv(SYMBOL, TIMEFRAME, since=since, limit=100)
-            
-            if not candles:
-                return
-            
-            df = pd.DataFrame(candles, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume'])
-            df['timestamp'] = pd.to_datetime(df['timestamp'], unit='ms')
-            df.set_index('timestamp', inplace=True)
-            df['sma'] = df['close'].rolling(MA_PERIOD).mean()
-            df['body_pct'] = df.apply(self._calculate_body_percent, axis=1)
-            df.reset_index(inplace=True)
-            
-            for i in range(MA_PERIOD + 2, len(df)):
-                current = df.loc[i]
-                current_time = current['timestamp'].to_pydatetime()
-                
-                if self.last_trade_time and current_time <= self.last_trade_time:
-                    continue
-                
-                if not self._is_trading_day(current_time):
-                    continue
-                
-                if self.position:
-                    if self.position['side'] == 'LONG':
-                        if current['low'] <= self.position['stop']:
-                            self._close_position(self.position['stop'], 'STOP', current_time)
-                        elif current['high'] >= self.position['target']:
-                            self._close_position(self.position['target'], 'TARGET', current_time)
-                    else:
-                        if current['high'] >= self.position['stop']:
-                            self._close_position(self.position['stop'], 'STOP', current_time)
-                        elif current['low'] <= self.position['target']:
-                            self._close_position(self.position['target'], 'TARGET', current_time)
-                    continue
-                
-                if not self._is_trading_hours(current_time):
-                    continue
-                
-                if self._in_cooldown(current_time):
-                    continue
-                
-                ma_turn = self._detect_ma_turn(df, i)
-                if not ma_turn:
-                    continue
-                
-                if current['body_pct'] < BODY_MIN_PERCENT:
-                    continue
-                
-                if ma_turn == 'UP':
-                    trigger = current['high']
-                    stop = current['low'] - TICK_SIZE
-                    
-                    if i + 1 < len(df):
-                        next_candle = df.loc[i + 1]
-                        if next_candle['high'] >= trigger:
-                            self._execute_trade('LONG', trigger, stop, 
-                                              next_candle['timestamp'].to_pydatetime())
-                
-                elif ma_turn == 'DOWN':
-                    trigger = current['low']
-                    stop = current['high'] + TICK_SIZE
-                    
-                    if i + 1 < len(df):
-                        next_candle = df.loc[i + 1]
-                        if next_candle['low'] <= trigger:
-                            self._execute_trade('SHORT', trigger, stop, 
-                                              next_candle['timestamp'].to_pydatetime())
-            
-            print("✅ Verificacao completa")
-            
-        except Exception as e:
-            print(f"Erro: {e}")
-    
-    def send_daily_report(self):
-        if not self.backtest_completed or not self.all_trades:
-            return
-        
-        wins = [t for t in self.all_trades if t['pnl_usd'] > 0]
-        win_rate = (len(wins) / len(self.all_trades) * 100)
-        total_pnl = sum(t['pnl_usd'] for t in self.all_trades)
-        return_pct = ((self.paper_balance / self.initial_balance) - 1) * 100
-        
-        days = (datetime.now() - self.start_date).days
-        
-        today = datetime.now().date()
-        trades_today = [t for t in self.all_trades 
-                       if datetime.fromisoformat(t['exit_time']).date() == today]
-        pnl_today = sum(t['pnl_usd'] for t in trades_today)
-        
-        position_status = f"{self.position['side']} aberta" if self.position else "Sem posicao"
-        
-        msg = f"""📊 <b>RELATORIO DIARIO</b>
-━━━━━━━━━━━━━━━━━━━━━━
-
-📅 Desde: {self.start_date.strftime('%d/%m/%Y')} ({days} dias)
-
-⏰ <b>Config:</b>
-• Janela: 8:00-11:10 AM NY (3h10)
-• Body%: 44%
-
-💰 <b>Capital:</b>
-• Balance: ${self.paper_balance:,.2f}
-• Return: {return_pct:+.2f}%
-• PnL: ${total_pnl:+,.2f}
-
-📈 <b>Performance:</b>
-• Trades: {len(self.all_trades)}
-• WR: {win_rate:.1f}%
-
-📊 <b>Hoje:</b>
-• Trades: {len(trades_today)}
-• PnL: ${pnl_today:+,.2f}
-
-🎯 {position_status}
-
-⏰ {datetime.now().strftime('%d/%m/%Y %H:%M')}"""
-        
-        self.telegram.send_message(msg)
-        self.last_daily_report = datetime.now().isoformat()
-        self._save_state()
 
 if __name__ == '__main__':
     try:
         bot = PaperTradingBot()
         bot.run_backtest()
-        bot.check_new_signals()
-        
-        now = datetime.now()
-        ny_now = now.astimezone(NY_TZ)
-        
-        if ny_now.hour == REPORT_HOUR_NY and ny_now.minute >= REPORT_MINUTE_NY:
-            if bot.last_daily_report:
-                last_date = datetime.fromisoformat(bot.last_daily_report).date()
-                if last_date != now.date():
-                    bot.send_daily_report()
-            else:
-                bot.send_daily_report()
-        
         print("\n✅ COMPLETO!")
-        
     except Exception as e:
         print(f"\n❌ ERRO: {e}")
         import traceback
