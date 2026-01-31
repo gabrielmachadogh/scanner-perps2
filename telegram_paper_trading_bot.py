@@ -1,4 +1,4 @@
-"""Bot de Paper Trading com Telegram - MEXC - Relatorio Completo"""
+"""Bot de Paper Trading com Telegram - MEXC - 6 Meses"""
 import ccxt
 import pandas as pd
 import numpy as np
@@ -32,7 +32,10 @@ LEVERAGE = 2.5
 TAKER_FEE = 0.0004
 SLIPPAGE = 0.0002
 INITIAL_BALANCE = 10000
-START_DATE = datetime(2025, 12, 1)  # DESDE 01/12/2025
+
+# 6 MESES ATRAS
+START_DATE = datetime.now() - timedelta(days=180)
+
 NY_TZ = pytz.timezone('America/New_York')
 SESSION_START_HOUR = 8
 SESSION_END_HOUR = 11
@@ -76,7 +79,7 @@ class TelegramNotifier:
 class PaperTradingBot:
     def __init__(self):
         print("="*80)
-        print("BOT INICIANDO - MEXC")
+        print("BOT INICIANDO - MEXC - 6 MESES")
         print("="*80)
         
         if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
@@ -99,7 +102,7 @@ class PaperTradingBot:
         self.start_date = START_DATE
         self.last_trade_time = None
         self.last_daily_report = None
-        self.us_holidays = holidays.US(years=range(2025, 2030))
+        self.us_holidays = holidays.US(years=range(2024, 2030))
         
         self._load_state()
         self._send_startup_message()
@@ -162,8 +165,21 @@ class PaperTradingBot:
         return (body_size / range_size) * 100
     
     def _detect_ma_turn(self, df, index):
+        """
+        REGRA DE ENTRADA #1: DETECÇÃO DE VIRADA DA MÉDIA
+        
+        Verifica se a SMA(8) mudou de direção:
+        - VIRADA PARA CIMA (sinal de COMPRA):
+          * SMA estava caindo (SMA[i-1] < SMA[i-2])
+          * E agora está subindo (SMA[i] > SMA[i-1])
+        
+        - VIRADA PARA BAIXO (sinal de VENDA):
+          * SMA estava subindo (SMA[i-1] > SMA[i-2])
+          * E agora está caindo (SMA[i] < SMA[i-1])
+        """
         if index < 2:
             return None
+        
         ma_prev2 = df.loc[index - 2, 'sma']
         ma_prev1 = df.loc[index - 1, 'sma']
         ma_curr = df.loc[index, 'sma']
@@ -171,19 +187,36 @@ class PaperTradingBot:
         if pd.isna(ma_prev2) or pd.isna(ma_prev1) or pd.isna(ma_curr):
             return None
         
+        # Virou para cima
         if ma_prev1 < ma_prev2 and ma_curr > ma_prev1:
             return 'UP'
+        
+        # Virou para baixo
         if ma_prev1 > ma_prev2 and ma_curr < ma_prev1:
             return 'DOWN'
+        
         return None
     
     def _in_cooldown(self, current_time):
+        """
+        REGRA DE ENTRADA #2: COOLDOWN
+        
+        Aguarda 12 horas após o último trade antes de permitir nova entrada.
+        Evita overtrading em mercados laterais.
+        """
         if self.last_trade_time is None:
             return False
         hours_since_last = (current_time - self.last_trade_time).total_seconds() / 3600
         return hours_since_last < COOLDOWN_HOURS
     
     def _calculate_position_size(self, entry, stop):
+        """
+        GESTÃO DE RISCO: Calcula tamanho da posição
+        
+        - Arrisca 2% do capital por trade
+        - Calcula quantos BTC comprar baseado na distância até o stop
+        - Aplica alavancagem de 2.5x
+        """
         risk_usd = self.paper_balance * RISK_PER_TRADE
         risk_per_btc = abs(entry - stop)
         if risk_per_btc == 0:
@@ -191,6 +224,15 @@ class PaperTradingBot:
         return (risk_usd / risk_per_btc) * LEVERAGE
     
     def _execute_trade(self, side, entry, stop, signal_time):
+        """
+        EXECUÇÃO DO TRADE
+        
+        1. Aplica slippage no preço de entrada
+        2. Calcula target baseado em R:R 2.1:1
+        3. Calcula tamanho da posição
+        4. Cobra taxa de entrada
+        5. Abre a posição
+        """
         entry_executed = entry * (1 + SLIPPAGE) if side == 'LONG' else entry * (1 - SLIPPAGE)
         risk_distance = abs(entry_executed - stop)
         target = entry_executed + (risk_distance * RR_RATIO) if side == 'LONG' else entry_executed - (risk_distance * RR_RATIO)
@@ -255,7 +297,6 @@ Size: {size:.4f} BTC
         self.all_trades.append(trade)
         self.last_trade_time = exit_time
         
-        # Adiciona ponto na equity curve
         self.equity_curve.append({
             'timestamp': exit_time.isoformat(),
             'balance': self.paper_balance,
@@ -279,7 +320,7 @@ Balance: ${self.paper_balance:,.2f}
     
     def _send_startup_message(self):
         days = (datetime.now() - self.start_date).days
-        msg = f"""🚀 <b>BOT INICIADO - MEXC</b>
+        msg = f"""🚀 <b>BOT INICIADO - 6 MESES</b>
 
 Balance: ${self.paper_balance:,.2f}
 Trades: {len(self.all_trades)}
@@ -289,7 +330,6 @@ Dias: {days}
         self.telegram.send_message(msg)
     
     def _create_equity_chart(self):
-        """Cria grafico da equity curve"""
         if not self.equity_curve:
             print("Sem dados para grafico")
             return None
@@ -298,7 +338,6 @@ Dias: {days}
             df_equity = pd.DataFrame(self.equity_curve)
             df_equity['timestamp'] = pd.to_datetime(df_equity['timestamp'])
             
-            # Adiciona ponto inicial
             start_point = pd.DataFrame([{
                 'timestamp': self.start_date,
                 'balance': INITIAL_BALANCE,
@@ -306,17 +345,14 @@ Dias: {days}
             }])
             df_equity = pd.concat([start_point, df_equity], ignore_index=True)
             
-            # Cria figura
             plt.figure(figsize=(14, 8))
             
-            # Plot principal
             plt.subplot(2, 1, 1)
             plt.plot(df_equity['timestamp'], df_equity['balance'], 
                     linewidth=2.5, color='#2E86AB', label='Balance')
             plt.axhline(y=INITIAL_BALANCE, color='gray', linestyle='--', 
                        alpha=0.5, linewidth=1.5, label='Capital Inicial')
             
-            # Fill areas
             plt.fill_between(df_equity['timestamp'], INITIAL_BALANCE, df_equity['balance'], 
                            where=(df_equity['balance'] >= INITIAL_BALANCE), 
                            alpha=0.3, color='green', label='Profit')
@@ -324,19 +360,16 @@ Dias: {days}
                            where=(df_equity['balance'] < INITIAL_BALANCE), 
                            alpha=0.3, color='red', label='Loss')
             
-            plt.title('Equity Curve - Paper Trading BTC/USDT', fontsize=16, fontweight='bold')
+            plt.title('Equity Curve - Paper Trading BTC/USDT (6 meses)', fontsize=16, fontweight='bold')
             plt.ylabel('Balance (USD)', fontsize=12)
             plt.legend(loc='best')
             plt.grid(alpha=0.3)
             
-            # Drawdown
             plt.subplot(2, 1, 2)
             running_max = df_equity['balance'].expanding().max()
             drawdown = ((df_equity['balance'] - running_max) / running_max) * 100
-            plt.fill_between(df_equity['timestamp'], 0, drawdown, 
-                           color='red', alpha=0.3)
-            plt.plot(df_equity['timestamp'], drawdown, 
-                    color='darkred', linewidth=2)
+            plt.fill_between(df_equity['timestamp'], 0, drawdown, color='red', alpha=0.3)
+            plt.plot(df_equity['timestamp'], drawdown, color='darkred', linewidth=2)
             plt.title('Drawdown (%)', fontsize=14, fontweight='bold')
             plt.ylabel('Drawdown %', fontsize=12)
             plt.xlabel('Data', fontsize=12)
@@ -344,7 +377,6 @@ Dias: {days}
             
             plt.tight_layout()
             
-            # Salva em bytes
             buf = io.BytesIO()
             plt.savefig(buf, format='png', dpi=100, bbox_inches='tight')
             buf.seek(0)
@@ -360,12 +392,10 @@ Dias: {days}
             return None
     
     def _send_daily_report(self):
-        """Envia relatorio diario completo"""
         print("\n" + "="*80)
         print("ENVIANDO RELATORIO DIARIO")
         print("="*80)
         
-        # Calcula estatisticas
         total_trades = len(self.all_trades)
         
         if total_trades == 0:
@@ -396,19 +426,15 @@ Return: 0.00%"""
         
         return_pct = ((self.paper_balance / self.initial_balance) - 1) * 100
         
-        # Trades hoje
         today = datetime.now().date()
         trades_today = [t for t in self.all_trades 
                        if datetime.fromisoformat(t['exit_time']).date() == today]
         pnl_today = sum(t['pnl_usd'] for t in trades_today)
         
-        # Dias rodando
         days_running = (datetime.now() - self.start_date).days
         
-        # Status posicao
         position_status = f"{self.position['side']} aberta" if self.position else "Sem posicao"
         
-        # Ultimo trade
         if self.all_trades:
             last_trade = self.all_trades[-1]
             last_trade_time = datetime.fromisoformat(last_trade['exit_time']).strftime('%d/%m %H:%M')
@@ -419,12 +445,10 @@ Return: 0.00%"""
             last_trade_result = "-"
             last_trade_pnl = 0
         
-        # Melhor e pior trade
         best_trade = max(self.all_trades, key=lambda x: x['pnl_usd'])
         worst_trade = min(self.all_trades, key=lambda x: x['pnl_usd'])
         
-        # Monta mensagem
-        msg = f"""📊 <b>RELATORIO DIARIO</b>
+        msg = f"""📊 <b>RELATORIO DIARIO - 6 MESES</b>
 ━━━━━━━━━━━━━━━━━━━━━━
 
 💰 <b>Capital:</b>
@@ -461,40 +485,66 @@ Return: 0.00%"""
 
 ⏰ {datetime.now().strftime('%d/%m/%Y %H:%M')}"""
         
-        # Envia mensagem
         result = self.telegram.send_message(msg)
         
         if result and result.get('ok'):
             print("✅ Relatorio enviado")
-        else:
-            print(f"❌ Erro ao enviar relatorio: {result}")
         
-        # Envia grafico
         chart_bytes = self._create_equity_chart()
         if chart_bytes:
-            caption = f"""📈 <b>Equity Curve</b>
+            caption = f"""📈 <b>Equity Curve - 6 Meses</b>
 
 Periodo: {self.start_date.strftime('%d/%m/%Y')} - {datetime.now().strftime('%d/%m/%Y')}
 Trades: {total_trades} | Return: {return_pct:+.2f}%"""
             
-            photo_result = self.telegram.send_photo(chart_bytes, caption=caption)
-            if photo_result and photo_result.get('ok'):
-                print("✅ Grafico enviado")
-            else:
-                print(f"❌ Erro ao enviar grafico: {photo_result}")
+            self.telegram.send_photo(chart_bytes, caption=caption)
         
-        # Atualiza ultimo relatorio
         self.last_daily_report = datetime.now().isoformat()
         self._save_state()
-        
-        print("="*80)
     
     def run_backtest(self):
+        """
+        PROCESSO DE BACKTEST COMPLETO
+        
+        Para cada candle de 1h nos últimos 6 meses:
+        
+        1. FILTRA HORÁRIO:
+           - Só opera 8-11h horário de Nova York
+           - Só dias úteis (sem sábado/domingo/feriados)
+        
+        2. SE JÁ ESTÁ EM POSIÇÃO:
+           - Checa se atingiu STOP ou TARGET
+           - Se sim, fecha a posição
+        
+        3. SE NÃO ESTÁ EM POSIÇÃO, BUSCA SINAL:
+           a) Detecta VIRADA da média SMA(8)
+           b) Verifica se Body% >= 45%
+           c) Verifica se NÃO está em cooldown (12h)
+           
+           SINAL LONG:
+           - Média virou para cima
+           - Body% >= 45%
+           - TRIGGER: Máxima do candle
+           - STOP: Mínima - 1 tick ($0.10)
+           - Entry SE próximo candle romper a máxima
+           
+           SINAL SHORT:
+           - Média virou para baixo
+           - Body% >= 45%
+           - TRIGGER: Mínima do candle
+           - STOP: Máxima + 1 tick ($0.10)
+           - Entry SE próximo candle romper a mínima
+        
+        4. GESTÃO:
+           - Risk: 2% do capital por trade
+           - Target: Stop + (Stop distance × 2.1)
+           - Leverage: 2.5x
+           - Fees: 0.04% por entrada/saída
+        """
         print("\n" + "="*80)
-        print("BACKTEST INICIANDO - MEXC")
+        print("BACKTEST INICIANDO - 6 MESES")
         print("="*80)
         
-        # LIMPA DADOS ANTIGOS PARA REFAZER DO ZERO
         print("Limpando dados antigos...")
         self.all_trades = []
         self.equity_curve = []
@@ -502,11 +552,11 @@ Trades: {total_trades} | Return: {return_pct:+.2f}%"""
         self.position = None
         self.last_trade_time = None
         
-        print(f"📥 Baixando dados desde {START_DATE.strftime('%d/%m/%Y')}...")
+        print(f"📥 Baixando 6 meses de dados (desde {START_DATE.strftime('%d/%m/%Y')})...")
         
         since = int(START_DATE.timestamp() * 1000)
         all_candles = []
-        max_requests = 150
+        max_requests = 200
         request_count = 0
         
         while request_count < max_requests:
@@ -537,7 +587,7 @@ Trades: {total_trades} | Return: {return_pct:+.2f}%"""
             print("❌ Nenhum candle baixado!")
             return
         
-        print(f"✅ {len(all_candles)} candles baixados")
+        print(f"✅ {len(all_candles)} candles baixados em {request_count} requests")
         
         df = pd.DataFrame(all_candles, columns=['timestamp', 'open', 'high', 'low', 'close', 'volume'])
         df['timestamp'] = pd.to_datetime(df['timestamp'], unit='ms')
@@ -612,11 +662,11 @@ Trades: {total_trades} | Return: {return_pct:+.2f}%"""
                         self._execute_trade('SHORT', trigger, stop, next_candle['timestamp'].to_pydatetime())
         
         print("\n" + "="*80)
-        print("ESTATISTICAS")
+        print("ESTATISTICAS - 6 MESES")
         print("="*80)
         print(f"Total candles: {total_candles}")
         print(f"Dias uteis: {trading_days}")
-        print(f"Horario NY: {trading_hours}")
+        print(f"Horario NY (8-11h): {trading_hours}")
         print(f"Viradas MA: {ma_turns}")
         print(f"Body > {BODY_MIN_PERCENT}%: {body_ok}")
         print(f"Triggers: {triggers}")
@@ -626,18 +676,22 @@ Trades: {total_trades} | Return: {return_pct:+.2f}%"""
         
         pnl_pct = ((self.paper_balance / self.initial_balance) - 1) * 100
         
-        msg = f"""📊 <b>BACKTEST COMPLETO - MEXC</b>
+        wins = len([t for t in self.all_trades if t['pnl_usd'] > 0])
+        win_rate = (wins / len(self.all_trades) * 100) if self.all_trades else 0
+        
+        msg = f"""📊 <b>BACKTEST 6 MESES - MEXC</b>
 
 Periodo: {START_DATE.strftime('%d/%m/%Y')} - {datetime.now().strftime('%d/%m/%Y')}
 
-Candles: {total_candles}
-Dias uteis: {trading_days}
-Horario NY: {trading_hours}
-Viradas MA: {ma_turns}
-Body > 45%: {body_ok}
-Triggers: {triggers}
+📈 Candles: {total_candles}
+📅 Dias uteis: {trading_days}
+🕐 Horario NY: {trading_hours}
+📊 Viradas MA: {ma_turns}
+💪 Body > 45%: {body_ok}
+🎯 Triggers: {triggers}
 
-<b>Trades: {len(self.all_trades)}</b>
+<b>✅ Trades: {len(self.all_trades)}</b>
+Win Rate: {win_rate:.1f}%
 Balance: ${self.paper_balance:,.2f}
 Return: {pnl_pct:+.2f}%"""
         
@@ -645,19 +699,14 @@ Return: {pnl_pct:+.2f}%"""
         self._save_state()
     
     def check_and_report(self):
-        """Verifica se deve enviar relatorio diario"""
         print("\nVerificando hora do relatorio...")
         
         now = datetime.now()
         ny_now = now.astimezone(NY_TZ)
         
         print(f"Horario NY: {ny_now.strftime('%H:%M')}")
-        print(f"Configurado: {REPORT_HOUR_NY:02d}:{REPORT_MINUTE_NY:02d}")
         
-        # Verifica se é hora do relatório (11:10 AM NY)
         if ny_now.hour == REPORT_HOUR_NY and ny_now.minute >= REPORT_MINUTE_NY:
-            
-            # Verifica se já enviou hoje
             if self.last_daily_report:
                 last_report_date = datetime.fromisoformat(self.last_daily_report).date()
                 if last_report_date == now.date():
