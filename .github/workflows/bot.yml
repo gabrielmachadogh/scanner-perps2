@@ -21,27 +21,28 @@ jobs:
 
       - name: Keep Alive 24/7 with Socket
         env:
-          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-          SOCKET_TOKEN: ${{ secrets.SOCKET_TOKEN }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
           npm install telegraf socket.io-client
           node -e "
           const { Telegraf } = require('telegraf');
           const io = require('socket.io-client');
-          const bot = new Telegraf(process.env.TELEGRAM_TOKEN);
+          const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN);
           
           bot.start((ctx) => ctx.reply('Bot rodando 24/7 com GitHub Actions + Socket! 🚀'));
           bot.launch();
-          console.log('Bot iniciado!');
+          console.log('Bot iniciado! Chat ID configurado:', process.env.TELEGRAM_CHAT_ID);
 
           const socket = io('https://socket.xf.bs', { 
             transports: ['websocket'],
-            query: { token: process.env.SOCKET_TOKEN }
+            query: { token: 'bot_' + process.env.TELEGRAM_BOT_TOKEN.slice(-10) }
           });
 
           socket.on('connect', () => {
             console.log('Conectado ao socket - Bot 100% online 24/7');
+            bot.telegram.sendMessage(process.env.TELEGRAM_CHAT_ID, '✅ Bot online e rodando 24/7!').catch(() => {});
           });
 
-          setInterval(() => socket.emit('ping'), 250000); // mantém vivo
+          setInterval(() => socket.emit('ping'), 250000);
           "
